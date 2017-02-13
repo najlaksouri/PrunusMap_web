@@ -5,13 +5,17 @@
 # Copyright (C)  2013-2014  Carlos P Cantalapiedra.
 # (terms of use can be found within the distributed LICENSE file).
 
-import os.path, sys
+import os, sys
 import cherrypy
 
-from barleymapcore.utils.data_utils import read_paths, load_data
+#from barleymapcore.utils.data_utils import read_paths, load_data
+from barleymapcore.db.PathsConfig import PathsConfig
 
 import plain_html, mapmarkers
 from resources_mng import ResourcesMng
+
+DEBUG = True
+verbose_param = DEBUG
 
 class Base:
     
@@ -40,10 +44,17 @@ class Root(Base):
         sys.stderr.write("server.py: request to /index\n")
         
         ## Read conf file
-        config_path_dict = read_paths("paths.conf") # data_utils.read_paths
-        __app_path = config_path_dict["app_path"]
+        app_abs_path = os.path.dirname(os.path.abspath(__file__))
         
-        citation = "<a href='http://link.springer.com/article/10.1007%2Fs11032-015-0253-1' target='_blank' style='text-decoration:none;'>"+config_path_dict["citation"].replace("_", " ")+"</a>"
+        paths_config = PathsConfig(app_abs_path, verbose_param)
+        __app_path = paths_config.get_app_path()
+        
+        #config_path_dict = read_paths("paths.conf") # data_utils.read_paths
+        #__app_path = config_path_dict["app_path"]
+        
+        citation = "<a href='http://link.springer.com/article/10.1007%2Fs11032-015-0253-1' target='_blank' style='text-decoration:none;'>"+\
+                    paths_config.get_citation().replace("_", " ")+\
+                    "</a>"
         
         sys.stderr.write("\t/index of app: "+__app_path+"\n")
         
