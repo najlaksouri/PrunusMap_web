@@ -125,7 +125,7 @@ class HtmlComponentsHelp(object):
                                 <a href="{0}"><img style="width:5%;height:5%;border:none;" src="{1}" alt="back"/></a>
                              """.format(base_url+"/", base_url+"/img/back.gif"))
         
-        HtmlLayoutBarleymap._help_menu(output_buffer)
+        HtmlComponentsHelp._help_menu(output_buffer)
         
         ## OVERVIEW
         
