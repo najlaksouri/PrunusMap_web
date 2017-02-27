@@ -19,7 +19,7 @@ class HtmlComponentsFind(object):
         output.append("""
         <section id="content">
             <form name="input_find" action="{0}" method="post" enctype="multipart/form-data">
-            """.format(base_url+"/mapmarkers/run"))
+            """.format(base_url+"/mapmarkers/find"))
         
         output.append(HtmlComponentsBase._load_query_area_find(find_form.get_input_query(),
                                              "Input a list of marker IDs:",

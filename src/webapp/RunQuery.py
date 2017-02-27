@@ -8,23 +8,16 @@
 import sys
 import cherrypy
 
+from FormsFactory import FormsFactory
+
 class Root():
+    # Index method for direct requests from outside barleymap by url
+    # For example, T3 or GrainGenes links
+    # Maybe, this could be implemented as REST API in the future
     @cherrypy.expose
-    def index(self, input_query = "", \
-              input_multiple = "", \
-              input_sort = "", \
-              input_genes = "", \
-              load_annot = "", \
-              genes_window = "", \
-              action_blast = "", \
-              action_dataset = "", \
-              input_datasets = "", \
-              send_email = "", \
-              email_to = "", \
-              queries_type = "", \
-              threshold_id = "", \
-              threshold_cov = "", \
-              my_file = None):
+    def index(self, input_query = "", input_multiple = "", input_sort = "", input_genes = "",
+              load_annot = "", genes_window = "",
+              input_maps = "", send_email = "", email_to = ""):
         
         sys.stderr.write("server.py: request to T3 links\n")
         
@@ -41,108 +34,50 @@ class Root():
         else:
             input_maps = maps_names
         
-        #sys.stderr.write("server index "+str(input_maps)+"\n")
-        
-        # Load all configured databases
-        databases_conf_file = __app_path+"conf/references.conf"
-        (databases_names, databases_ids) = load_data(databases_conf_file, verbose = verbose_param) # data_utils.load_data
-        if len(databases_names) > 1:
-            input_databases = databases_names.split(",")
-        else:
-            input_databases = databases_names
-        
-        # FIND ACTION
-        from barleymapcore.MapMarkers import FIND_ACTION
-        
-        action_dataset = FIND_ACTION
-        
         # Genes information: on marker
         input_genes = "marker"
+        input_extend = "1"
+        user_file = None
         
-        output = self.run(input_query = input_query, \
-                          input_multiple = input_multiple, \
-                          input_sort = input_sort, \
-                          input_genes = input_genes, \
-                          load_annot = load_annot, \
-                          input_extend = "1", \
-                          genes_window_cm = genes_window, \
-                          genes_window_bp = genes_window, \
-                          input_maps = input_maps, \
-                          input_databases = input_databases, \
-                          action_blast = "", \
-                          action_dataset = action_dataset, \
-                          send_email = send_email, \
-                          email_to = email_to, \
-                          queries_type = queries_type, \
-                          threshold_id = threshold_id, \
-                          threshold_cov = threshold_cov, \
-                          my_file = my_file)
+        output = self.find(input_query, input_multiple, input_sort, input_genes,
+                          load_annot, input_exted, genes_window, genes_window,
+                          input_maps, send_email, email_to, user_file)
         
         return output
-        
+    
     @cherrypy.expose
-    def run(self, input_query = "", \
-              input_multiple = "", \
-              input_sort = "", \
-              input_genes = "", \
-              load_annot = "", \
-              input_extend = "", \
-              genes_window_cm = "", \
-              genes_window_bp = "", \
-              input_maps = "", \
-              input_databases = "", \
-              action_blast = "", \
-              action_dataset = "", \
-              send_email = "", \
-              email_to = "", \
-              queries_type = "", \
-              threshold_id = "", \
-              threshold_cov = "", \
-              my_file = None):
+    def find(self, input_query = "", input_multiple = "", input_sort = "", input_genes = "",
+             load_annot = "", input_extend = "", genes_window_cm = "", genes_window_bp = "",
+              input_maps = "", send_email = "", email_to = "", user_file = None):
         
-        sys.stderr.write("server.py: request to /mapmarkers\n")
+        sys.stderr.write("server.py: request to /mapmarkers/find\n")
         
-        cherrypy.session['session_token'] = "1"
-        cherrypy.session['input_query'] = input_query
-        cherrypy.session['input_multiple'] = input_multiple
-        cherrypy.session['input_sort'] = input_sort
-        cherrypy.session['input_genes'] = input_genes
+        find_form = FormsFactory.get_new_find_form(input_query, input_multiple, input_sort, input_genes,
+                                                     load_annot, input_extend, genes_window_cm, genes_window_bp,
+                                                     input_maps, send_email, email_to, user_file)
         
-        if load_annot == "1": cherrypy.session['load_annot'] = load_annot
-        else: cherrypy.session['load_annot'] = "0"
+        find_form.set_session(cherrypy.session)
         
-        if input_extend == "1": cherrypy.session['input_extend'] = input_extend
-        else: cherrypy.session['input_extend'] = "0"
+        output = mapmarkers.find(find_form)
         
-        cherrypy.session['genes_window_cm'] = genes_window_cm
-        cherrypy.session['genes_window_bp'] = genes_window_bp
-        cherrypy.session['input_maps'] = input_maps
+        return output
+    
+    @cherrypy.expose
+    def align(self, input_query = "", input_multiple = "", input_sort = "", input_genes = "",
+              load_annot = "", input_extend = "", genes_window_cm = "", genes_window_bp = "",
+              input_maps = "", input_databases = "", send_email = "", email_to = "",
+              queries_type = "", threshold_id = "", threshold_cov = "", user_file = None):
         
-        #sys.stderr.write("server run "+str(input_maps)+"\n")
+        sys.stderr.write("server.py: request to /mapmarkers/align\n")
         
-        #if input_databases:
-        cherrypy.session['input_databases'] = input_databases
-        #else:
-        #    input_databases = ""
-        #    cherrypy.session['input_databases'] = ""
+        align_form = FormsFactory.get_new_align_form(input_query, input_multiple, input_sort, input_genes,
+                                                     load_annot, input_extend, genes_window_cm, genes_window_bp,
+                                                     input_maps, input_databases, send_email, email_to,
+                                                     queries_type, threshold_id, threshold_cov, user_file)
         
-        cherrypy.session['action_blast'] = action_blast
-        cherrypy.session['action_dataset'] = action_dataset
+        align_form.set_session(cherrypy.session)
         
-        if send_email == "1": cherrypy.session['send_email'] = send_email
-        else: cherrypy.session['send_email'] = "0"
-            
-        cherrypy.session['email_to'] = email_to
-        cherrypy.session['queries_type'] = queries_type
-        cherrypy.session['threshold_id'] = threshold_id
-        cherrypy.session['threshold_cov'] = threshold_cov
-        
-        output = mapmarkers.mapmarkers(action_blast, action_dataset, input_query, my_file, \
-                                       input_multiple, input_sort, input_genes, load_annot, \
-                                       input_extend, genes_window_cm, genes_window_bp, \
-                                       input_maps, input_databases, \
-                                       queries_type, threshold_id, threshold_cov, \
-                                       send_email, email_to)
+        output = mapmarkers.align(align_form)
         
         return output
     

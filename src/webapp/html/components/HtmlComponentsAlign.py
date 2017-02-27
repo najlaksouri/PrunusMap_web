@@ -19,7 +19,7 @@ class HtmlComponentsAlign(object):
         output.append("""
         <section id="content">
             <form name="input_align" action="{0}" method="post" enctype="multipart/form-data">
-            """.format(base_url+"/mapmarkers/run"))
+            """.format(base_url+"/mapmarkers/align"))
         
         output.append(HtmlComponentsBase._load_query_area_align(align_form.get_input_query(),
                                               "Input FASTA sequences:",
