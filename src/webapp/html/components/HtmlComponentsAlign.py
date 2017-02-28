@@ -21,26 +21,29 @@ class HtmlComponentsAlign(object):
             <form name="input_align" action="{0}" method="post" enctype="multipart/form-data">
             """.format(base_url+"/mapmarkers/align"))
         
-        output.append(HtmlComponentsBase._load_query_area_align(align_form.get_input_query(),
+        output.append(HtmlComponentsBase._load_query_area_align(align_form.get_query(),
+                                                align_form.get_user_file(),
                                               "Input FASTA sequences:",
                                               PREFIX_UI_CTRLS_ALIGN))
         output.append("<br/>")
         output.append("<table><tr><td>")
-        output.append(HtmlComponentsBase._load_output_area(align_form.get_input_multiple(),
-                                         align_form.get_input_sort(),
+        output.append(HtmlComponentsBase._load_output_area(align_form.get_multiple(),
+                                         align_form.get_sort(),
                                          align_form.get_send_email(),
                                          align_form.get_email_to(),
                                          PREFIX_UI_CTRLS_ALIGN))
         output.append("</td><td>")
-        output.append(HtmlComponentsBase._load_genes_area(align_form.get_input_genes(),
-                                        align_form.get_load_annot(),
-                                        align_form.get_input_extend(),
-                                        align_form.get_genes_window_cm(),
-                                        align_form.get_genes_window_bp(),
+        output.append(HtmlComponentsBase._load_genes_area(align_form.get_show_markers(),
+                                        align_form.get_show_genes(),
+                                        align_form.get_show_anchored(),
+                                        align_form.get_extend(),
+                                        align_form.get_extend_cm(),
+                                        align_form.get_extend_bp(),
                                         PREFIX_UI_CTRLS_ALIGN))
         
         output.append("</td></tr></table>")
         output.append("<br/>")
+        
         output.append(HtmlComponentsBase._load_alignment_area(align_form.get_queries_type(),
                                             align_form.get_threshold_id(),
                                             align_form.get_threshold_cov()))
@@ -55,16 +58,16 @@ class HtmlComponentsAlign(object):
         
         #### MAPS AND DATABASES
         output.append('<table style="margin:auto"><tr><td>')
-        output.append(HtmlComponentsBase._load_data(align_form.get_input_maps(), maps_config.get_maps(), "maps"))
-        output.append("</td><td>")
-        output.append(HtmlComponentsBase._load_data(align_form.get_input_databases(), databases_config.get_databases(), "databases"))
+        output.append(HtmlComponentsBase._load_data(align_form.get_maps(), maps_config.get_maps(), "maps"))
+        #output.append("</td><td>")
+        #output.append(HtmlComponentsBase._load_data(align_form.get_input_databases(), databases_config.get_databases(), "databases"))
         output.append("</td></tr></table>")
         
         output.append("""
                       
                     </fieldset>
                 </td><td id="submit_button_td">
-                    <button id="submit_button" name="action_blast" type="submit" value="Blast">
+                    <button id="submit_button" name="action" type="submit" value="Blast">
                         <img src="{0}"/>
                     </button>
                 </td>

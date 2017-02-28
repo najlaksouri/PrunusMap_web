@@ -45,7 +45,8 @@ def start_standalone():
     # Add barleymap configuration
     #bmap_conf_dict = _load_globals()
     abs_path = os.path.dirname(os.path.abspath(__file__))
-    paths_config = PathsConfig(abs_path, WebApp.VERBOSE)
+    paths_config = PathsConfig()
+    paths_config.load_config(abs_path)
     #global_conf_dict[WebApp.PATHS_CONFIG] = paths_config.as_dict()
     bmap_conf_dict = {WebApp.PATHS_CONFIG:paths_config.as_dict()}
     app.merge(bmap_conf_dict)

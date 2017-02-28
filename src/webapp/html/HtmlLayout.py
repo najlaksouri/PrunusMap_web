@@ -64,26 +64,12 @@ class HtmlLayout(object):
     
     def align_components(self, align_form, maps_config, databases_config):
         
-        #if session.get('session_token'):
-        #    align_form = FormsFactory.get_align_form_session(session)
-        #else:
-        #    align_form = FormsFactory.get_align_form_empty(DEFAULT_GENES_WINDOW_CM,
-        #                                                   DEFAULT_GENES_WINDOW_BP,
-        #                                                   DEFAULT_THRESHOLD_ID,
-        #                                                   DEFAULT_THRESHOLD_COV)
-        
         align_components = HtmlComponents.align(self._base_url, align_form, PREFIX_UI_CTRLS_ALIGN,
                                                 maps_config, databases_config)
         
         return align_components
     
     def find_components(self, find_form, maps_config):
-        
-        #if session.get('session_token'):
-        #    find_form = FormsFactory.get_find_form_session(session)
-        #else:
-        #    find_form = FormsFactory.get_find_form_empty(DEFAULT_GENES_WINDOW_CM,
-        #                                                 DEFAULT_GENES_WINDOW_BP)
         
         find_components = HtmlComponents.find(self._base_url, find_form, PREFIX_UI_CTRLS_FIND,
                                               maps_config)

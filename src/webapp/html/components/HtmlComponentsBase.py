@@ -8,31 +8,31 @@
 class HtmlComponentsBase(object):
     
     @staticmethod
-    def _load_input_file(action):
+    def _load_input_file(user_file, name = "user_file"):
         output = []
         
         output.append("""
                     <br/><span class="explain_text">Or you rather prefer to upload a file</span>
-                    <input type="file" name="my_file" id="{0}_my_file" class="demobutton"/>
-                    <input type="button" id="{0}_clear_file_button" value="clear" class="demobutton" style="display:none;"/>
-        """.format(action))
+                    <input type="file" name="{1}" id="{1}" value="{0}" class=""/>
+                    <input type="button" id="clear_file_button" value="clear" class="demobutton" style="display:none;"/>
+        """.format(user_file, name))
         
         return "".join(output)
     
     @staticmethod
-    def _load_query_area_align(input_query, legend, action):
+    def _load_query_area_align(input_query, user_file, legend, action, name = "query"):
         output = []
         
         output.append("""
                 <!-- QUERY AREA -->
                 <fieldset style="border:none">
                     <legend>{2}
-                        <input type="button" id="{1}_demo_button" value="demo" class="demobutton"/>
+                        <input type="button" id="align_demo_button" value="demo" class="demobutton"/>
                         <input type="button" id="clear_demo_button" value="clear" class="demobutton"/>
                     </legend>
-                    <textarea rows="16" cols="100" id="{1}_input_query" name="input_query"
+                    <textarea rows="16" cols="100" id="{1}_{3}" name="{3}"
                     autofocus="autofocus">{0}</textarea>
-                    """.format(input_query, action, legend))
+                    """.format(input_query, action, legend, name))
         output.append(HtmlComponentsBase._load_input_file(action))
         output.append("""
                 </fieldset>
@@ -41,21 +41,21 @@ class HtmlComponentsBase(object):
         return "".join(output)
     
     @staticmethod
-    def _load_query_area_find(input_query, legend, action):
+    def _load_query_area_find(input_query, user_file, legend, action, name = "query"):
         output = []
         
         output.append("""
                 <!-- QUERY AREA -->
                 <fieldset style="border:none">
                     <legend>{2}
-                        <input type="button" id="{1}_demo_button_full" value="demo full map" class="demobutton"/>
-                        <input type="button" id="{1}_demo_button_region" value="demo region" class="demobutton"/>
+                        <input type="button" id="find_demo_button_full" value="demo full map" class="demobutton"/>
+                        <input type="button" id="find_demo_button_region" value="demo region" class="demobutton"/>
                         <input type="button" id="clear_demo_button" value="clear" class="demobutton"/>
                     </legend>
-                    <textarea rows="16" cols="100" id="{1}_input_query" name="input_query"
+                    <textarea rows="16" cols="100" id="{1}_{3}" name="{3}"
                     autofocus="autofocus">{0}</textarea>
-                    """.format(input_query, action, legend))
-        output.append(HtmlComponentsBase._load_input_file(action))
+                    """.format(input_query, action, legend, name))
+        output.append(HtmlComponentsBase._load_input_file(user_file))
         output.append("""
                 </fieldset>
         """)
@@ -66,9 +66,10 @@ class HtmlComponentsBase(object):
     def _load_output_area(input_multiple, input_sort, send_email, email_to, action):
         output = []
         
+        ## <!-- <fieldset style="border:solid thin;width:350px;height:170px;"> -->
         output.append("""
-                <fieldset style="border:solid thin;width:350px;height:170px;">
-                    <legend>Output options:</legend>
+                <fieldset style="border:solid thin;width:350px;height:150px;">
+                <legend>Output options:</legend>
                     <table style="width:100%;text-align:center;">
                     <tr>
                     """)
@@ -77,8 +78,8 @@ class HtmlComponentsBase(object):
         output.append("""
                         <!-- FILTER MULTIPLE RADIO BUTTON -->
                         <td style="width:50%;">
-                            <label for = "input_multiple">Markers with multiple mappings: </label>
-                            <input type="radio" name="input_multiple" id="multiple_no" value="1"
+                            <label for = "multiple">Markers with multiple mappings: </label>
+                            <input type="radio" name="multiple" id="multiple_no" value="1"
             """)
             
         if input_multiple == "" or input_multiple == "1": output.append(" checked/>")
@@ -86,7 +87,7 @@ class HtmlComponentsBase(object):
         
         output.append("""
                             <label for ="multiple_no">show</label>
-                            <input type="radio" name="input_multiple" id="multiple_filter" value="0"
+                            <input type="radio" name="multiple" id="multiple_filter" value="0"
             """)
         
         if input_multiple == "0": output.append(" checked/>")
@@ -95,7 +96,6 @@ class HtmlComponentsBase(object):
         output.append("""
                             <label for ="multiple_filter">filter out</label>
                         </td>
-                        <!--br/-->
                       </tr>
                       <tr><td><hr/></td></tr>
                       <tr>
@@ -105,8 +105,8 @@ class HtmlComponentsBase(object):
         output.append("""
                         <!-- SORTING FIELD -->
                         <td style="width:50%;">
-                            <label for = "input_sort">Sort by: </label>
-                            <input type="radio" name="input_sort" id="sort_cm" value="cm" 
+                            <label for = "sort">Sort by: </label>
+                            <input type="radio" name="sort" id="sort_cm" value="cm" 
                     """)
         
         if input_sort == "" or input_sort == "cm": output.append(" checked/>")
@@ -114,7 +114,7 @@ class HtmlComponentsBase(object):
         
         output.append("""
                             <label for ="sort_cm">cM</label>
-                            <input type="radio" name="input_sort" id="sort_bp" value="bp"
+                            <input type="radio" name="sort" id="sort_bp" value="bp"
                     """)
         if input_sort == "bp": output.append(" checked/>")
         else: output.append(" />")
@@ -124,7 +124,7 @@ class HtmlComponentsBase(object):
                          </td>
                     </tr>
                     <tr><td><hr/></td></tr>
-                    <tr><td>
+                    <tr><td style="width:50%;">
                     """)
         
         ############## email
@@ -142,134 +142,140 @@ class HtmlComponentsBase(object):
         
         output.append("""
                         <br/><span id="email_text" class="explain_text">Results will be sent to the speficied address.</span>
-                    </fieldset>
-                    </td></tr></table>
-                </fieldset>
-                """)
+                        </fieldset>
+                        </td></tr></table>
+                        """)
+        
         
         return "".join(output)
     
     @staticmethod
-    def _load_genes_area(input_genes, load_annot, input_extend, genes_window_cm, genes_window_bp, action):
+    def _load_genes_area(show_markers, show_genes, show_anchored,
+                         extend, extend_cm, extend_bp, action):
         output = []
         
+        ##<fieldset style="border:solid thin;height:170px;padding-bottom: 1em;padding-top: 0%;width:430px">
         output.append("""
-                
                 <!-- GENES AND MARKERS OPTIONS -->
-                <fieldset style="border:solid thin;height:170px;padding-bottom: 1em;padding-top: 0%;width:430px">
+                <fieldset style="border:solid thin;height:150px;padding-bottom: 1em;padding-top: 0%;width:430px">
                     <legend>Genes/Markers enrichment:</legend>
-                    <table id="genes_table" style="">
-                    <tr>
-                        <td>
-                           <!-- SHOW GENES RADIO BUTTON -->
                     """)
         
         output.append("""
-                          <label>Show genes:</label>
-                    """)
-        
-        output.append("""
-                          
-                          <input type = "radio"
-                                 name = "input_genes"
-                                 id = "genes_marker"
-                                 value = "marker" 
-                    """)
-        
-        if input_genes == "" or input_genes == "marker": output.append(" checked/>")
-        else: output.append(" />")
-        
-        output.append("""
-                          <label for = "genes_marker">on marker</label>
-                          
-                          <input type = "radio"
-                                 name = "input_genes"
-                                 id = "genes_between"
-                                 value = "between"
-                    """)
-        if input_genes == "between": output.append(" checked/>")
-        else: output.append(" />")
-        
-        output.append("""
-        
-                          <label for = "genes_between">between</label>
+                      <table style="width:100%;">
                       """)
         
         output.append("""
-                      <div id="genes_text" class="explain_text"></div><!-- Text is created with .js -->
-                        </td></tr></table>
-                        """)
-        
-        #### GENES OPTIONS FIELDSET
+                      <tr><td>
+                      """)
+        ## Show genes
         output.append("""
-                        <table id="input_extend_fieldset">
-                        <tr><td id="genes_hr"><hr/></td></tr>
-                        """)
+                      <label for="show_genes">genes:</label>
+                      <input type="checkbox" id="show_genes" name="show_genes" value="1"
+                      """)
         
-        output.append("""
-                        <!-- LOAD GENES ANNOTATION -->
-                        <tr><td id="genes_annot_td">
-                                <input type="checkbox" name="load_annot" value="1"
-                        """)
-        
-        if load_annot == "" or load_annot == "1": output.append(" checked/>")
+        if show_genes == "1": output.append(" checked/>")
         else: output.append(" />")
         
         output.append("""
-                                <label for="load_annot">Load genes annotation</label>
-                        </td></tr>
-                        <tr><td id="annot_hr"><hr/></td></tr>
-                        """)
+                      </td>
+                      """)
+        
+        ## Show markers
+        output.append("""
+                      <td>
+                      """)
+        
+        output.append("""
+                      <label for="show_markers"> markers:</label>
+                      <input type="checkbox" id="show_markers" name="show_markers" value="1"
+                      """)
+        
+        if show_markers == "1": output.append(" checked/>")
+        else: output.append(" />")
+        
+        output.append("""
+                      </td>
+                      """)
+        
+        ## Show anchored
+        output.append("""
+                      <td>
+                      """)
+        
+        output.append("""
+                      <label for="show_anchored"> anchored:</label>
+                      <input type="checkbox" id="show_anchored" name="show_anchored" value="1"
+                      """)
+        
+        if show_anchored == "1": output.append(" checked/>")
+        else: output.append(" />")
+        
+        output.append("""
+                      </td></tr>
+                      """)
+        
+        output.append("""
+                      </table><hr/>
+                      """)
         
         ################# GENES Extend search
         output.append("""
+                    <fieldset id="extend_fieldset" style="border:none;">
+                    <table>""")
+        
+        output.append("""
                     <tr><td>
-                        <input type="checkbox" id="input_extend" name="input_extend" value="1"
+                        <input type="checkbox" id="extend" name="extend" value="1"
                     """)
         
-        if input_extend == "1": output.append(" checked/>")
+        if extend == "1": output.append(" checked/>")
         else: output.append(" />")
         
         output.append("""
-                        <label for="input_extend">Extend genes/markers search</label>
-                      
+                        <label for="extend">Extend genes/markers search</label>
+                      </td></tr>
                 """)
         
         output.append("""
-                            <span id="genes_window_cm">
-                                <input type="number" name="genes_window_cm" pattern="[0-9]+[\.][0-9]+" step="0.1" min="0.0" max="9999.9"
+                            <tr><td><span id="extend_cm">
+                                <input type="number" name="extend_cm" pattern="[0-9]+[\.][0-9]+" step="0.1" min="0.0" max="9999.9"
                         """)
-        if not genes_window_cm or genes_window_cm == "": output.append(' value="'+str(ResourcesMng.get_def_genes_window_cm())+'"')
-        else:
-            myvar = ' value="'+str(genes_window_cm)+'"' # If I dont do the cast, it crashes
-            output.append(myvar)
+        #if not genes_window_cm or genes_window_cm == "": output.append(' value="'+str(ResourcesMng.get_def_genes_window_cm())+'"')
+        #else:
+        myvar = ' value="'+str(extend_cm)+'"' # If I dont do the cast, it crashes
+        output.append(myvar)
         
         output.append("""
                                        style="text-align:right;width:4em"/>
                                 <label for="window">cM</label>
-                            </span>
+                            </span></td></tr>
                             """)
         
         output.append("""
-                            <span id="genes_window_bp">
-                                <input type="number" name="genes_window_bp" id="window" pattern="[0-9]+" step="1" min="1" max="10000000000"
+                           <tr><td><span id="extend_bp">
+                                <input type="number" name="extend_bp" id="window" pattern="[0-9]+" step="1" min="1" max="10000000000"
                         """)
-        if not genes_window_bp or genes_window_bp == "": output.append(' value="'+str(ResourcesMng.get_def_genes_window_bp())+'"')
-        else:
-            myvar = ' value="'+str(genes_window_bp)+'"' # If I dont do the cast, it crashes
-            output.append(myvar)
+        #if not genes_window_bp or genes_window_bp == "": output.append(' value="'+str(ResourcesMng.get_def_genes_window_bp())+'"')
+        #else:
+        myvar = ' value="'+str(extend_bp)+'"' # If I dont do the cast, it crashes
+        output.append(myvar)
         
         output.append("""
                                        style="text-align:right;width:7em"/>
                                 <label for="window">bp</label>
-                            </span>
+                            </span></td></tr>
                             """)
         
         output.append("""
-                            <br/><span id="input_extend_text" class="explain_text">Search will be extended, according to the specified interval.</span>
-                        </td>
-                        </tr>
-                    </tr></table>
+                      <tr><td>
+                      <span id="extend_text" class="explain_text">Search will be extended, according to the specified interval.</span>
+                      </tr></td>
+                      </table>
+                      </fieldset>
+                      """)
+        
+        output.append("""
                 </fieldset>
                 """)
         
@@ -342,7 +348,7 @@ class HtmlComponentsBase(object):
     def _load_data(input_data, config_data, input_name):
         output = []
         
-        output.append('<select name="{0}" id="{0}" multiple>'.format("input_"+str(input_name)))
+        output.append('<select name="{0}" id="{0}" multiple>'.format(str(input_name)))
         
         if input_data == "":
             input_data = []

@@ -27,6 +27,7 @@ DEFAULT_THRESHOLD_ID = 98.0
 DEFAULT_THRESHOLD_COV = 95.0
 DEFAULT_GENES_WINDOW_CM = 0.5
 DEFAULT_GENES_WINDOW_BP = 1000000
+DEFAULT_SORT_PARAM = "map default"
 
 N_THREADS = 2
 MAX_QUERIES = 100
@@ -45,11 +46,11 @@ class Root():
         
         sys.stderr.write("server.py: request to /index\n")
         
-        paths_config = cherrypy.request.app.config[PATHS_CONFIG]
+        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
         
         html_layout = self._get_html_layout()
         
-        citation = paths_config[PathsConfig._CITATION].replace("_", " ")
+        citation = paths_config.get_citation().replace("_", " ")#[PathsConfig._CITATION].replace("_", " ")
         
         contents = [html_layout.main_text(citation)]
         
@@ -65,26 +66,25 @@ class Root():
     def find(self):
         sys.stderr.write("server.py: request to /find/\n")
         
-        paths_config = cherrypy.request.app.config[PATHS_CONFIG]
+        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
         
         html_layout = self._get_html_layout()
         
-        app_path = paths_config[PathsConfig._APP_PATH]
+        app_path = paths_config.get_app_path()#paths_config[PathsConfig._APP_PATH]
         maps_conf_file = app_path+ConfigBase.MAPS_CONF
         maps_config = MapsConfig(maps_conf_file, VERBOSE)
         
         if cherrypy.session.get('session_token'):
-            align_form = FormsFactory.get_align_form_session(session)
+            find_form = FormsFactory.get_find_form_session(session)
         else:
-            align_form = FormsFactory.get_align_form_empty(DEFAULT_GENES_WINDOW_CM,
-                                                           DEFAULT_GENES_WINDOW_BP,
-                                                           DEFAULT_THRESHOLD_ID,
-                                                           DEFAULT_THRESHOLD_COV)
+            find_form = FormsFactory.get_find_form_empty(DEFAULT_GENES_WINDOW_CM,
+                                                           DEFAULT_GENES_WINDOW_BP)
         
-        find_component = html_layout.find_components(cherrypy.session, maps_config,
-                                                     DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP)
+        find_form.get_query()
         
-        citation = paths_config[PathsConfig._CITATION].replace("_", " ")
+        find_component = html_layout.find_components(find_form, maps_config)
+        
+        citation = paths_config.get_citation().replace("_", " ")#paths_config[PathsConfig._CITATION].replace("_", " ")
         
         contents = [html_layout.menu(citation),
                     find_component]
@@ -101,18 +101,18 @@ class Root():
     def align(self):
         sys.stderr.write("server.py: request to /align/\n")
         
-        paths_config = cherrypy.request.app.config[PATHS_CONFIG]
+        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
         
         html_layout = self._get_html_layout()
         
-        app_path = paths_config[PathsConfig._APP_PATH]
+        app_path = paths_config.get_app_path()#[PathsConfig._APP_PATH]
         maps_conf_file = app_path+ConfigBase.MAPS_CONF
         maps_config = MapsConfig(maps_conf_file, VERBOSE)
         
         databases_conf_file = app_path+ConfigBase.DATABASES_CONF
         databases_config = DatabasesConfig(databases_conf_file, VERBOSE)
         
-        if session.get('session_token'):
+        if cherrypy.session.get('session_token'):
             align_form = FormsFactory.get_align_form_session(session)
         else:
             align_form = FormsFactory.get_align_form_empty(DEFAULT_GENES_WINDOW_CM,
@@ -122,7 +122,7 @@ class Root():
         
         align_component = html_layout.align_components(align_form, maps_config, databases_config)
         
-        citation = paths_config[PathsConfig._CITATION].replace("_", " ")
+        citation = paths_config.get_citation().replace("_", " ")#[PathsConfig._CITATION].replace("_", " ")
         
         contents = [html_layout.menu(citation),
                     align_component]
@@ -139,11 +139,11 @@ class Root():
     def help(self):
         sys.stderr.write("server.py: request to /help/\n")
         
-        paths_config = cherrypy.request.app.config[PATHS_CONFIG]
+        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
         
         html_layout = self._get_html_layout()
         
-        citation = paths_config[PathsConfig._CITATION].replace("_", " ")
+        citation = paths_config.get_citation().replace("_", " ")#[PathsConfig._CITATION].replace("_", " ")
         
         contents = [html_layout.menu(citation),
                     html_layout.help()]
