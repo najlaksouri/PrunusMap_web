@@ -9,12 +9,12 @@ import sys, traceback
 import cherrypy
 
 from barleymapcore.db.PathsConfig import PathsConfig
+from barleymapcore.m2p_exception import m2pException
 
 from html.HtmlLayout import HtmlLayout
-from FormsFactory import FormsFactory
-from Bmap import Bmap
 
-from Bmap import FIND_ACTION, ALIGN_ACTION
+from FormsFactory import FormsFactory
+from Bmap import Bmap, FIND_ACTION, ALIGN_ACTION
 
 DEFAULT_SORT_PARAM = "map default"
 
@@ -103,6 +103,11 @@ class Root():
             
             bmap.email(form, csv_files)
             
+        except m2pException as m2pe:
+            sys.stderr.write(str(m2pe)+"\n")
+            traceback.print_exc(file=sys.stderr)
+            output = str(m2pe)
+            
         except Exception, e:
             sys.stderr.write(str(e)+"\n")
             traceback.print_exc(file=sys.stderr)
@@ -139,6 +144,11 @@ class Root():
             output = bmap.output(results, form, self._get_html_layout(), csv_files)
             
             bmap.email(form, csv_files)
+        
+        except m2pException as m2pe:
+            sys.stderr.write(str(m2pe)+"\n")
+            traceback.print_exc(file=sys.stderr)
+            output = str(m2pe)
             
         except Exception, e:
             sys.stderr.write(str(e)+"\n")
