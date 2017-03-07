@@ -25,6 +25,7 @@ MOUNT_POINT = "/"+APP_NAME
 
 DEFAULT_THRESHOLD_ID = 98.0
 DEFAULT_THRESHOLD_COV = 95.0
+DEFAULT_ALIGNER = "gmap"
 DEFAULT_GENES_WINDOW_CM = 0.5
 DEFAULT_GENES_WINDOW_BP = 1000000
 DEFAULT_SORT_PARAM = "map default"
@@ -38,7 +39,6 @@ MAX_QUERIES = 100
 class Root():
     
     def _get_html_layout(self):
-        
         return HtmlLayout(MOUNT_POINT)
     
     @cherrypy.expose
@@ -74,7 +74,8 @@ class Root():
         maps_conf_file = app_path+ConfigBase.MAPS_CONF
         maps_config = MapsConfig(maps_conf_file, VERBOSE)
         
-        if cherrypy.session.get('session_token'):
+        session = cherrypy.session
+        if session.get('session_token'):
             find_form = FormsFactory.get_find_form_session(session)
         else:
             find_form = FormsFactory.get_find_form_empty(DEFAULT_GENES_WINDOW_CM,
@@ -109,18 +110,22 @@ class Root():
         maps_conf_file = app_path+ConfigBase.MAPS_CONF
         maps_config = MapsConfig(maps_conf_file, VERBOSE)
         
-        databases_conf_file = app_path+ConfigBase.DATABASES_CONF
-        databases_config = DatabasesConfig(databases_conf_file, VERBOSE)
+        #databases_conf_file = app_path+ConfigBase.DATABASES_CONF
+        #databases_config = DatabasesConfig(databases_conf_file, VERBOSE)
         
-        if cherrypy.session.get('session_token'):
-            align_form = FormsFactory.get_align_form_session(session)
+        session = cherrypy.session
+        if session.get('session_token'):
+            align_form = FormsFactory.get_align_form_session(session, DEFAULT_ALIGNER,
+                                                             DEFAULT_THRESHOLD_ID,
+                                                             DEFAULT_THRESHOLD_COV)
         else:
             align_form = FormsFactory.get_align_form_empty(DEFAULT_GENES_WINDOW_CM,
                                                            DEFAULT_GENES_WINDOW_BP,
+                                                           DEFAULT_ALIGNER,
                                                            DEFAULT_THRESHOLD_ID,
                                                            DEFAULT_THRESHOLD_COV)
         
-        align_component = html_layout.align_components(align_form, maps_config, databases_config)
+        align_component = html_layout.align_components(align_form, maps_config)
         
         citation = paths_config.get_citation().replace("_", " ")#[PathsConfig._CITATION].replace("_", " ")
         

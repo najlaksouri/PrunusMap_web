@@ -5,6 +5,8 @@
 # Copyright (C) 2017 Carlos P Cantalapiedra.
 # (terms of use can be found within the distributed LICENSE file).
 
+import sys
+
 from HtmlComponentsBase import HtmlComponentsBase
 
 class HtmlComponentsFind(object):
@@ -47,17 +49,17 @@ class HtmlComponentsFind(object):
                 <table><tr>
                 <td>
                     <fieldset id="find_fieldset" style="border:solid thin;">
-                    <legend>Choose genetic/physical maps:</legend>
+                    <legend style="text-align:left;">Choose map:</legend>
                     """)
         
         #### MAPS
-        output.append(HtmlComponentsBase._load_data(find_form.get_maps(), maps_config.get_maps(), "maps"))
+        output.append(HtmlComponentsBase._load_data(find_form.get_maps(), maps_config.get_maps_tuples(), "maps"))
         
         output.append("""
                       
                     </fieldset>
                 </td><td id="submit_button_td">
-                    <button id="submit_button" name="action" type="submit" value="Find">
+                    <button class="boton" id="submit_button" name="action" type="submit" value="Find">
                         <img src="{0}"/>
                     </button>
                 </td>

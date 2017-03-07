@@ -12,7 +12,7 @@ class HtmlComponentsAlign(object):
     ################################## ALIGN HTML COMPONENTS
     ########################################################
     @staticmethod
-    def align(base_url, align_form, PREFIX_UI_CTRLS_ALIGN, maps_config, databases_config):
+    def align(base_url, align_form, PREFIX_UI_CTRLS_ALIGN, maps_config):
         output = []
         
         ####### INPUT QUERY TEXT AREA
@@ -44,7 +44,7 @@ class HtmlComponentsAlign(object):
         output.append("</td></tr></table>")
         output.append("<br/>")
         
-        output.append(HtmlComponentsBase._load_alignment_area(align_form.get_queries_type(),
+        output.append(HtmlComponentsBase._load_alignment_area(align_form.get_aligner(),
                                             align_form.get_threshold_id(),
                                             align_form.get_threshold_cov()))
         output.append("<br/>")
@@ -53,15 +53,11 @@ class HtmlComponentsAlign(object):
                 <table><tr>
                 <td>
                     <fieldset id="align_fieldset" style="border:solid thin;">
-                    <legend>Choose genetic/physical maps and databases:</legend>
+                    <legend style="text-align:left;">Choose map:</legend>
                     """)
         
-        #### MAPS AND DATABASES
-        output.append('<table style="margin:auto"><tr><td>')
-        output.append(HtmlComponentsBase._load_data(align_form.get_maps(), maps_config.get_maps(), "maps"))
-        #output.append("</td><td>")
-        #output.append(HtmlComponentsBase._load_data(align_form.get_input_databases(), databases_config.get_databases(), "databases"))
-        output.append("</td></tr></table>")
+        #### MAPS
+        output.append(HtmlComponentsBase._load_data(align_form.get_maps(), maps_config.get_maps_tuples(), "maps"))
         
         output.append("""
                       

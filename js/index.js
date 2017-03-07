@@ -29,12 +29,12 @@ $(document).ready(function(){
         $("#extend_bp").hide();
     }
     
-    if ($('#queries_type').children(":selected").val() == "auto") {
-        $("#algorithm_text").text("Perform a BLASTN search, followed by GMAP alignment for unmapped sequences. Input data must be in FASTA format.");
-    } else if ($('#queries_type').children(":selected").val() == "cdna") {
-        $("#algorithm_text").text("Perform a GMAP alignment. Input data must be in FASTA format.");
-    } else if ($('#queries_type').children(":selected").val() == "genomic") {
-        $("#algorithm_text").text("Perform a BLASTN search. Input data must be in FASTA format.");
+    if ($('#aligner').children(":selected").val() == "gmap,blastn") {
+        $("#algorithm_text").text("Perform a GMAP search, followed by BLASTN alignment for unmapped sequences.");
+    } else if ($('#aligner').children(":selected").val() == "gmap") {
+        $("#algorithm_text").text("Perform a GMAP alignment.");
+    } else if ($('#aligner').children(":selected").val() == "blastn") {
+        $("#algorithm_text").text("Perform a BLASTN search.");
     }
     
     // Events
@@ -156,23 +156,23 @@ i_SCRI_RS_130600\ni_SCRI_RS_150677\ni_SCRI_RS_189465\nowbGBS13547\n");
         
     });
     
-    $("#align_user_file").change(function(){
-        $("#align_clear_file_button").show();
-    });
-    
-    $("#align_clear_file_button").click(function(){
-        $(this).hide();
-        $("#align_user_file").replaceWith( control = $("#align_user_file").clone( true ) );
-    });
-    
-    $("#find_user_file").change(function(){
-        $("#find_clear_file_button").show();
-    });
-    
-    $("#find_clear_file_button").click(function(){
-        $(this).hide();
-        $("#find_user_file").replaceWith( control = $("#find_user_file").clone( true ) );
-    });
+    //$("#align_user_file").change(function(){
+    //    $("#align_clear_file_button").show();
+    //});
+    //
+    //$("#align_clear_file_button").click(function(){
+    //    $(this).hide();
+    //    $("#align_user_file").replaceWith( control = $("#align_user_file").clone( true ) );
+    //});
+    //
+    //$("#find_user_file").change(function(){
+    //    $("#find_clear_file_button").show();
+    //});
+    //
+    //$("#find_clear_file_button").click(function(){
+    //    $(this).hide();
+    //    $("#find_user_file").replaceWith( control = $("#find_user_file").clone( true ) );
+    //});
     
     $("#user_file").change(function(){
         $("#clear_file_button").show();
@@ -184,13 +184,13 @@ i_SCRI_RS_130600\ni_SCRI_RS_150677\ni_SCRI_RS_189465\nowbGBS13547\n");
     });
     
     // CHANGE OF ALGORITHM
-    $('#queries_type').change(function() {
-        if ($('#queries_type').children(":selected").val() == "auto") {
-            $("#algorithm_text").text("Perform a BLASTN search, followed by GMAP alignment for unmapped sequences. Input data must be in FASTA format.");
-        } else if ($('#queries_type').children(":selected").val() == "cdna") {
-            $("#algorithm_text").text("Perform a GMAP alignment. Input data must be in FASTA format.");
-        } else if ($('#queries_type').children(":selected").val() == "genomic") {
-            $("#algorithm_text").text("Perform a BLASTN search. Input data must be in FASTA format.");
+    $('#aligner').change(function() {
+        if ($('#aligner').children(":selected").val() == "gmap,blastn") {
+            $("#algorithm_text").text("Perform a GMAP search, followed by BLASTN alignment for unmapped sequences.");
+        } else if ($('#aligner').children(":selected").val() == "gmap") {
+            $("#algorithm_text").text("Perform a GMAP alignment.");
+        } else if ($('#aligner').children(":selected").val() == "blastn") {
+            $("#algorithm_text").text("Perform a BLASTN search.");
         }
     });
 });

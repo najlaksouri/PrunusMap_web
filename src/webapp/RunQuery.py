@@ -5,18 +5,23 @@
 # Copyright (C) 2017  Carlos P Cantalapiedra.
 # (terms of use can be found within the distributed LICENSE file).
 
-import sys
+import sys, traceback
 import cherrypy
 
 from barleymapcore.db.PathsConfig import PathsConfig
 
+from html.HtmlLayout import HtmlLayout
 from FormsFactory import FormsFactory
 from Bmap import Bmap
 
-from WebApp import VERBOSE, DEFAULT_SORT_PARAM, PATHS_CONFIG, MAX_QUERIES
+from WebApp import VERBOSE, DEFAULT_SORT_PARAM, PATHS_CONFIG, MAX_QUERIES, N_THREADS, APP_NAME, MOUNT_POINT
 from Bmap import FIND_ACTION, ALIGN_ACTION
 
 class Root():
+    
+    def _get_html_layout(self):
+        return HtmlLayout(MOUNT_POINT)
+    
     # Index method for direct requests from outside barleymap by url
     # For example, T3 or GrainGenes links
     # Maybe, this could be implemented as REST API in the future
@@ -60,17 +65,31 @@ class Root():
         
         sys.stderr.write("server.py: request to /mapmarkers/find\n")
         
-        find_form = FormsFactory.get_find_form_new(query, multiple, sort,
-                                                   show_markers, show_genes, show_anchored,
-                                                   extend, extend_cm, extend_bp,
-                                                   maps, send_email, email_to, user_file)
-        
-        find_form.set_session(cherrypy.session)
-        
-        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
-        
-        bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, MAX_QUERIES, FIND_ACTION, VERBOSE)
-        output = bmap.find(find_form)
+        try:
+            
+            form = FormsFactory.get_find_form_new(query, multiple, sort,
+                                                       show_markers, show_genes, show_anchored,
+                                                       extend, extend_cm, extend_bp,
+                                                       maps, send_email, email_to, user_file)
+            
+            form.set_session(cherrypy.session)
+            
+            paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
+            
+            bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, MAX_QUERIES, FIND_ACTION, N_THREADS, APP_NAME, VERBOSE)
+            
+            results = bmap.find(form)
+            
+            csv_files = bmap.csv_files(results, form)
+            
+            output = bmap.output(results, form, self._get_html_layout(), csv_files)
+            
+            bmap.email(form, csv_files)
+            
+        except Exception, e:
+            sys.stderr.write(str(e)+"\n")
+            traceback.print_exc(file=sys.stderr)
+            raise e
         
         return output
     
@@ -79,22 +98,35 @@ class Root():
               show_markers = "", show_genes = "", show_anchored = "",
               load_annot = "", extend = "", extend_cm = "", extend_bp = "",
               maps = "", send_email = "", email_to = "", user_file = None,
-              queries_type = "", threshold_id = "", threshold_cov = ""):
+              aligner = "", threshold_id = "", threshold_cov = ""):
         
         sys.stderr.write("server.py: request to /mapmarkers/align\n")
         
-        align_form = FormsFactory.get_align_form_new(query, multiple, sort,
+        try:
+            form = FormsFactory.get_align_form_new(query, multiple, sort,
                                                    show_markers, show_genes, show_anchored,
                                                    extend, extend_cm, extend_bp,
                                                    maps, send_email, email_to, user_file,
-                                                     queries_type, threshold_id, threshold_cov)
-        
-        align_form.set_session(cherrypy.session)
-        
-        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
-        
-        bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, MAX_QUERIES, ALIGN_ACTION, VERBOSE)
-        output = bmap.align(align_form)
+                                                     aligner, threshold_id, threshold_cov)
+            
+            form.set_session(cherrypy.session)
+            
+            paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
+            
+            bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, MAX_QUERIES, ALIGN_ACTION, N_THREADS, APP_NAME, VERBOSE)
+            
+            results = bmap.align(form)
+            
+            csv_files = bmap.csv_files(results, form)
+            
+            output = bmap.output(results, form, self._get_html_layout(), csv_files)
+            
+            bmap.email(form, csv_files)
+            
+        except Exception, e:
+            sys.stderr.write(str(e)+"\n")
+            traceback.print_exc(file=sys.stderr)
+            raise e
         
         return output
     

@@ -30,6 +30,10 @@ a:hover {
     border-bottom: 1px dotted #FFCC00;
 }
 
+a .boton{
+    text-decolration: none;
+}
+
 /* Containers */
 form { margin:0;padding:0; }
 p { margin-top:0;padding-top:0;text-align:justify;line-height:18px; }
@@ -290,10 +294,20 @@ input.demobutton{
     font-weight: small;
 }
 
+.toggle_button{
+    border:none;
+    cursor:pointer;
+    display:block;
+    padding: 0px 0px 0px 0px;
+    width:40px;
+    height:40px;
+}
+
 #body_section{
     margin-left:2em;
     margin-top:2em;
     margin-bottom:2em;
+    margin-right:2em;
 }
 
 #positions_table{
@@ -302,22 +316,9 @@ input.demobutton{
     border-color: #001188;
     background-color: #EEEEFF;
     text-align:center;
-    font-size: small;
-}
-
-#positions_table td{
-    border-style:solid;
-    border-width: thin;
-    border-color: #7788FF;
-    background-color:#DDEEFF;
-    padding:2px 10px 2px 10px;
-}
-
-.positions_table_empty_td{
-    border-style:none;
-    border-color: #FFFFFF;
-    background-color:#FFFFFF;
-    padding:2px 10px 2px 10px;
+    font-size: 12px;
+    /*table-layout: fixed;*/
+    width: 100%;
 }
 
 #positions_table th{
@@ -325,6 +326,60 @@ input.demobutton{
     border-width: thin;
     border-color: #001188;
     background-color:#BBCCFF;
+    padding:2px 10px 2px 10px;
+}
+
+#positions_table tr{
+    /*line-height: 12px;*/
+}
+
+#positions_table td.std_td{
+    border-style:solid;
+    border-width: thin;
+    border-color: #7788FF;
+    background-color:#DDEEFF;
+    padding:2px 10px 2px 10px;
+}
+
+#positions_table td.empty_td{
+    border-style:none;
+    border-width: thin;
+    border-color: #FFFFFF;
+    background-color:#EEEEFF;
+    padding:2px 10px 2px 10px;
+}
+
+#positions_table td.feature_td{
+    border-style:solid;
+    border-width: thin;
+    border-color: #FFFFFF;
+    background-color:#FFFFFF;
+    padding:2px 10px 2px 10px;
+    /*white-space:nowrap;*/
+}
+
+.unmapped_table{
+    border-style: solid;
+    border-width: thin;
+    border-color: #001188;
+    background-color: #EEEEFF;
+    text-align:center;
+    font-size: 12px;
+}
+
+.unmapped_table th{
+    border-style: solid;
+    border-width: thin;
+    border-color: #001188;
+    background-color:#BBCCFF;
+    padding:2px 10px 2px 10px;
+}
+
+.unmapped_table td{
+    border-style:solid;
+    border-width: thin;
+    border-color: #7788FF;
+    background-color:#DDEEFF;
     padding:2px 10px 2px 10px;
 }
 

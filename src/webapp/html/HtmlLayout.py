@@ -27,6 +27,13 @@ class HtmlLayout(object):
         
         return "".join(output)  
     
+    def html_head_maps(self):
+        output = []
+        output.append(HtmlLayoutBarleymap.head(self._base_url))
+        output.append(HtmlLayoutBarleymap.js_scripts_maps(self._base_url))
+        
+        return "".join(output)
+    
     def header(self):
         return HtmlLayoutBarleymap.title_header(self._base_url)
     
@@ -62,10 +69,10 @@ class HtmlLayout(object):
     def help(self):
         return HtmlComponents.help(self._base_url)
     
-    def align_components(self, align_form, maps_config, databases_config):
+    def align_components(self, align_form, maps_config):
         
         align_components = HtmlComponents.align(self._base_url, align_form, PREFIX_UI_CTRLS_ALIGN,
-                                                maps_config, databases_config)
+                                                maps_config)
         
         return align_components
     

@@ -5,6 +5,10 @@
 # Copyright (C) 2017 Carlos P Cantalapiedra.
 # (terms of use can be found within the distributed LICENSE file).
 
+import sys
+
+from barleymapcore.m2p_exception import m2pException
+
 class HtmlComponentsBase(object):
     
     @staticmethod
@@ -33,7 +37,7 @@ class HtmlComponentsBase(object):
                     <textarea rows="16" cols="100" id="{1}_{3}" name="{3}"
                     autofocus="autofocus">{0}</textarea>
                     """.format(input_query, action, legend, name))
-        output.append(HtmlComponentsBase._load_input_file(action))
+        output.append(HtmlComponentsBase._load_input_file(user_file))
         output.append("""
                 </fieldset>
         """)
@@ -75,31 +79,49 @@ class HtmlComponentsBase(object):
                     """)
         
         ########## MULTIPLE
+        
         output.append("""
-                        <!-- FILTER MULTIPLE RADIO BUTTON -->
+                        <!-- FILTER MULTIPLE CHECK BOX -->
                         <td style="width:50%;">
-                            <label for = "multiple">Markers with multiple mappings: </label>
-                            <input type="radio" name="multiple" id="multiple_no" value="1"
+                            <label for = "multiple">Show markers with multiple mappings: </label>
+                            <input type="checkbox" id="multiple" name="multiple" value="1"
             """)
             
-        if input_multiple == "" or input_multiple == "1": output.append(" checked/>")
+        if input_multiple == "1": output.append(" checked/>")
         else: output.append(" />")
         
         output.append("""
-                            <label for ="multiple_no">show</label>
-                            <input type="radio" name="multiple" id="multiple_filter" value="0"
-            """)
-        
-        if input_multiple == "0": output.append(" checked/>")
-        else: output.append(" />")
-        
-        output.append("""
-                            <label for ="multiple_filter">filter out</label>
                         </td>
                       </tr>
                       <tr><td><hr/></td></tr>
                       <tr>
                       """)
+        
+        #output.append("""
+        #                <!-- FILTER MULTIPLE RADIO BUTTON -->
+        #                <td style="width:50%;">
+        #                    <label for = "multiple">Markers with multiple mappings: </label>
+        #                    <input type="radio" name="multiple" id="multiple_no" value="1"
+        #    """)
+        #    
+        #if input_multiple == "" or input_multiple == "1": output.append(" checked/>")
+        #else: output.append(" />")
+        #
+        #output.append("""
+        #                    <label for ="multiple_no">show</label>
+        #                    <input type="radio" name="multiple" id="multiple_filter" value="0"
+        #    """)
+        #
+        #if input_multiple == "0": output.append(" checked/>")
+        #else: output.append(" />")
+        #
+        #output.append("""
+        #                    <label for ="multiple_filter">filter out</label>
+        #                </td>
+        #              </tr>
+        #              <tr><td><hr/></td></tr>
+        #              <tr>
+        #              """)
         
         ############ SORT
         output.append("""
@@ -137,7 +159,7 @@ class HtmlComponentsBase(object):
         if send_email == "1": output.append(" checked/>")
         else: output.append(" />")
         
-        if email_to: output.append('<input type="email" name="email_to" autocomplete="on" value="'+str(email_to)+'"/>')
+        if send_email == "1" and email_to: output.append('<input type="email" name="email_to" autocomplete="on" value="'+str(email_to)+'"/>')
         else: output.append('<input type="email" name="email_to" autocomplete="on" value=""/>')
         
         output.append("""
@@ -239,7 +261,7 @@ class HtmlComponentsBase(object):
         
         output.append("""
                             <tr><td><span id="extend_cm">
-                                <input type="number" name="extend_cm" pattern="[0-9]+[\.][0-9]+" step="0.1" min="0.0" max="9999.9"
+                                <input type="number" name="extend_cm" id="window_cm" pattern="[0-9]+[\.][0-9]+" step="0.1" min="0.0" max="9999.9"
                         """)
         #if not genes_window_cm or genes_window_cm == "": output.append(' value="'+str(ResourcesMng.get_def_genes_window_cm())+'"')
         #else:
@@ -248,13 +270,13 @@ class HtmlComponentsBase(object):
         
         output.append("""
                                        style="text-align:right;width:4em"/>
-                                <label for="window">cM</label>
+                                <label for="window_cm">cM</label>
                             </span></td></tr>
                             """)
         
         output.append("""
                            <tr><td><span id="extend_bp">
-                                <input type="number" name="extend_bp" id="window" pattern="[0-9]+" step="1" min="1" max="10000000000"
+                                <input type="number" name="extend_bp" id="window_bp" pattern="[0-9]+" step="1" min="1" max="10000000000"
                         """)
         #if not genes_window_bp or genes_window_bp == "": output.append(' value="'+str(ResourcesMng.get_def_genes_window_bp())+'"')
         #else:
@@ -263,7 +285,7 @@ class HtmlComponentsBase(object):
         
         output.append("""
                                        style="text-align:right;width:7em"/>
-                                <label for="window">bp</label>
+                                <label for="window_bp">bp</label>
                             </span></td></tr>
                             """)
         
@@ -282,30 +304,35 @@ class HtmlComponentsBase(object):
         return "".join(output)
     
     @staticmethod
-    def _load_alignment_area(queries_type, threshold_id, threshold_cov):
+    def _load_alignment_area(aligner, threshold_id, threshold_cov):
         output = []
+        
+        #sys.stderr.write("HTMLCOMPONENTS BASE\n")
+        #sys.stderr.write(str(aligner)+"\n")
+        #sys.stderr.write(str(threshold_id)+"\n")
+        #sys.stderr.write(str(threshold_cov)+"\n")
         
         output.append("""
                 <fieldset id="alignment_fieldset" style="border:solid thin;">
                 <legend>Choose an action:</legend>
-                    <select name="queries_type" id="queries_type">
+                    <select name="aligner" id="aligner">
                     """)
         
         ############## ALIGNMENT ALGORITHM
-        if queries_type == "auto":
-            output.append('             <option value="auto" selected>auto</option>')
+        if aligner == "auto":
+            output.append('             <option value="gmap,blastn" selected>auto</option>')
         else:
-            output.append('             <option value="auto">auto</option>')
+            output.append('             <option value="gmap,blastn">auto</option>')
             
-        if queries_type == "cdna":
-            output.append('             <option value="cdna" selected>cdna</option>')
+        if aligner == "gmap":
+            output.append('             <option value="gmap" selected>cdna</option>')
         else:
-            output.append('             <option value="cdna">cdna</option>')
+            output.append('             <option value="gmap">cdna</option>')
             
-        if queries_type == "genomic":
-            output.append('             <option value="genomic" selected>genomic</option>')
+        if aligner == "blastn":
+            output.append('             <option value="blastn" selected>genomic</option>')
         else:
-            output.append('             <option value="genomic">genomic</option>')
+            output.append('             <option value="blastn">genomic</option>')
                         
         output.append("""
                     </select>
@@ -317,12 +344,12 @@ class HtmlComponentsBase(object):
                         """)
         
         ############# ALIGNMENT THRESHOLDS
-        if not threshold_id or threshold_id == "":
-            myvar = ' value="'+str(def_threshold_id)+'"'
-            output.append(myvar)
-        else:
-            myvar = ' value="'+str(threshold_id)+'"' # If I dont do the cast, it crashes
-            output.append(myvar)
+        #if not threshold_id or threshold_id == "":
+        #    myvar = ' value="'+str(def_threshold_id)+'"'
+        #    output.append(myvar)
+        #else:
+        myvar = ' value="'+str(threshold_id)+'"' # If I dont do the cast, it crashes
+        output.append(myvar)
             
         output.append("""
                             style="text-align:right;width:4em"/>
@@ -330,12 +357,12 @@ class HtmlComponentsBase(object):
                     <label for="threshold_cov">min. query cov.</label>
                     <input type="number" name="threshold_cov" id="threshold_cov" pattern="[0-9]+[\.][0-9]+" step="0.1" min="0.1" max="100.0"
                         """)
-        if not threshold_cov or threshold_cov == "":
-            myvar = ' value="'+str(def_threshold_cov)+'"'
-            output.append(myvar)
-        else:
-            myvar = ' value="'+str(threshold_cov)+'"' # If I dont do the cast, it crashes
-            output.append(myvar)
+        #if not threshold_cov or threshold_cov == "":
+        #    myvar = ' value="'+str(def_threshold_cov)+'"'
+        #    output.append(myvar)
+        #else:
+        myvar = ' value="'+str(threshold_cov)+'"' # If I dont do the cast, it crashes
+        output.append(myvar)
             
         output.append("""
                             style="text-align:right;width:4em"/>
@@ -359,11 +386,13 @@ class HtmlComponentsBase(object):
         #(data_names, data_ids) = load_data(conf_file, verbose = ResourcesMng.get_verbose())
         
         for configured_data in config_data:
-            if configured_data in input_data or len(input_data)==0:
-                output.append('           <option value="{0}" selected>{1}</option>'.format(configured_data, configured_data.replace("_", " ")))
-            else:
-                output.append('           <option value="{0}">{1}</option>'.format(configured_data, configured_data.replace("_", " ")))
+            conf_id = configured_data[0]
+            conf_name = configured_data[1]
+            output.append('           <option value="{0}"'.format(conf_id))
+            if conf_id in input_data or len(input_data)==0:
+                output.append('selected')
             
+            output.append('>{0}</option>'.format(conf_name))
         
         output.append("</select>")
         

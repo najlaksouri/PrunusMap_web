@@ -72,6 +72,15 @@ class HtmlLayoutBarleymap(object):
                    base_url+"/js/index.js")
     
     @staticmethod
+    def js_scripts_maps(base_url):
+        return """
+            <body>
+        <script src="{0}"></script>
+        <script src="{1}"></script>
+        """.format("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", \
+                   base_url+"/js/maps.js")
+    
+    @staticmethod
     def title_header(base_url):
         return """
         <header id="top">

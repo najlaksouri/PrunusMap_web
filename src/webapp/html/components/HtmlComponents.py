@@ -16,8 +16,8 @@ class HtmlComponents(object):
         return HtmlComponentsHelp.help(base_url)
     
     @staticmethod
-    def align(base_url, align_form, PREFIX_UI_CTRLS_ALIGN, maps_config, databases_config):
-        return HtmlComponentsAlign.align(base_url, align_form, PREFIX_UI_CTRLS_ALIGN, maps_config, databases_config)
+    def align(base_url, align_form, PREFIX_UI_CTRLS_ALIGN, maps_config):
+        return HtmlComponentsAlign.align(base_url, align_form, PREFIX_UI_CTRLS_ALIGN, maps_config)
     
     @staticmethod
     def find(base_url, find_form, PREFIX_UI_CTRLS_FIND, maps_config):

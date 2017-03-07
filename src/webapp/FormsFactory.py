@@ -5,87 +5,69 @@
 # Copyright (C) 2017  Carlos P Cantalapiedra.
 # (terms of use can be found within the distributed LICENSE file).
 
+import sys
+
 class FormsFactory(object):
     
     @staticmethod
-    def get_align_form_new(self, query = "", multiple = "", sort = "",
+    def get_align_form_new(query = "", multiple = "", sort = "",
                            show_markers = "", show_genes = "", show_anchored = "",
                            extend = "", extend_cm = "", extend_bp = "",
                            maps = "", send_email = "", email_to = "", user_file = None,
-                           queries_type = "", threshold_id = "", threshold_cov = ""):
+                           aligner = "", threshold_id = "", threshold_cov = ""):
         
         form = AlignForm()
         
-        form.set_query(query)
-        form.set_multiple(multiple)
-        form.set_sort(sort)
-        form.set_show_markers(show_markers)
-        form.set_show_genes(show_genes)
-        form.set_show_anchored(show_anchored)
-        form.set_extend(extend)
-        form.set_extend_cm(extend_cm)
-        form.set_extend_bp(extend_bp)
-        form.set_maps(maps)
-        form.set_send_email(send_email)
-        form.set_email_to(email_to)
-        form.set_user_file(user_file)
+        form.set_parameters(query, multiple, sort,
+                           show_markers, show_genes, show_anchored,
+                           extend, extend_cm, extend_bp,
+                           maps, send_email, email_to, user_file)
         
-        form.set_queries_type(queries_type)
+        form.set_aligner(aligner)
         form.set_threshold_id(threshold_id)
         form.set_threshold_cov(threshold_cov)
         
         return form
     
     @staticmethod
-    def get_align_form_empty(DEFAULT_GENES_WINDOW_CM,
-                             DEFAULT_GENES_WINDOW_BP,
-                             DEFAULT_THRESHOLD_ID,
-                             DEFAULT_THRESHOLD_COV):
+    def get_align_form_empty(DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP,
+                             DEFAULT_ALIGNER, DEFAULT_THRESHOLD_ID, DEFAULT_THRESHOLD_COV):
         
         align_form = AlignForm()
         
         align_form.set_extend_cm(DEFAULT_GENES_WINDOW_CM)
         align_form.set_extend_bp(DEFAULT_GENES_WINDOW_BP)
+        align_form.set_aligner(DEFAULT_ALIGNER)
         align_form.set_threshold_id(DEFAULT_THRESHOLD_ID)
         align_form.set_threshold_cov(DEFAULT_THRESHOLD_COV)
         
         return align_form
     
     @staticmethod
-    def get_align_form_session(session):
+    def get_align_form_session(session, DEFAULT_ALIGNER, DEFAULT_THRESHOLD_ID, DEFAULT_THRESHOLD_COV):
         align_form = None
         
-        align_form = AlignForm.init_from_session(session)
+        align_form = AlignForm.init_from_session(session, DEFAULT_ALIGNER, DEFAULT_THRESHOLD_ID, DEFAULT_THRESHOLD_COV)
         
         return align_form
     
     @staticmethod
-    def get_find_form_new(self, query = "", multiple = "", sort = "",
+    def get_find_form_new(query = "", multiple = "", sort = "",
                            show_markers = "", show_genes = "", show_anchored = "",
-                           load_annot = "", extend = "", extend_cm = "", extend_bp = "",
+                           extend = "", extend_cm = "", extend_bp = "",
                            maps = "", send_email = "", email_to = "", user_file = None):
         
         form = FindForm()
         
-        form.set_query(query)
-        form.set_multiple(multiple)
-        form.set_sort(sort)
-        form.set_show_markers(show_markers)
-        form.set_show_genes(show_genes)
-        form.set_show_anchored(show_anchored)
-        form.set_extend(extend)
-        form.set_extend_cm(extend_cm)
-        form.set_extend_bp(extend_bp)
-        form.set_maps(maps)
-        form.set_send_email(send_email)
-        form.set_email_to(email_to)
-        form.set_user_file(user_file)
+        form.set_parameters(query, multiple, sort,
+                           show_markers, show_genes, show_anchored,
+                           extend, extend_cm, extend_bp,
+                           maps, send_email, email_to, user_file)
         
         return form
     
     @staticmethod
-    def get_find_form_empty(DEFAULT_GENES_WINDOW_CM,
-                            DEFAULT_GENES_WINDOW_BP):
+    def get_find_form_empty(DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP):
         
         find_form = FindForm()
         
@@ -104,6 +86,7 @@ class FormsFactory(object):
 
 class InputForm(object):
     
+    ACTION = "action"
     SESSION = "session_token"
     QUERY = "query"
     MULTIPLE = "multiple"
@@ -117,8 +100,10 @@ class InputForm(object):
     MAPS = "maps"
     SEND_EMAIL = "send_email"
     EMAIL_TO = "email_to"
+    COLLAPSED_VIEW = "collapsed_view"
     USER_FILE = "user_file"
     
+    _action = ""
     _query = ""
     _multiple = ""
     _sort = ""
@@ -131,9 +116,13 @@ class InputForm(object):
     _maps = ""
     _send_email = ""
     _email_to = ""
+    _collapsed_view = True
     _user_file = None
     
     _is_empty = True
+    
+    def get_action(self, ):
+        return self._action
     
     def get_query(self):
         return self._query
@@ -207,6 +196,12 @@ class InputForm(object):
     def set_email_to(self, email_to):
         self._email_to = email_to
     
+    def get_collapsed_view(self, ):
+        return self._collapsed_view
+    
+    def set_collapsed_view(self, collapsed_view):
+        self._collapsed_view = collapsed_view
+    
     def get_user_file(self):
         return self._user_file
     
@@ -222,7 +217,7 @@ class InputForm(object):
     def set_session_input_form(self, session):
         
         session[self.SESSION] = self.SESSION
-        session[self.ACTION] = self.ACTION
+        session[self.ACTION] = self._action
         
         session[self.QUERY] = self.get_query()
         session[self.MULTIPLE] = self.get_multiple()
@@ -247,11 +242,14 @@ class InputForm(object):
             
         session[self.EMAIL_TO] = self.get_email_to()
         
+        session[self.COLLAPSED_VIEW] = self.get_collapsed_view()
+        
         return
     
     @staticmethod
     def init_from_session(session, form):
-        if session[form.ACTION] and session[form.ACTION] != "":
+        
+        if session[form.ACTION] == form.get_action():
             form._query = session.get(form.QUERY)
         else: # Comes from find action
             form._query = ""
@@ -268,20 +266,44 @@ class InputForm(object):
         form._send_email = session.get(form.SEND_EMAIL)
         form._email_to = session.get(form.EMAIL_TO)
         form._user_file = session.get(form.USER_FILE)
+        form._collapsed_view = session.get(form.COLLAPSED_VIEW)
         
         form._is_empty = False
         
         return form
     
-class AlignForm(InputForm):
+    def set_parameters(self, query = "", multiple = "", sort = "",
+                           show_markers = "", show_genes = "", show_anchored = "",
+                           extend = "", extend_cm = "", extend_bp = "",
+                           maps = "", send_email = "", email_to = "", user_file = None):
+        form = self
+        
+        form.set_query(query)
+        form.set_multiple(multiple)
+        form.set_sort(sort)
+        form.set_show_markers(show_markers)
+        form.set_show_genes(show_genes)
+        form.set_show_anchored(show_anchored)
+        form.set_extend(extend)
+        form.set_extend_cm(extend_cm)
+        form.set_extend_bp(extend_bp)
+        form.set_maps(maps)
+        form.set_send_email(send_email)
+        form.set_email_to(email_to)
+        form.set_collapsed_view(True)
+        form.set_user_file(user_file)
+        
+        return
     
-    ACTION = "action_blast"
+    
+class AlignForm(InputForm):
 
-    QUERIES_TYPE = "queries_type"
+    ALIGNER = "aligner"
     THRESHOLD_ID = "threshold_id"
     THRESHOLD_COV = "threshold_cov"
     
-    _queries_type = ""
+    _action = "align"
+    _aligner = ""
     _threshold_id = ""
     _threshold_cov = ""
     
@@ -289,15 +311,20 @@ class AlignForm(InputForm):
         pass
     
     @staticmethod
-    def init_from_session(session):
+    def init_from_session(session, DEFAULT_ALIGNER, DEFAULT_THRESHOLD_ID, DEFAULT_THRESHOLD_COV):
         
         new_form = AlignForm()
         
         InputForm.init_from_session(session, new_form)
         
-        new_form._queries_type = session.get(new_form.QUERIES_TYPE)
-        new_form._threshold_id = session.get(new_form.THRESHOLD_ID)
-        new_form._threshold_cov = session.get(new_form.THRESHOLD_COV)
+        if session[new_form.ACTION] != new_form.get_action():
+            new_form._aligner = DEFAULT_ALIGNER
+            new_form._threshold_id = DEFAULT_THRESHOLD_ID
+            new_form._threshold_cov = DEFAULT_THRESHOLD_COV
+        else:
+            new_form._aligner = session.get(new_form.ALIGNER)
+            new_form._threshold_id = session.get(new_form.THRESHOLD_ID)
+            new_form._threshold_cov = session.get(new_form.THRESHOLD_COV)
         
         new_form._is_empty = False
         
@@ -307,17 +334,17 @@ class AlignForm(InputForm):
         
         self.set_session_input_form(session)
         
-        session[self.QUERIES_TYPE] = self.get_queries_type()
+        session[self.ALIGNER] = self.get_aligner()
         session[self.THRESHOLD_ID] = self.get_threshold_id()
         session[self.THRESHOLD_COV] = self.get_threshold_cov()
         
         return
     
-    def get_queries_type(self, ):
-        return self._queries_type
+    def get_aligner(self, ):
+        return self._aligner
     
-    def set_queries_type(self, queries_type):
-        self._queries_type = queries_type
+    def set_aligner(self, aligner):
+        self._aligner = aligner
     
     def get_threshold_id(self, ):
         return self._threshold_id
@@ -334,7 +361,7 @@ class AlignForm(InputForm):
 
 class FindForm(InputForm):
     
-    ACTION = "action_dataset"
+    _action = "find"
     
     def __init__(self):
         pass
