@@ -31,13 +31,15 @@ class FormsFactory(object):
     
     @staticmethod
     def get_align_form_empty(DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP,
-                             DEFAULT_ALIGNER, DEFAULT_THRESHOLD_ID, DEFAULT_THRESHOLD_COV):
+                             DEFAULT_ALIGNER, DEFAULT_MAPS,
+                             DEFAULT_THRESHOLD_ID, DEFAULT_THRESHOLD_COV):
         
         align_form = AlignForm()
         
         align_form.set_extend_cm(DEFAULT_GENES_WINDOW_CM)
         align_form.set_extend_bp(DEFAULT_GENES_WINDOW_BP)
         align_form.set_aligner(DEFAULT_ALIGNER)
+        align_form.set_maps(DEFAULT_MAPS)
         align_form.set_threshold_id(DEFAULT_THRESHOLD_ID)
         align_form.set_threshold_cov(DEFAULT_THRESHOLD_COV)
         
@@ -67,12 +69,13 @@ class FormsFactory(object):
         return form
     
     @staticmethod
-    def get_find_form_empty(DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP):
+    def get_find_form_empty(DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP, DEFAULT_MAPS):
         
         find_form = FindForm()
         
         find_form.set_extend_cm(DEFAULT_GENES_WINDOW_CM)
         find_form.set_extend_bp(DEFAULT_GENES_WINDOW_BP)
+        find_form.set_maps(DEFAULT_MAPS)
         
         return find_form
     

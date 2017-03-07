@@ -16,37 +16,45 @@ from barleymapcore.db.DatabasesConfig import DatabasesConfig
 from html.HtmlLayout import HtmlLayout
 from FormsFactory import FormsFactory
 
-VERBOSE = False
-
-PATHS_CONFIG = "paths_config"
-CONFIG_FILE = "bmap.conf"
-APP_NAME = "barleymap"
-MOUNT_POINT = "/"+APP_NAME
-
-DEFAULT_THRESHOLD_ID = 98.0
-DEFAULT_THRESHOLD_COV = 95.0
-DEFAULT_ALIGNER = "gmap"
-DEFAULT_GENES_WINDOW_CM = 0.5
-DEFAULT_GENES_WINDOW_BP = 1000000
-DEFAULT_SORT_PARAM = "map default"
-
-N_THREADS = 2
-MAX_QUERIES = 100
-
 ########## MAIL SERVER
 # check file in /home/barleymap/email/
 
 class Root():
     
+    MOUNT_POINT = None
+    PATHS_CONFIG = None
+    DEFAULT_THRESHOLD_ID = None
+    DEFAULT_THRESHOLD_COV = None
+    DEFAULT_ALIGNER = None
+    DEFAULT_MAPS = None
+    DEFAULT_GENES_WINDOW_CM = None
+    DEFAULT_GENES_WINDOW_BP = None
+    
+    VERBOSE = False
+    
+    def __init__(self, MOUNT_POINT, PATHS_CONFIG, DEFAULT_THRESHOLD_ID, DEFAULT_THRESHOLD_COV, DEFAULT_ALIGNER, DEFAULT_MAPS,
+                 DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP, VERBOSE):
+        
+        self.MOUNT_POINT = MOUNT_POINT
+        self.PATHS_CONFIG = PATHS_CONFIG
+        self.DEFAULT_THRESHOLD_ID = DEFAULT_THRESHOLD_ID
+        self.DEFAULT_THRESHOLD_COV = DEFAULT_THRESHOLD_COV
+        self.DEFAULT_ALIGNER = DEFAULT_ALIGNER
+        self.DEFAULT_MAPS = DEFAULT_MAPS
+        self.DEFAULT_GENES_WINDOW_CM = DEFAULT_GENES_WINDOW_CM
+        self.DEFAULT_GENES_WINDOW_BP = DEFAULT_GENES_WINDOW_BP
+        self.VERBOSE = VERBOSE
+        return
+    
     def _get_html_layout(self):
-        return HtmlLayout(MOUNT_POINT)
+        return HtmlLayout(self.MOUNT_POINT)
     
     @cherrypy.expose
     def index(self):
         
         sys.stderr.write("server.py: request to /index\n")
         
-        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
+        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
         
         html_layout = self._get_html_layout()
         
@@ -66,20 +74,20 @@ class Root():
     def find(self):
         sys.stderr.write("server.py: request to /find/\n")
         
-        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
+        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
         
         html_layout = self._get_html_layout()
         
         app_path = paths_config.get_app_path()#paths_config[PathsConfig._APP_PATH]
         maps_conf_file = app_path+ConfigBase.MAPS_CONF
-        maps_config = MapsConfig(maps_conf_file, VERBOSE)
+        maps_config = MapsConfig(maps_conf_file, self.VERBOSE)
         
         session = cherrypy.session
         if session.get('session_token'):
             find_form = FormsFactory.get_find_form_session(session)
         else:
-            find_form = FormsFactory.get_find_form_empty(DEFAULT_GENES_WINDOW_CM,
-                                                           DEFAULT_GENES_WINDOW_BP)
+            find_form = FormsFactory.get_find_form_empty(self.DEFAULT_GENES_WINDOW_CM, self.DEFAULT_GENES_WINDOW_BP,
+                                                         self.DEFAULT_MAPS)
         
         find_form.get_query()
         
@@ -102,28 +110,22 @@ class Root():
     def align(self):
         sys.stderr.write("server.py: request to /align/\n")
         
-        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
+        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
         
         html_layout = self._get_html_layout()
         
         app_path = paths_config.get_app_path()#[PathsConfig._APP_PATH]
         maps_conf_file = app_path+ConfigBase.MAPS_CONF
-        maps_config = MapsConfig(maps_conf_file, VERBOSE)
-        
-        #databases_conf_file = app_path+ConfigBase.DATABASES_CONF
-        #databases_config = DatabasesConfig(databases_conf_file, VERBOSE)
+        maps_config = MapsConfig(maps_conf_file, self.VERBOSE)
         
         session = cherrypy.session
         if session.get('session_token'):
-            align_form = FormsFactory.get_align_form_session(session, DEFAULT_ALIGNER,
-                                                             DEFAULT_THRESHOLD_ID,
-                                                             DEFAULT_THRESHOLD_COV)
+            align_form = FormsFactory.get_align_form_session(session, self.DEFAULT_ALIGNER,
+                                                             self.DEFAULT_THRESHOLD_ID, self.DEFAULT_THRESHOLD_COV)
         else:
-            align_form = FormsFactory.get_align_form_empty(DEFAULT_GENES_WINDOW_CM,
-                                                           DEFAULT_GENES_WINDOW_BP,
-                                                           DEFAULT_ALIGNER,
-                                                           DEFAULT_THRESHOLD_ID,
-                                                           DEFAULT_THRESHOLD_COV)
+            align_form = FormsFactory.get_align_form_empty(self.DEFAULT_GENES_WINDOW_CM, self.DEFAULT_GENES_WINDOW_BP,
+                                                           self.DEFAULT_ALIGNER, self.DEFAULT_MAPS,
+                                                           self.DEFAULT_THRESHOLD_ID, self.DEFAULT_THRESHOLD_COV)
         
         align_component = html_layout.align_components(align_form, maps_config)
         
@@ -144,7 +146,7 @@ class Root():
     def help(self):
         sys.stderr.write("server.py: request to /help/\n")
         
-        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
+        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
         
         html_layout = self._get_html_layout()
         

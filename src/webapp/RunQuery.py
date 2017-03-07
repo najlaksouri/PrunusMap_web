@@ -14,13 +14,30 @@ from html.HtmlLayout import HtmlLayout
 from FormsFactory import FormsFactory
 from Bmap import Bmap
 
-from WebApp import VERBOSE, DEFAULT_SORT_PARAM, PATHS_CONFIG, MAX_QUERIES, N_THREADS, APP_NAME, MOUNT_POINT
 from Bmap import FIND_ACTION, ALIGN_ACTION
+
+DEFAULT_SORT_PARAM = "map default"
 
 class Root():
     
+    MOUNT_POINT = None
+    PATHS_CONFIG = None
+    APP_NAME = None
+    N_THREADS = None
+    MAX_QUERIES = None
+    
+    VERBOSE = False
+    
+    def __init__(self, MOUNT_POINT, PATHS_CONFIG, APP_NAME, N_THREADS, MAX_QUERIES, VERBOSE):
+        self.MOUNT_POINT = MOUNT_POINT
+        self.PATHS_CONFIG = PATHS_CONFIG
+        self.APP_NAME = APP_NAME
+        self.N_THREADS = N_THREADS
+        self.MAX_QUERIES = MAX_QUERIES
+        self.VERBOSE = VERBOSE
+    
     def _get_html_layout(self):
-        return HtmlLayout(MOUNT_POINT)
+        return HtmlLayout(self.MOUNT_POINT)
     
     # Index method for direct requests from outside barleymap by url
     # For example, T3 or GrainGenes links
@@ -32,10 +49,10 @@ class Root():
         
         sys.stderr.write("server.py: request to T3 links\n")
         
-        verbose_param = VERBOSE
+        verbose_param = self.VERBOSE
         
         #config_path_dict = read_paths("paths.conf") # data_utils.read_paths
-        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
+        paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
         __app_path = paths_config.get_app_path()#config_path_dict["app_path"]
         
         # Load all configured maps
@@ -74,9 +91,9 @@ class Root():
             
             form.set_session(cherrypy.session)
             
-            paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
+            paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
             
-            bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, MAX_QUERIES, FIND_ACTION, N_THREADS, APP_NAME, VERBOSE)
+            bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, self.MAX_QUERIES, FIND_ACTION, self.N_THREADS, self.APP_NAME, self.VERBOSE)
             
             results = bmap.find(form)
             
@@ -111,9 +128,9 @@ class Root():
             
             form.set_session(cherrypy.session)
             
-            paths_config = PathsConfig.from_dict(cherrypy.request.app.config[PATHS_CONFIG])
+            paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
             
-            bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, MAX_QUERIES, ALIGN_ACTION, N_THREADS, APP_NAME, VERBOSE)
+            bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, self.MAX_QUERIES, ALIGN_ACTION, self.N_THREADS, self.APP_NAME, self.VERBOSE)
             
             results = bmap.align(form)
             
