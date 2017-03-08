@@ -72,7 +72,7 @@ class HtmlComponentsBase(object):
         
         ## <!-- <fieldset style="border:solid thin;width:350px;height:170px;"> -->
         output.append("""
-                <fieldset style="border:solid thin;width:350px;height:150px;">
+                <fieldset style="border:solid thin;width:350px;">
                 <legend>Output options:</legend>
                     <table style="width:100%;text-align:center;">
                     <tr>
@@ -96,32 +96,6 @@ class HtmlComponentsBase(object):
                       <tr><td><hr/></td></tr>
                       <tr>
                       """)
-        
-        #output.append("""
-        #                <!-- FILTER MULTIPLE RADIO BUTTON -->
-        #                <td style="width:50%;">
-        #                    <label for = "multiple">Markers with multiple mappings: </label>
-        #                    <input type="radio" name="multiple" id="multiple_no" value="1"
-        #    """)
-        #    
-        #if input_multiple == "" or input_multiple == "1": output.append(" checked/>")
-        #else: output.append(" />")
-        #
-        #output.append("""
-        #                    <label for ="multiple_no">show</label>
-        #                    <input type="radio" name="multiple" id="multiple_filter" value="0"
-        #    """)
-        #
-        #if input_multiple == "0": output.append(" checked/>")
-        #else: output.append(" />")
-        #
-        #output.append("""
-        #                    <label for ="multiple_filter">filter out</label>
-        #                </td>
-        #              </tr>
-        #              <tr><td><hr/></td></tr>
-        #              <tr>
-        #              """)
         
         ############ SORT
         output.append("""

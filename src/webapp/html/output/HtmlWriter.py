@@ -9,7 +9,7 @@
 import sys, os
 
 from barleymapcore.m2p_exception import m2pException
-from barleymapcore.maps.MapsBase import MapTypes
+#from barleymapcore.maps.MapsBase import MapTypes
 from barleymapcore.maps.reader.MapFiles import ChromosomesFile
 
 MAPPED_TITLE = "Map"
@@ -18,9 +18,6 @@ UNALIGNED_TITLE = "Unaligned"
 MAP_WITH_GENES_TITLE = "Map with genes"
 MAP_WITH_MARKERS_TITLE = "Map with markers"
 MAP_WITH_ANCHORED_TITLE = "Map with anchored features"
-
-#from barleymapcore.genes.GenesBase import GenesFields, AnnotFields
-#from barleymapcore.maps.MarkersBase import MarkersFields
 
 from HtmlWriterMaps import HtmlMapsWriter
 import bmap_svg_img
@@ -69,8 +66,18 @@ class HtmlWriter():
     def get_back_button(self, ):
         return self.__base_url+BACK_BUTTON_IMG
     
-    def output_html_top_button(self):
-        return self.output_buffer.append(self._maps_writer.output_html_top_img())
+    def output_html_top_img(self, map_name = None):
+        top_size = "15"
+        if map_name:
+            output = """
+            <a href="#{2}"><img style="width:{0}px;height:{0}px;border:none;" src="{1}/img/top.jpg"/></a>
+            """.format(top_size, self.__base_url, map_name)
+        else:
+            output = """
+            <a href="#"><img style="width:{0}px;height:{0}px;border:none;" src="{1}/img/top.jpg"/></a>
+            """.format(top_size, self.__base_url)
+        
+        return output
     
     def output_text(self, text):
         self.output_buffer.append(text)
@@ -89,9 +96,7 @@ class HtmlWriter():
         self.output_text('<span class="tab"></span>')
         
         for genetic_map in genetic_map_dict:
-            #genetic_map_data = genetic_map_dict[genetic_map]
             genetic_map_name = genetic_map.get_map_config().get_name()
-            #genetic_map_name = genetic_map_data["map_name"]
             
             self.output_text('<a class="map_link" href="#'+str(genetic_map_name)+'">'+str(genetic_map_name)+'</a>')
             self.output_text('<span class="tab"></span>')
@@ -118,7 +123,8 @@ class HtmlWriter():
         genetic_map_name = map_config.get_name()#genetic_map_data["map_name"]
         # MAP MENU
         self.output_text('<h1 class="map_title" id="'+str(genetic_map_name)+'">Map: '+str(genetic_map_name)+'')
-        self.output_html_top_button()
+        #self.output_html_top_button()
+        self.output_buffer.append(self.output_html_top_img())
         self.output_text('</h1>')
         
         self.output_text('<section class="map_menu">')
@@ -156,52 +162,11 @@ class HtmlWriter():
             result_link = self.output_map_link(genetic_map_name, result_name)
             map_links_dict[result_name] = result_link
         
-        #for result in MapTypes.RESULTS_LIST:
-        #    result_name = MapTypes.RESULTS_DICT[result]
-        #    
-        #    result_link = genetic_map_name+"_"+str(result)
-        #    map_links_dict[result] = result_link
-        #    self.output_text('<li>')
-        #    self.output_text('<a class="map_result_link" href="#'+result_link+'">'+str(result_name)+'</a>')
-        #    self.output_text('</li>')
-        
         self.output_text('</ul>')
         self.output_text('</section>')
-        #self.output_text('<a class="top_link" href="#">top</a>')
-        #self.output_text("<br/>")
         self.output_text("<br/>")
         
         return map_links_dict
-    
-    #def output_html_header(self):
-    #    self.output_buffer.append('<!DOCTYPE html>\n\n')
-    #    self.output_buffer.append('<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->')
-    #    self.output_buffer.append('<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->')
-    #    self.output_buffer.append('<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->')
-    #    self.output_buffer.append('<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->')
-    #    self.output_buffer.append('<!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->')
-    #    self.output_buffer.append('<head>')
-    #    self.output_buffer.append('\n')
-    #    self.output_buffer.append('<meta charset="utf-8" />')
-    #    self.output_buffer.append('\n')
-    #    self.output_buffer.append('<title>Map markers</title>')
-    #    self.output_buffer.append('\n')
-    #    self.output_buffer.append('<meta content="CPCantalapiedra" name="CPCantalapiedra" />')
-    #    self.output_buffer.append('\n')
-    #    self.output_buffer.append('<meta content="Map markers to barley physical map" name="Map to physical map" />')
-    #    self.output_buffer.append('\n')
-    #    self.output_buffer.append('<meta content="etiqueta1, etiqueta2, etiqueta3" name="keywords" />')
-    #    self.output_buffer.append('\n')
-    #    self.output_buffer.append('<link rel="stylesheet" href="{0}" type="text/css" media="screen" />'.format(self.__base_url+"/style.css"))
-    #    self.output_buffer.append('\n')
-    #    self.output_buffer.append('</head>')
-    #    self.output_buffer.append('\n')
-    #    return
-    
-    #def output_html_end(self):
-    #    self.output_buffer.append('\n')
-    #    self.output_buffer.append('</body>\n</html>')
-    #    return
     
     def output_html_parameters(self, parameters):
         # Parameters (see mapmarkers_cp.py --> parameters_list)
@@ -360,7 +325,7 @@ class HtmlWriter():
         
         self.output_buffer.append('<span class="results_table_title" id="'+map_section_link+'" style="text-align:left;">'+\
                                   str(section_name)+'')
-        if top: self.output_buffer.append(self._maps_writer.output_html_top_img(map_name))
+        if top: self.output_buffer.append(self.output_html_top_img(map_name))
         self.output_buffer.append("</span><br/>")
         
         return
@@ -501,7 +466,7 @@ class HtmlWriter():
             
         else:
             self.output_buffer.append('<span id="'+map_section_link+'">There are no alignments without position for this map.</span>')
-            self.output_buffer.append(self._maps_writer.output_html_top_img())
+            self.output_buffer.append(self.output_html_top_img())
             self.output_buffer.append("</caption>")
         
         return
@@ -532,7 +497,7 @@ class HtmlWriter():
             
         else:
             self.output_buffer.append('<span id="'+map_section_link+'">There are no queries without alignments for this map.</span>')
-            self.output_buffer.append(self._maps_writer.output_html_top_img())
+            self.output_buffer.append(self.output_html_top_img())
             self.output_buffer.append("</caption>")
         
         return

@@ -7,6 +7,7 @@
 
 import sys
 from subprocess import Popen, PIPE
+
 from barleymapcore.m2p_exception import m2pException
 
 ## OUTPUT GENETIC MAP

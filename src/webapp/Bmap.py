@@ -298,6 +298,8 @@ class Bmap(object):
         else:
             aligner_list = [aligner]
         
+        sys.stderr.write("BMAP aligner_list: "+str(aligner_list)+"\n")
+        
         threshold_id = float(align_form.get_threshold_id())
         threshold_cov = float(align_form.get_threshold_cov())
         
@@ -332,6 +334,8 @@ class Bmap(object):
                                   datasets_facade, extend_window, collapsed_view, constrain_fine_mapping = False)
             mapping_results = mapMarkers.get_mapping_results()
             
+            sys.stderr.write("Num mapping results:"+str(len(mapping_results.get_mapped()))+"\n")
+            
             mapping_results.set_annotator(annotator)
             
             all_mapping_results.append(mapping_results)
@@ -362,15 +366,26 @@ class Bmap(object):
     
     ## Send email with results
     ##
-    def email(self, form, csv_files):
-        #if len(csv_files)>0:
-        #    try:
-        #        ## Send CSV by EMAIL if requested
-        #        if form.get_send_email() and form.get_send_email()=="1" and len(csv_files)>0:
-        #            m2p_mail.send_files(form, csv_files)
-        #        
-        #    except m2pException as e:
-        #        sys.stderr.write("Error sending email.\n")
+    def email(self, form, csv_files, email_conf):
+        try:
+            csv_filenames = []
+            maps_csv_files = csv_files.get_maps_csv_files()
+            for map_id in maps_csv_files:
+                map_csv_files = maps_csv_files[map_id]
+                if map_csv_files.get_mapped(): csv_filenames.append(map_csv_files.get_mapped())
+                if map_csv_files.get_map_with_genes(): csv_filenames.append(map_csv_files.get_map_with_genes())
+                if map_csv_files.get_map_with_markers(): csv_filenames.append(map_csv_files.get_map_with_markers())
+                if map_csv_files.get_map_with_anchored(): csv_filenames.append(map_csv_files.get_map_with_anchored())
+                if map_csv_files.get_unmapped(): csv_filenames.append(map_csv_files.get_unmapped())
+                if map_csv_files.get_unaligned(): csv_filenames.append(map_csv_files.get_unaligned())
+            
+            ## Send CSV by EMAIL if requested
+            if form.get_send_email() and form.get_send_email()=="1" and len(csv_filenames)>0:
+                m2p_mail.send_files(form, csv_filenames, email_conf)
+            
+        except m2pException as e:
+            ## Just log it, but keep giving output maps to the user
+            sys.stderr.write("Error sending email.\n")
         
         return
 

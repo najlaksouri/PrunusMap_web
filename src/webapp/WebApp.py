@@ -21,30 +21,23 @@ from FormsFactory import FormsFactory
 ########## MAIL SERVER
 # check file in /home/barleymap/email/
 
+DEFAULT_THRESHOLD_ID = "DEFAULT_THRESHOLD_ID"
+DEFAULT_THRESHOLD_COV = "DEFAULT_THRESHOLD_COV"
+DEFAULT_ALIGNER = "DEFAULT_ALIGNER"
+DEFAULT_MAPS = "DEFAULT_MAPS"
+DEFAULT_GENES_WINDOW_CM = "DEFAULT_GENES_WINDOW_CM"
+DEFAULT_GENES_WINDOW_BP = "DEFAULT_GENES_WINDOW_BP"
+
 class Root():
     
     MOUNT_POINT = None
     PATHS_CONFIG = None
-    DEFAULT_THRESHOLD_ID = None
-    DEFAULT_THRESHOLD_COV = None
-    DEFAULT_ALIGNER = None
-    DEFAULT_MAPS = None
-    DEFAULT_GENES_WINDOW_CM = None
-    DEFAULT_GENES_WINDOW_BP = None
     
     VERBOSE = False
     
-    def __init__(self, MOUNT_POINT, PATHS_CONFIG, DEFAULT_THRESHOLD_ID, DEFAULT_THRESHOLD_COV, DEFAULT_ALIGNER, DEFAULT_MAPS,
-                 DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP, VERBOSE):
-        
+    def __init__(self, MOUNT_POINT, PATHS_CONFIG, VERBOSE):
         self.MOUNT_POINT = MOUNT_POINT
         self.PATHS_CONFIG = PATHS_CONFIG
-        self.DEFAULT_THRESHOLD_ID = DEFAULT_THRESHOLD_ID
-        self.DEFAULT_THRESHOLD_COV = DEFAULT_THRESHOLD_COV
-        self.DEFAULT_ALIGNER = DEFAULT_ALIGNER
-        self.DEFAULT_MAPS = DEFAULT_MAPS
-        self.DEFAULT_GENES_WINDOW_CM = DEFAULT_GENES_WINDOW_CM
-        self.DEFAULT_GENES_WINDOW_BP = DEFAULT_GENES_WINDOW_BP
         self.VERBOSE = VERBOSE
         return
     
@@ -78,7 +71,7 @@ class Root():
         except Exception, e:
             sys.stderr.write(str(e)+"\n")
             traceback.print_exc(file=sys.stderr)
-            raise e
+            output = "There was a server error. Please, contact with barleymap web application adminitrators."
         
         return output
     
@@ -87,6 +80,8 @@ class Root():
         sys.stderr.write("server.py: request to /find/\n")
         
         try:
+            bmap_settings = cherrypy.request.app.config['bmapsettings']
+            
             paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
             
             html_layout = self._get_html_layout()
@@ -99,8 +94,11 @@ class Root():
             if session.get('session_token'):
                 find_form = FormsFactory.get_find_form_session(session)
             else:
-                find_form = FormsFactory.get_find_form_empty(self.DEFAULT_GENES_WINDOW_CM, self.DEFAULT_GENES_WINDOW_BP,
-                                                             self.DEFAULT_MAPS)
+                window_cm = bmap_settings[DEFAULT_GENES_WINDOW_CM]
+                window_bp = bmap_settings[DEFAULT_GENES_WINDOW_BP]
+                maps = bmap_settings[DEFAULT_MAPS]
+                
+                find_form = FormsFactory.get_find_form_empty(window_cm, window_bp, maps)
             
             find_form.get_query()
             
@@ -125,7 +123,7 @@ class Root():
         except Exception, e:
             sys.stderr.write(str(e)+"\n")
             traceback.print_exc(file=sys.stderr)
-            raise e
+            output = "There was a server error. Please, contact with barleymap web application adminitrators."
         
         return output
     
@@ -134,6 +132,8 @@ class Root():
         sys.stderr.write("server.py: request to /align/\n")
         
         try:
+            bmap_settings = cherrypy.request.app.config['bmapsettings']
+            
             paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
             
             html_layout = self._get_html_layout()
@@ -143,13 +143,19 @@ class Root():
             maps_config = MapsConfig(maps_conf_file, self.VERBOSE)
             
             session = cherrypy.session
+            
+            aligner = bmap_settings[DEFAULT_ALIGNER]
+            threshold_id = bmap_settings[DEFAULT_THRESHOLD_ID]
+            threshold_cov = bmap_settings[DEFAULT_THRESHOLD_COV]
+            
             if session.get('session_token'):
-                align_form = FormsFactory.get_align_form_session(session, self.DEFAULT_ALIGNER,
-                                                                 self.DEFAULT_THRESHOLD_ID, self.DEFAULT_THRESHOLD_COV)
+                align_form = FormsFactory.get_align_form_session(session, aligner, threshold_id, threshold_cov)
             else:
-                align_form = FormsFactory.get_align_form_empty(self.DEFAULT_GENES_WINDOW_CM, self.DEFAULT_GENES_WINDOW_BP,
-                                                               self.DEFAULT_ALIGNER, self.DEFAULT_MAPS,
-                                                               self.DEFAULT_THRESHOLD_ID, self.DEFAULT_THRESHOLD_COV)
+                window_cm = bmap_settings[DEFAULT_GENES_WINDOW_CM]
+                window_bp = bmap_settings[DEFAULT_GENES_WINDOW_BP]
+                maps = bmap_settings[DEFAULT_MAPS]
+                
+                align_form = FormsFactory.get_align_form_empty(window_cm, window_bp, maps, aligner, threshold_id, threshold_cov)
             
             align_component = html_layout.align_components(align_form, maps_config)
             
@@ -172,7 +178,7 @@ class Root():
         except Exception, e:
             sys.stderr.write(str(e)+"\n")
             traceback.print_exc(file=sys.stderr)
-            raise e
+            output = "There was a server error. Please, contact with barleymap web application adminitrators."
         
         return output
     
@@ -204,7 +210,7 @@ class Root():
         except Exception, e:
             sys.stderr.write(str(e)+"\n")
             traceback.print_exc(file=sys.stderr)
-            raise e
+            output = "There was a server error. Please, contact with barleymap web application adminitrators."
         
         return output
 

@@ -14,22 +14,11 @@ from barleymapcore.db.PathsConfig import PathsConfig
 import webapp.WebApp as WebApp
 import webapp.RunQuery as RunQuery
 
-APP_NAME = "barleymap"
-MOUNT_POINT = "/"+APP_NAME
+MOUNT_POINT = "/barleymap"
 
 SERVER_CONFIG_FILE = "server.conf"
 CONFIG_FILE = "bmap.conf"
 PATHS_CONFIG = "paths_config"
-
-N_THREADS = 2
-MAX_QUERIES = 100
-
-DEFAULT_THRESHOLD_ID = 98.0
-DEFAULT_THRESHOLD_COV = 95.0
-DEFAULT_ALIGNER = "gmap"
-DEFAULT_MAPS = "morex_genome"
-DEFAULT_GENES_WINDOW_CM = 0.5
-DEFAULT_GENES_WINDOW_BP = 1000000
 
 VERBOSE = False
 
@@ -49,17 +38,16 @@ def start_standalone():
     ############### LOAD THE BMAP APP
     #################################
     # Classes with exposed methods
-    root = WebApp.Root(MOUNT_POINT, PATHS_CONFIG, DEFAULT_THRESHOLD_ID, DEFAULT_THRESHOLD_COV, DEFAULT_ALIGNER, DEFAULT_MAPS,
-                       DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP, VERBOSE)
+    root = WebApp.Root(MOUNT_POINT, PATHS_CONFIG, VERBOSE)
     
-    root.mapmarkers = RunQuery.Root(MOUNT_POINT, PATHS_CONFIG, APP_NAME, N_THREADS, MAX_QUERIES, VERBOSE)
+    root.mapmarkers = RunQuery.Root(MOUNT_POINT, PATHS_CONFIG, VERBOSE)
     
     # Mount app on server, with webapp config file
     bmap_conf_file = os.path.join(os.path.dirname(__file__), CONFIG_FILE)
     
     app = cherrypy.tree.mount(root, script_name=MOUNT_POINT, config=bmap_conf_file)
     
-    sys.stderr.write("\t"+APP_NAME+" mounted\n")
+    sys.stderr.write("\t"+MOUNT_POINT+" mounted\n")
     
     # Add barleymap configuration
     #bmap_conf_dict = _load_globals()

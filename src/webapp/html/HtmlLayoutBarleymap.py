@@ -11,10 +11,9 @@ class HtmlLayoutBarleymap(object):
     def output_html_img_button(url, img_url, width = "3%", height = "3%"):
         output = []
         if url and img_url:
-            #output.append('<a href="'+url+'"><img style="" src="'+img_url+'"/></a>')
             output.append('<a href="'+url+'"><img style="width:'+str(width)+';height:'+str(height)+'; border:none;" src="'+img_url+'"/></a>')
-            
-        else: m2pException("plain_html: No URL or img_url provided for img button.")
+        else:
+            Exception("plain_html: No URL or img_url provided for img button.")
         
         return "".join(output)
     
@@ -57,8 +56,8 @@ class HtmlLayoutBarleymap(object):
             <meta charset="utf-8" />
             <title>Barleymap</title>
             <meta content="CPCantalapiedra" name="CPCantalapiedra" />
-            <meta content="Map markers to barley genetic/physical maps" name="Map markers to barley genetic/physical maps" />
-            <meta content="barley, physical map, genetic map, markers, mapping, bioinformatics, blast, gmap" name="keywords" />
+            <meta content="Map markers to the barley genome" name="Map markers to the barley genome" />
+            <meta content="barley, barleymap, physical map, genetic map, markers, mapping, bioinformatics, blast, gmap, genome, genomics" name="keywords" />
             <link rel="stylesheet" href="{0}" type="text/css" media="screen"/>
         </head>""".format(base_url+"/style.css")
     
@@ -87,7 +86,7 @@ class HtmlLayoutBarleymap(object):
             <h2><a href="{1}/">Barleymap</a></h2>
             <h3 class="infobar">({0})</h3>
         </header>
-        """.format("Search positions on the barley physical map - POPSEQ edition", base_url)
+        """.format("Map markers to the barley genome - Morex Genome 2017 edition", base_url)
     
     @staticmethod
     def footer():
@@ -127,7 +126,9 @@ class HtmlLayoutBarleymap(object):
             <strong><a href="{0}#genes_markers_enrichment_and_annotation">information of genes and other genetic markers</a></strong>
             that enrich the context around or between the queries will be shown.<br/><br/>
             
-            Barleymap web works over a <strong><a href="http://eead.csic.es/compbio/soft/barleymap.php">standalone application</a></strong>
+            <strong><a href="https://github.com/Cantalapiedra/barleymap_web">Barleymap web</a></strong> 
+            works on top of <strong><a href="https://github.com/Cantalapiedra/barleymapcore">barleymap core API</a></strong>, used also in a
+            <strong><a href="https://github.com/Cantalapiedra/barleymap">standalone application</a></strong>
             that allows loading custom databases, maps and datasets, among other features.
             <br/>Such application can be used with data from any organism for which sequences anchored to a genetic/physical background are available.
             
@@ -144,13 +145,9 @@ class HtmlLayoutBarleymap(object):
             
             <b>Barleymap</b> was developed at the
             <a href="http://www.eead.csic.es/compbio/" target="_blank">Laboratory of Computational Biology</a>
-            (EEAD - CSIC).<br/>
-            <strong>Citation:</strong> {1}
+            (<a href="http://www.eead.csic.es">EEAD</a> - <a href="http://www.csic.es">CSIC</a>).<br/>
+            <strong>Citation:</strong> <a href="http://link.springer.com/article/10.1007%2Fs11032-015-0253-1">{1}</a>
             <br/><br/>
-            <!--
-            The previous version of <b>Barleymap</b> can be found at
-            <a href="http://floresta.eead.csic.es/barleyphysmap/">http://floresta.eead.csic.es/barleyphysmap/</a>
-            <br/><br/>-->
             <hr/>
             <br/>
             
@@ -168,14 +165,10 @@ class HtmlLayoutBarleymap(object):
         if show_last_changes:
             text_buffer.append("""
             <br/><br/><hr/><br/><strong>Last changes</strong>
-            <br/><br/>07-05-2015:<br/>
-            · Added citation to Molecular Breeding paper.
-            <br/><br/>04-04-2014:<br/>
-            · Added BOPA1 and BOPA2 datasets.
-            <br/><br/>26-03-2014:<br/>
-            · Minor changes and fixes in the user interface of the web application.<br/>
-            · New --align-info and --best-score parameters available in the standalone version.<br/>
-            · Other changes and fixes in the standalone version.
+            <br/><br/>07-03-2017:<br/>
+            · Support for the Morex Genome released in 2017.
+            <br/><br/>07-03-2017:<br/>
+            · Graphical maps in two flavours: full chromosomes or region of interest.
                                """)
         
         return "".join(text_buffer)

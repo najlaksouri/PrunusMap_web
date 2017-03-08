@@ -31,15 +31,15 @@ class FormsFactory(object):
     
     @staticmethod
     def get_align_form_empty(DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP,
-                             DEFAULT_ALIGNER, DEFAULT_MAPS,
+                             DEFAULT_MAPS, DEFAULT_ALIGNER,
                              DEFAULT_THRESHOLD_ID, DEFAULT_THRESHOLD_COV):
         
         align_form = AlignForm()
         
         align_form.set_extend_cm(DEFAULT_GENES_WINDOW_CM)
         align_form.set_extend_bp(DEFAULT_GENES_WINDOW_BP)
-        align_form.set_aligner(DEFAULT_ALIGNER)
         align_form.set_maps(DEFAULT_MAPS)
+        align_form.set_aligner(DEFAULT_ALIGNER)
         align_form.set_threshold_id(DEFAULT_THRESHOLD_ID)
         align_form.set_threshold_cov(DEFAULT_THRESHOLD_COV)
         
@@ -298,6 +298,21 @@ class InputForm(object):
         
         return
     
+    def as_params_string_input_form(self, ):
+        ret_value = []
+        
+        ret_value.append("Show queries with multiple hits: "+self.get_multiple())
+        ret_value.append("Sort by: "+self.get_sort())
+        ret_value.append("Show genes: "+self.get_show_genes())
+        ret_value.append("Show markers: "+self.get_show_markers())
+        ret_value.append("Show anchored features: "+self.get_show_anchored())
+        ret_value.append("Extend search: "+self.get_extend())
+        ret_value.append("Extend interval (cM): "+self.get_extend_cm())
+        ret_value.append("Extend interval (bp): "+self.get_extend_bp())
+        ret_value.append("Maps: "+self.get_maps())
+        
+        return "\n".join(ret_value)
+    
     
 class AlignForm(InputForm):
 
@@ -361,6 +376,17 @@ class AlignForm(InputForm):
     def set_threshold_cov(self, threshold_cov):
         self._threshold_cov = threshold_cov
     
+    def as_params_string(self, ):
+        ret_value = []
+        
+        ret_value.append(self.as_params_string_input_form())
+        
+        ret_value.append("Aligner: "+self.get_aligner())
+        ret_value.append("Threshold Id: "+self.get_threshold_id())
+        ret_value.append("Threshold_cov: "+self.get_threshold_cov())
+        
+        return "\n".join(ret_value)
+    
 
 class FindForm(InputForm):
     
@@ -383,5 +409,12 @@ class FindForm(InputForm):
         self.set_session_input_form(session)
         
         return
+    
+    def as_params_string(self, ):
+        ret_value = []
+        
+        ret_value.append(self.as_params_string_input_form())
+        
+        return "\n".join(ret_value)
 
 ## END
