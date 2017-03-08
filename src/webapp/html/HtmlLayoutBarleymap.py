@@ -13,7 +13,7 @@ class HtmlLayoutBarleymap(object):
         if url and img_url:
             output.append('<a href="'+url+'"><img style="width:'+str(width)+';height:'+str(height)+'; border:none;" src="'+img_url+'"/></a>')
         else:
-            Exception("plain_html: No URL or img_url provided for img button.")
+            Exception("HtmlLayoutBarleymap: No URL or img_url provided for img button.")
         
         return "".join(output)
     
