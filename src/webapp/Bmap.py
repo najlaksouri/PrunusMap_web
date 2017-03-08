@@ -185,7 +185,7 @@ class Bmap(object):
         ############ ALIGNMENTS - DATASETS
         # Load configuration paths
         datasets_path = paths_config.get_datasets_path() #__app_path+config_path_dict["datasets_path"]
-        datasets_facade = DatasetsFacade(datasets_config, datasets_path, verbose = self._verbose)
+        datasets_facade = DatasetsFacade(datasets_config, datasets_path, maps_path, verbose = self._verbose)
         
         ########### Create maps
         ###########
@@ -276,7 +276,7 @@ class Bmap(object):
         
         # Load DatasetsFacade
         datasets_path = paths_config.get_datasets_path() #__app_path+config_path_dict["datasets_path"]
-        datasets_facade = DatasetsFacade(datasets_config, datasets_path, verbose = self._verbose)
+        datasets_facade = DatasetsFacade(datasets_config, datasets_path, maps_path, verbose = self._verbose)
         
         # Temp directory
         tmp_files_dir = paths_config.get_tmp_files_path()
