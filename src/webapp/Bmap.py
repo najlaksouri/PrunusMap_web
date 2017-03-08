@@ -358,9 +358,7 @@ class Bmap(object):
         
         csv_writer = CSVWriter(self._paths_config, self._verbose)
         
-        annotator = self._get_annotator(form)
-        
-        csv_files = csv_writer.output_maps(all_mapping_results, form, annotator)
+        csv_files = csv_writer.output_maps(all_mapping_results, form)
         
         return csv_files
     
