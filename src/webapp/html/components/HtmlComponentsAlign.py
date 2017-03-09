@@ -36,6 +36,7 @@ class HtmlComponentsAlign(object):
         output.append(HtmlComponentsBase._load_genes_area(align_form.get_show_markers(),
                                         align_form.get_show_genes(),
                                         align_form.get_show_anchored(),
+                                        align_form.get_show_how(),
                                         align_form.get_extend(),
                                         align_form.get_extend_cm(),
                                         align_form.get_extend_bp(),

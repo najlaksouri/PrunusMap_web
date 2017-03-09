@@ -61,99 +61,6 @@ class HtmlMapsWriter():
     def __gene_html_link(self, gene_id):
         return '<a href="http://plants.ensembl.org/Hordeum_vulgare/Gene/Summary?g='+str(gene_id)+'" \
                         rel="external" target="_blank">'+str(gene_id)+'</a>'
-        
-    #def __output_html_gene(self, map_has_cm_pos, map_has_bp_pos, gene, load_annot):
-    #    
-    #    gene_cm = gene[GenesFields.GENES_CM_POS]
-    #    if gene_cm != "-":
-    #        cm_pos = str("%0.2f" % float(gene_cm))
-    #    else:
-    #        cm_pos = gene_cm
-    #    
-    #    chrom = gene[GenesFields.GENES_CHR_POS]
-    #    bp = gene[GenesFields.GENES_BP_POS]
-    #    
-    #    gene_data = []
-    #    gene_data.append("<td></td>")
-    #    
-    #    gene_id = gene[GenesFields.GENES_ID_POS]
-    #    if gene_id != "-": gene_data.append("<td>"+self.__gene_html_link(gene_id)+"</td>")
-    #    else: gene_data.append("<td>"+gene_id+"</td>")
-    #    
-    #    gene_data.append("<td>"+gene[GenesFields.GENES_TYPE_POS]+"</td>")
-    #    gene_data.append("<td>"+str(chrom)+"</td>")
-    #    
-    #    if map_has_cm_pos:
-    #        gene_data.append("<td>"+str(cm_pos)+"</td>")
-    #    
-    #    if map_has_bp_pos:
-    #        if bp != "-": gene_data.append("<td>"+self.__location_html_link(chrom, bp)+"</td>")
-    #        else: gene_data.append("<td>"+str(bp)+"</td>")
-    #    
-    #    self.output_buffer.append("".join(gene_data))
-    #    
-    #    if load_annot != 0:
-    #        annot = gene[len(MapHeaders.GENES_HEADERS):]
-    #        self.output_buffer.append("<td>"+annot[AnnotFields.GENES_ANNOT_DESC]+"</td>") # Readable description
-    #        
-    #        # InterPro
-    #        if annot[AnnotFields.GENES_ANNOT_INTERPRO] != "-":
-    #            self.output_buffer.append("<td>"+self.__interpro_html_links(annot[AnnotFields.GENES_ANNOT_INTERPRO])+"</td>")
-    #        else:
-    #            self.output_buffer.append("<td>-</td>")
-    #        
-    #        # PFAM and others
-    #        pfam_annot = annot[AnnotFields.GENES_ANNOT_PFAM].replace(",", "<br/>")
-    #        self.output_buffer.append("<td>"+pfam_annot+"</td>") # PFAM ID
-    #        #self.output_buffer.append("<td>"+x[7]+"</td>") # PFAM source
-    #        self.output_buffer.append("<td>"+self.__go_html_links(annot[AnnotFields.GENES_ANNOT_GO])+"</td>") # GO terms
-    #    
-    #    return
-    
-    #def __same_position(self, pos, last_pos, map_has_cm_pos, map_has_bp_pos):
-    #    
-    #    retValue = False
-    #    
-    #    ## last position data: to compare with previous position and dont show redundant fields
-    #    last_marker_id = last_pos[MapFields.MARKER_NAME_POS]
-    #    last_chrom = last_pos[MapFields.MARKER_CHR_POS]
-    #    
-    #    if map_has_cm_pos:
-    #        last_cm = last_pos[MapFields.MARKER_CM_POS]
-    #    
-    #    if map_has_bp_pos:
-    #        last_bp = last_pos[MapFields.MARKER_BP_POS]
-    #    
-    #    ## Current position data
-    #    marker_id = pos[MapFields.MARKER_NAME_POS]
-    #    chrom = pos[MapFields.MARKER_CHR_POS]
-    #    
-    #    if map_has_cm_pos:
-    #        cm = pos[MapFields.MARKER_CM_POS]
-    #        
-    #    if map_has_bp_pos:
-    #        bp = pos[MapFields.MARKER_BP_POS]
-    #    
-    #    # Comparison
-    #    if map_has_cm_pos and map_has_bp_pos:
-    #        if last_marker_id == marker_id and \
-    #            last_chrom == chrom and \
-    #            last_cm == cm and last_bp == bp:
-    #                retValue = True
-    #    elif map_has_cm_pos:
-    #        if last_marker_id == marker_id and \
-    #            last_chrom == chrom and \
-    #            last_cm == cm:
-    #                retValue = True
-    #    elif map_has_bp_pos:
-    #        if last_marker_id == marker_id and \
-    #            last_chrom == chrom and \
-    #            last_bp == bp:
-    #                retValue = True
-    #    else:
-    #        raise m2pException("html_writer_maps. Bad map configuration.")
-    #    
-    #    return retValue
     
     def __output_html_positions_base_header(self, map_as_physical, map_has_cm_pos, map_has_bp_pos, multiple_param, table_id = "positions_table"):
         
@@ -208,29 +115,25 @@ class HtmlMapsWriter():
         self.output_buffer.append(td+str(chrom)+"</td>")
         
         if map_as_physical:
-            bp = pos.get_bp_pos()#pos[MapFields.MARKER_CM_POS]
-            #if cm != "-": self.output_buffer.append("<td>"+str("%0.2f" % cm)+"</td>")
-            #else: self.output_buffer.append("<td>"+str(cm)+"</td>")
+            bp = pos.get_bp_pos()
             self.output_buffer.append(td+str(bp)+"</td>")
             
-            bp_end = pos.get_bp_end_pos()#pos[MapFields.MARKER_BP_POS]
-            #if bp != "-": self.output_buffer.append("<td>"+self.__location_html_link(chrom, bp)+"</td>")
-            #else: self.output_buffer.append("<td>"+str(bp)+"</td>")
+            bp_end = pos.get_bp_end_pos()
             self.output_buffer.append(td+str(bp_end)+"</td>")
             
-            strand = pos.get_strand()#pos[MapFields.MARKER_BP_POS]
+            strand = pos.get_strand()
             self.output_buffer.append(td+str(strand)+"</td>")
             
         else:
             ## cM
             if map_has_cm_pos:
-                cm = pos.get_cm_pos()#pos[MapFields.MARKER_CM_POS]
+                cm = pos.get_cm_pos()
                 if cm != "-": self.output_buffer.append(td+str("%0.2f" % float(cm))+"</td>")
                 else: self.output_buffer.append(td+str(cm)+"</td>")
             
             ## bp
             if map_has_bp_pos:
-                bp = pos.get_bp_pos()#pos[MapFields.MARKER_BP_POS]
+                bp = pos.get_bp_pos()
                 if bp != "-": self.output_buffer.append(td+self.__location_html_link(chrom, bp)+"</td>")
                 else: self.output_buffer.append(td+str(bp)+"</td>")
         
@@ -253,70 +156,10 @@ class HtmlMapsWriter():
             else:
                 self.output_buffer.append(td+"No"+"</td>")
         
-        #else:
-        #    self.output_buffer.append('<td style="border:none;border-color:#FFFFFF;background-color:#FFFFFF;"></td>')
-        #    self.output_buffer.append('<td style="border:none;border-color:#FFFFFF;background-color:#FFFFFF;"></td>')
-        #    
-        #    ## cM
-        #    if map_has_cm_pos:
-        #        self.output_buffer.append('<td style="border:none;border-color:#FFFFFF;background-color:#FFFFFF;"></td>')
-        #    
-        #    ## bp
-        #    if map_has_bp_pos:
-        #        self.output_buffer.append('<td style="border:none;border-color:#FFFFFF;background-color:#FFFFFF;"></td>')
-        #    
-        #    ## Multiple
-        #    if multiple_param == "yes":
-        #        self.output_buffer.append('<td style="border:none;border-color:#FFFFFF;background-color:#FFFFFF;"></td>')
-        #    
-        #    ## Other alignments
-        #    self.output_buffer.append('<td style="border:none;border-color:#FFFFFF;background-color:#FFFFFF;"></td>')
-        
         return
     
     def __marker_html_link(self, marker_id):
         return marker_id
-    
-    #def __output_html_marker(self, map_has_cm_pos, map_has_bp_pos, marker):
-    #    
-    #    marker_cm = marker[MarkersFields.MARKER_CM_POS]
-    #    if marker_cm != "-":
-    #        cm_pos = str("%0.2f" % float(marker_cm))
-    #    else:
-    #        cm_pos = marker_cm
-    #    
-    #    chrom = marker[MarkersFields.MARKER_CHR_POS]
-    #    bp = marker[MarkersFields.MARKER_BP_POS]
-    #    
-    #    marker_data = []
-    #    marker_data.append("<td></td>")
-    #    
-    #    marker_id = marker[MarkersFields.MARKER_ID_POS]
-    #    if marker_id != "-": marker_data.append("<td>"+self.__marker_html_link(marker_id)+"</td>")
-    #    else: marker_data.append("<td>"+marker_id+"</td>")
-    #    
-    #    marker_data.append("<td>"+marker[MarkersFields.MARKER_DATASET_POS].replace("_", " ")+"</td>")
-    #    marker_data.append("<td>"+str(chrom)+"</td>")
-    #    
-    #    if map_has_cm_pos:
-    #        marker_data.append("<td>"+str(cm_pos)+"</td>")
-    #    
-    #    if map_has_bp_pos:
-    #        if bp != "-": marker_data.append("<td>"+self.__location_html_link(chrom, bp)+"</td>")
-    #        else: marker_data.append("<td>"+str(bp)+"</td>")
-    #    
-    #    if marker[MarkersFields.MARKER_GENES_CONFIGURED_POS]:
-    #        if len(marker[MarkersFields.MARKER_GENES_POS]) > 0:
-    #            links_array = [self.__gene_html_link(gene_id) for gene_id in marker[MarkersFields.MARKER_GENES_POS]]
-    #            marker_data.append("<td>"+"<br/>".join(links_array)+"</td>")
-    #        else:
-    #            marker_data.append("<td>no hits</td>")
-    #    else:
-    #        marker_data.append("<td>nd</td>")
-    #    
-    #    self.output_buffer.append("".join(marker_data))
-    #    
-    #    return
     
     def __output_basic_pos(self, pos, map_as_physical, map_has_cm_pos, map_has_bp_pos, multiple_param, same_pos):
         
@@ -343,8 +186,6 @@ class HtmlMapsWriter():
     
     def output_genetic_map(self, positions, map_config, multiple_param):
         
-        #positions = mapping_results.get_mapped()
-        #map_config = mapping_results.get_map_config()
         map_has_cm_pos = map_config.has_cm_pos()
         map_has_bp_pos = map_config.has_bp_pos()
         map_name = map_config.get_name()

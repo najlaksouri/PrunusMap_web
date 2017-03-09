@@ -8,10 +8,12 @@ $(document).ready(function(){
     //
     if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
         $("#extend_fieldset").show();
-        $("#genes_text").text("Genes between each two markers will be added to the results.");
+        //$("#genes_text").text("Additional information will be added to the results.");
+        $("#onmarker_fieldset").show();
     } else {
         $("#extend_fieldset").hide();
-        $("#genes_text").text("");
+        //$("#genes_text").text("");
+        $("#onmarker_fieldset").hide();
     }
     
     if($("#extend").is(':checked')){
@@ -87,30 +89,36 @@ i_SCRI_RS_130600\ni_SCRI_RS_150677\ni_SCRI_RS_189465\nowbGBS13547\n");
     $("#show_genes").change(function(){
         if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
             $("#extend_fieldset").show();
-            $("#genes_text").text("Genes between each two markers will be added to the results.");
+            //$("#genes_text").text("Genes between each two markers will be added to the results.");
+            $("#onmarker_fieldset").show();
         } else {
             $("#extend_fieldset").hide();
-            $("#genes_text").text("");
+            //$("#genes_text").text("");
+            $("#onmarker_fieldset").hide();
         }
     });
     
     $("#show_markers").change(function(){
         if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
             $("#extend_fieldset").show();
-            $("#genes_text").text("Genes between each two markers will be added to the results.");
+            //$("#genes_text").text("Genes between each two markers will be added to the results.");
+            $("#onmarker_fieldset").show();
         } else {
             $("#extend_fieldset").hide();
-            $("#genes_text").text("");
+            //$("#genes_text").text("");
+            $("#onmarker_fieldset").hide();
         }
     });
     
     $("#show_anchored").change(function(){
         if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
             $("#extend_fieldset").show();
-            $("#genes_text").text("Genes between each two markers will be added to the results.");
+            //$("#genes_text").text("Genes between each two markers will be added to the results.");
+            $("#onmarker_fieldset").show();
         } else {
             $("#extend_fieldset").hide();
-            $("#genes_text").text("");
+            //$("#genes_text").text("");
+            $("#onmarker_fieldset").hide();
         }
     });
     

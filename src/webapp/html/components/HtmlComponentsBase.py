@@ -146,14 +146,14 @@ class HtmlComponentsBase(object):
         return "".join(output)
     
     @staticmethod
-    def _load_genes_area(show_markers, show_genes, show_anchored,
+    def _load_genes_area(show_markers, show_genes, show_anchored, show_how,
                          extend, extend_cm, extend_bp, action):
         output = []
         
         ##<fieldset style="border:solid thin;height:170px;padding-bottom: 1em;padding-top: 0%;width:430px">
         output.append("""
                 <!-- GENES AND MARKERS OPTIONS -->
-                <fieldset style="border:solid thin;height:150px;padding-bottom: 1em;padding-top: 0%;width:430px">
+                <fieldset style="border:solid thin;height:160px;padding-bottom: 1em;padding-top: 0%;width:430px">
                     <legend>Genes/Markers enrichment:</legend>
                     """)
         
@@ -215,9 +215,46 @@ class HtmlComponentsBase(object):
                       </table><hr/>
                       """)
         
+        ################# Features on markers or in the intervals
+        output.append("""
+                      <!-- Radio button: enrichment ON MARKERS or in the intervals -->
+                      <fieldset id="onmarker_fieldset" style="border:none;padding:0px;">
+                        <table><tr>
+                      """)
+        
+        ############ SORT
+        output.append("""
+                        <td style="width:50%;">
+                            <label for = "show_how">Add features:</label>
+                            <input type="radio" name="show_how" id="on_intervals" value="0" 
+                    """)
+        
+        if show_how == "" or show_how == "0": output.append(" checked/>")
+        else: output.append(" />")
+        
+        output.append("""
+                            <label for ="on_intervals">on intervals</label>
+                            <input type="radio" name="show_how" id="on_markers" value="1"
+                    """)
+        if show_how == "1": output.append(" checked/>")
+        else: output.append(" />")
+        
+        output.append("""
+                            <label for ="on_markers">on markers</label>
+                         </td>
+                    """)
+        
+        output.append("""
+                      </tr>
+                      </table>
+                      <hr/>
+                      </fieldset>
+                      """)
+        
+        
         ################# GENES Extend search
         output.append("""
-                    <fieldset id="extend_fieldset" style="border:none;">
+                    <fieldset id="extend_fieldset" style="border:none;padding:0px;">
                     <table>""")
         
         output.append("""
@@ -230,11 +267,11 @@ class HtmlComponentsBase(object):
         
         output.append("""
                         <label for="extend">Extend genes/markers search</label>
-                      </td></tr>
+                      <!--</td></tr>-->
                 """)
         
         output.append("""
-                            <tr><td><span id="extend_cm">
+                            <!--<tr><td>--><span id="extend_cm">
                                 <input type="number" name="extend_cm" id="window_cm" pattern="[0-9]+[\.][0-9]+" step="0.1" min="0.0" max="9999.9"
                         """)
         #if not genes_window_cm or genes_window_cm == "": output.append(' value="'+str(ResourcesMng.get_def_genes_window_cm())+'"')
@@ -245,11 +282,11 @@ class HtmlComponentsBase(object):
         output.append("""
                                        style="text-align:right;width:4em"/>
                                 <label for="window_cm">cM</label>
-                            </span></td></tr>
+                            </span><!--</td></tr>-->
                             """)
         
         output.append("""
-                           <tr><td><span id="extend_bp">
+                           <!--<tr><td>--><span id="extend_bp">
                                 <input type="number" name="extend_bp" id="window_bp" pattern="[0-9]+" step="1" min="1" max="10000000000"
                         """)
         #if not genes_window_bp or genes_window_bp == "": output.append(' value="'+str(ResourcesMng.get_def_genes_window_bp())+'"')
@@ -260,8 +297,12 @@ class HtmlComponentsBase(object):
         output.append("""
                                        style="text-align:right;width:7em"/>
                                 <label for="window_bp">bp</label>
-                            </span></td></tr>
+                            </span><!--</td></tr>-->
                             """)
+        
+        output.append("""
+                      </td></tr>
+                      """)
         
         output.append("""
                       <tr><td>

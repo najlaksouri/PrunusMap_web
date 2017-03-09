@@ -38,6 +38,7 @@ class HtmlComponentsFind(object):
         output.append(HtmlComponentsBase._load_genes_area(find_form.get_show_markers(),
                                         find_form.get_show_genes(),
                                         find_form.get_show_anchored(),
+                                        find_form.get_show_how(),
                                         find_form.get_extend(),
                                         find_form.get_extend_cm(),
                                         find_form.get_extend_bp(),

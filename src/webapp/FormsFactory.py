@@ -11,7 +11,7 @@ class FormsFactory(object):
     
     @staticmethod
     def get_align_form_new(query = "", multiple = "", sort = "",
-                           show_markers = "", show_genes = "", show_anchored = "",
+                           show_markers = "", show_genes = "", show_anchored = "", show_how = "",
                            extend = "", extend_cm = "", extend_bp = "",
                            maps = "", send_email = "", email_to = "", user_file = None,
                            aligner = "", threshold_id = "", threshold_cov = ""):
@@ -19,7 +19,7 @@ class FormsFactory(object):
         form = AlignForm()
         
         form.set_parameters(query, multiple, sort,
-                           show_markers, show_genes, show_anchored,
+                           show_markers, show_genes, show_anchored, show_how,
                            extend, extend_cm, extend_bp,
                            maps, send_email, email_to, user_file)
         
@@ -55,14 +55,14 @@ class FormsFactory(object):
     
     @staticmethod
     def get_find_form_new(query = "", multiple = "", sort = "",
-                           show_markers = "", show_genes = "", show_anchored = "",
+                           show_markers = "", show_genes = "", show_anchored = "", show_how = "",
                            extend = "", extend_cm = "", extend_bp = "",
                            maps = "", send_email = "", email_to = "", user_file = None):
         
         form = FindForm()
         
         form.set_parameters(query, multiple, sort,
-                           show_markers, show_genes, show_anchored,
+                           show_markers, show_genes, show_anchored, show_how,
                            extend, extend_cm, extend_bp,
                            maps, send_email, email_to, user_file)
         
@@ -97,6 +97,7 @@ class InputForm(object):
     SHOW_MARKERS = "show_markers"
     SHOW_GENES = "show_genes"
     SHOW_ANCHORED = "show_anchored"
+    SHOW_HOW = "show_how"
     EXTEND = "extend"
     EXTEND_CM = "extend_cm"
     EXTEND_BP = "extend_bp"
@@ -113,6 +114,7 @@ class InputForm(object):
     _show_markers = ""
     _show_genes = ""
     _show_anchored = ""
+    _show_how = "" # on intervals, on markers
     _extend = ""
     _extend_cm = ""
     _extend_bp = ""
@@ -162,6 +164,12 @@ class InputForm(object):
     
     def set_show_anchored(self, show_anchored):
         self._show_anchored = show_anchored
+    
+    def get_show_how(self, ):
+        return self._show_how
+    
+    def set_show_how(self, show_how):
+        self._show_how = show_how
     
     def get_extend(self):
         return self._extend
@@ -228,6 +236,7 @@ class InputForm(object):
         session[self.SHOW_MARKERS] = self.get_show_markers()
         session[self.SHOW_GENES] = self.get_show_genes()
         session[self.SHOW_ANCHORED] = self.get_show_anchored()
+        session[self.SHOW_HOW] = self.get_show_how()
         
         if self.get_extend() == "1":
             session[self.EXTEND] = self.get_extend()
@@ -262,6 +271,7 @@ class InputForm(object):
         form._show_markers = session.get(form.SHOW_MARKERS)
         form._show_genes = session.get(form.SHOW_GENES)
         form._show_anchored = session.get(form.SHOW_ANCHORED)
+        form._show_how = session.get(form.SHOW_HOW)
         form._extend = session.get(form.EXTEND)
         form._extend_cm = session.get(form.EXTEND_CM)
         form._extend_bp = session.get(form.EXTEND_BP)
@@ -276,7 +286,7 @@ class InputForm(object):
         return form
     
     def set_parameters(self, query = "", multiple = "", sort = "",
-                           show_markers = "", show_genes = "", show_anchored = "",
+                           show_markers = "", show_genes = "", show_anchored = "", show_how = "",
                            extend = "", extend_cm = "", extend_bp = "",
                            maps = "", send_email = "", email_to = "", user_file = None):
         form = self
@@ -287,6 +297,7 @@ class InputForm(object):
         form.set_show_markers(show_markers)
         form.set_show_genes(show_genes)
         form.set_show_anchored(show_anchored)
+        form.set_show_how(show_how)
         form.set_extend(extend)
         form.set_extend_cm(extend_cm)
         form.set_extend_bp(extend_bp)
@@ -306,6 +317,7 @@ class InputForm(object):
         ret_value.append("Show genes: "+self.get_show_genes())
         ret_value.append("Show markers: "+self.get_show_markers())
         ret_value.append("Show anchored features: "+self.get_show_anchored())
+        ret_value.append("Show how: "+self.get_show_how())
         ret_value.append("Extend search: "+self.get_extend())
         ret_value.append("Extend interval (cM): "+self.get_extend_cm())
         ret_value.append("Extend interval (bp): "+self.get_extend_bp())
