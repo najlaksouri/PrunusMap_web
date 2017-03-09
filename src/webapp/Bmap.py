@@ -16,6 +16,7 @@ from barleymapcore.datasets.DatasetsFacade import DatasetsFacade
 from barleymapcore.annotators.GenesAnnotator import AnnotatorsFactory
 from barleymapcore.maps.MapMarkers import MapMarkers
 from barleymapcore.maps.MapsBase import MapTypes
+from barleymapcore.maps.enrichment.MapEnricher import SHOW_ON_INTERVALS, SHOW_ON_MARKERS
 from barleymapcore.output.CSVWriter import CSVWriter
 from barleymapcore.m2p_exception import m2pException
 
@@ -194,6 +195,7 @@ class Bmap(object):
         show_markers = find_form.get_show_markers()
         show_genes = find_form.get_show_genes()
         show_anchored = find_form.get_show_anchored()
+        show_how = SHOW_ON_MARKERS if find_form.get_show_how() == "1" else SHOW_ON_INTERVALS
         collapsed_view = find_form.get_collapsed_view()
         constrain_fine_mapping = True
         
@@ -221,8 +223,8 @@ class Bmap(object):
             # GenesAnnotator
             annotator = self._get_annotator(find_form)
             
-            mapMarkers.enrichment(annotator, show_markers, show_genes, show_anchored,
-                                  datasets_facade, extend_window, collapsed_view, constrain_fine_mapping)
+            mapMarkers.enrichment(annotator, show_markers, show_genes, show_anchored, show_how,
+                                  datasets_facade, datasets_ids, extend_window, collapsed_view, constrain_fine_mapping)
             
             mapping_results = mapMarkers.get_mapping_results()
             
@@ -273,6 +275,7 @@ class Bmap(object):
         # Datasets config
         datasets_conf_file = __app_path+DATASETS_CONF
         datasets_config = DatasetsConfig(datasets_conf_file)
+        datasets_ids = datasets_config.get_datasets().keys()
         
         # Load DatasetsFacade
         datasets_path = paths_config.get_datasets_path() #__app_path+config_path_dict["datasets_path"]
@@ -288,6 +291,7 @@ class Bmap(object):
         show_markers = align_form.get_show_markers()
         show_genes = align_form.get_show_genes()
         show_anchored = align_form.get_show_anchored()
+        show_how = SHOW_ON_MARKERS if align_form.get_show_how() == "1" else SHOW_ON_INTERVALS
         collapsed_view = align_form.get_collapsed_view()
         constrain_fine_mapping = True
         best_score = True
@@ -330,8 +334,8 @@ class Bmap(object):
             #load_annot = True always
             annotator = self._get_annotator(align_form)
             
-            mapMarkers.enrichment(annotator, show_markers, show_genes, show_anchored,
-                                  datasets_facade, extend_window, collapsed_view, constrain_fine_mapping = False)
+            mapMarkers.enrichment(annotator, show_markers, show_genes, show_anchored, show_how,
+                                  datasets_facade, datasets_ids, extend_window, collapsed_view, constrain_fine_mapping = False)
             mapping_results = mapMarkers.get_mapping_results()
             
             sys.stderr.write("Num mapping results:"+str(len(mapping_results.get_mapped()))+"\n")

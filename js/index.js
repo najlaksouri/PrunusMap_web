@@ -7,13 +7,16 @@ $(document).ready(function(){
     // Preload from current values
     //
     if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
-        $("#extend_fieldset").show();
-        //$("#genes_text").text("Additional information will be added to the results.");
         $("#onmarker_fieldset").show();
+        
+        if($('#on_intervals').is(':checked')) {
+            $("#extend_fieldset").show();
+            //$("#genes_text").text("Additional information will be added to the results.");
+        }
     } else {
-        $("#extend_fieldset").hide();
         //$("#genes_text").text("");
         $("#onmarker_fieldset").hide();
+        $("#extend_fieldset").hide();
     }
     
     if($("#extend").is(':checked')){
@@ -82,15 +85,25 @@ i_SCRI_RS_1426\ni_SCRI_RS_198888\ni_SCRI_RS_128254\ni_SCRI_RS_223224\ni_SCRI_RS_
     
     // LOAD DEMO IDS
     $("#find_demo_button_region").click(function(){
-        $("#find_query").text("i_SCRI_RS_129789\ni_12_30588\ni_12_30948\n\
-i_SCRI_RS_130600\ni_SCRI_RS_150677\ni_SCRI_RS_189465\nowbGBS13547\n");
+        $("#find_query").text("SCRI_RS_129789\n\
+JHI-Hv50k-2016-9956\n\
+JHI-Hv50k-2016-9963\n\
+12_30588\n\
+12_30948\n\
+SCRI_RS_130600\n\
+SCRI_RS_150677\n\
+SCRI_RS_189465\n\
+owbGBS13547\n\
+11_20749\n");
     });
     
     $("#show_genes").change(function(){
         if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
-            $("#extend_fieldset").show();
-            //$("#genes_text").text("Genes between each two markers will be added to the results.");
             $("#onmarker_fieldset").show();
+            if($('#on_intervals').is(':checked')) {
+                $("#extend_fieldset").show();
+                //$("#genes_text").text("Genes between each two markers will be added to the results.");
+            }
         } else {
             $("#extend_fieldset").hide();
             //$("#genes_text").text("");
@@ -100,9 +113,11 @@ i_SCRI_RS_130600\ni_SCRI_RS_150677\ni_SCRI_RS_189465\nowbGBS13547\n");
     
     $("#show_markers").change(function(){
         if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
-            $("#extend_fieldset").show();
-            //$("#genes_text").text("Genes between each two markers will be added to the results.");
             $("#onmarker_fieldset").show();
+            if($('#on_intervals').is(':checked')) {
+                $("#extend_fieldset").show();
+                //$("#genes_text").text("Genes between each two markers will be added to the results.");
+            }
         } else {
             $("#extend_fieldset").hide();
             //$("#genes_text").text("");
@@ -112,14 +127,24 @@ i_SCRI_RS_130600\ni_SCRI_RS_150677\ni_SCRI_RS_189465\nowbGBS13547\n");
     
     $("#show_anchored").change(function(){
         if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
-            $("#extend_fieldset").show();
-            //$("#genes_text").text("Genes between each two markers will be added to the results.");
             $("#onmarker_fieldset").show();
+            if($('#on_intervals').is(':checked')) {
+                $("#extend_fieldset").show();
+                //$("#genes_text").text("Genes between each two markers will be added to the results.");
+            }
         } else {
             $("#extend_fieldset").hide();
             //$("#genes_text").text("");
             $("#onmarker_fieldset").hide();
         }
+    });
+    
+    $("#on_intervals").change(function(){
+        $("#extend_fieldset").show();
+    });
+    
+    $("#on_markers").change(function(){
+        $("#extend_fieldset").hide();
     });
     
     $("#extend").change(function(){
@@ -163,24 +188,6 @@ i_SCRI_RS_130600\ni_SCRI_RS_150677\ni_SCRI_RS_189465\nowbGBS13547\n");
         }
         
     });
-    
-    //$("#align_user_file").change(function(){
-    //    $("#align_clear_file_button").show();
-    //});
-    //
-    //$("#align_clear_file_button").click(function(){
-    //    $(this).hide();
-    //    $("#align_user_file").replaceWith( control = $("#align_user_file").clone( true ) );
-    //});
-    //
-    //$("#find_user_file").change(function(){
-    //    $("#find_clear_file_button").show();
-    //});
-    //
-    //$("#find_clear_file_button").click(function(){
-    //    $(this).hide();
-    //    $("#find_user_file").replaceWith( control = $("#find_user_file").clone( true ) );
-    //});
     
     $("#user_file").change(function(){
         $("#clear_file_button").show();
