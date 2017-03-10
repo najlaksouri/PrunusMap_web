@@ -142,11 +142,10 @@ class HtmlComponentsBase(object):
                         </td></tr></table>
                         """)
         
-        
         return "".join(output)
     
     @staticmethod
-    def _load_genes_area(show_markers, show_genes, show_anchored, show_how,
+    def _load_genes_area(show_markers, show_genes, show_anchored, show_main, show_how,
                          extend, extend_cm, extend_bp, action):
         output = []
         
@@ -219,12 +218,11 @@ class HtmlComponentsBase(object):
         output.append("""
                       <!-- Radio button: enrichment ON MARKERS or in the intervals -->
                       <fieldset id="onmarker_fieldset" style="border:none;padding:0px;">
-                        <table><tr>
+                        <table style="text-align:center;">
                       """)
         
-        ############ SORT
         output.append("""
-                        <td style="width:50%;">
+                        <tr><td style="width:50%;">
                             <label for = "show_how">Add features:</label>
                             <input type="radio" name="show_how" id="on_intervals" value="0" 
                     """)
@@ -246,11 +244,31 @@ class HtmlComponentsBase(object):
         
         output.append("""
                       </tr>
+                      """)
+        
+        output.append("""
+                      <tr>
+                      <td>
+                      <input type="checkbox" id="show_main" name="show_main" value="1"
+                      """)
+        
+        if show_main == "0": output.append(" />")
+        else: output.append(" checked/>")
+        
+        output.append("""
+                      <label for="show_main">show only main features</label>
+                      """)
+        
+        output.append("""
+                      </td>
+                      </tr>
+                      """)
+        
+        output.append("""
                       </table>
                       <hr/>
                       </fieldset>
                       """)
-        
         
         ################# GENES Extend search
         output.append("""

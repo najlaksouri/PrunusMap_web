@@ -39,7 +39,8 @@ class Root():
     
     @cherrypy.expose
     def find(self, action = "", query = "", multiple = "", sort = "",
-             show_markers = "", show_genes = "", show_anchored = "", show_how = "",
+             show_markers = "", show_genes = "", show_anchored = "",
+             show_main = "", show_how = "",
              load_annot = "", extend = "", extend_cm = "", extend_bp = "",
              maps = "", send_email = "", email_to = "", user_file = None):
         
@@ -49,7 +50,8 @@ class Root():
             bmap_settings = cherrypy.request.app.config['bmapsettings']
             
             form = FormsFactory.get_find_form_new(query, multiple, sort,
-                                                       show_markers, show_genes, show_anchored, show_how,
+                                                       show_markers, show_genes, show_anchored,
+                                                       show_main, show_how,
                                                        extend, extend_cm, extend_bp,
                                                        maps, send_email, email_to, user_file)
             
@@ -87,7 +89,8 @@ class Root():
     
     @cherrypy.expose
     def align(self, action = "", query = "", multiple = "", sort = "",
-              show_markers = "", show_genes = "", show_anchored = "", show_how = "",
+              show_markers = "", show_genes = "", show_anchored = "",
+              show_main = "", show_how = "",
               load_annot = "", extend = "", extend_cm = "", extend_bp = "",
               maps = "", send_email = "", email_to = "", user_file = None,
               aligner = "", threshold_id = "", threshold_cov = ""):
@@ -98,7 +101,8 @@ class Root():
             bmap_settings = cherrypy.request.app.config['bmapsettings']
             
             form = FormsFactory.get_align_form_new(query, multiple, sort,
-                                                   show_markers, show_genes, show_anchored, show_how,
+                                                   show_markers, show_genes, show_anchored,
+                                                   show_main, show_how,
                                                    extend, extend_cm, extend_bp,
                                                    maps, send_email, email_to, user_file,
                                                      aligner, threshold_id, threshold_cov)
