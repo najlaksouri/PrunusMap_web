@@ -9,10 +9,10 @@ $(document).ready(function(){
     if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
         $("#onmarker_fieldset").show();
         
-        if($('#on_intervals').is(':checked')) {
-            $("#extend_fieldset").show();
+        //if($('#on_intervals').is(':checked')) {
+        $("#extend_fieldset").show();
             //$("#genes_text").text("Additional information will be added to the results.");
-        }
+        //}
     } else {
         //$("#genes_text").text("");
         $("#onmarker_fieldset").hide();
@@ -100,10 +100,10 @@ owbGBS13547\n\
     $("#show_genes").change(function(){
         if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
             $("#onmarker_fieldset").show();
-            if($('#on_intervals').is(':checked')) {
-                $("#extend_fieldset").show();
+            //if($('#on_intervals').is(':checked')) {
+            $("#extend_fieldset").show();
                 //$("#genes_text").text("Genes between each two markers will be added to the results.");
-            }
+            //}
         } else {
             $("#extend_fieldset").hide();
             //$("#genes_text").text("");
@@ -114,10 +114,10 @@ owbGBS13547\n\
     $("#show_markers").change(function(){
         if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
             $("#onmarker_fieldset").show();
-            if($('#on_intervals').is(':checked')) {
-                $("#extend_fieldset").show();
+            //if($('#on_intervals').is(':checked')) {
+            $("#extend_fieldset").show();
                 //$("#genes_text").text("Genes between each two markers will be added to the results.");
-            }
+            //}
         } else {
             $("#extend_fieldset").hide();
             //$("#genes_text").text("");
@@ -128,10 +128,10 @@ owbGBS13547\n\
     $("#show_anchored").change(function(){
         if($('#show_genes').is(':checked') || $('#show_markers').is(':checked') || $('#show_anchored').is(':checked')) {
             $("#onmarker_fieldset").show();
-            if($('#on_intervals').is(':checked')) {
-                $("#extend_fieldset").show();
+            //if($('#on_intervals').is(':checked')) {
+            $("#extend_fieldset").show();
                 //$("#genes_text").text("Genes between each two markers will be added to the results.");
-            }
+            //}
         } else {
             $("#extend_fieldset").hide();
             //$("#genes_text").text("");
@@ -139,13 +139,13 @@ owbGBS13547\n\
         }
     });
     
-    $("#on_intervals").change(function(){
-        $("#extend_fieldset").show();
-    });
-    
-    $("#on_markers").change(function(){
-        $("#extend_fieldset").hide();
-    });
+    //$("#on_intervals").change(function(){
+    //    $("#extend_fieldset").show();
+    //});
+    //
+    //$("#on_markers").change(function(){
+    //    $("#extend_fieldset").hide();
+    //});
     
     $("#extend").change(function(){
         if ($(this).is(":checked")) {
