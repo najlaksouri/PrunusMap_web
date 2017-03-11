@@ -312,6 +312,7 @@ class InputForm(object):
         form.set_show_markers(show_markers)
         form.set_show_genes(show_genes)
         form.set_show_anchored(show_anchored)
+        show_main = show_main if show_main else "0"
         form.set_show_main(show_main)
         form.set_show_how(show_how)
         form.set_extend(extend)

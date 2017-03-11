@@ -295,7 +295,7 @@ class Bmap(object):
         show_markers = align_form.get_show_markers()
         show_genes = align_form.get_show_genes()
         show_anchored = align_form.get_show_anchored()
-        show_main = True if find_form.get_show_main() == "1" else False
+        show_main = True if align_form.get_show_main() == "1" else False
         show_how = SHOW_ON_MARKERS if align_form.get_show_how() == "1" else SHOW_ON_INTERVALS
         collapsed_view = align_form.get_collapsed_view()
         constrain_fine_mapping = True
