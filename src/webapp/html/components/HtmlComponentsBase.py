@@ -250,10 +250,7 @@ class HtmlComponentsBase(object):
                       <tr>
                       <td>
                       <input type="checkbox" id="show_main" name="show_main" value="1"
-                      """)
-        
-        sys.stderr.write("HTMLCOMPONENTSBASE\n")
-        sys.stderr.write(str(show_main)+"*******************\n")        
+                      """)       
         
         if show_main == "1": output.append(" checked/>")
         elif show_main == "0": output.append(" />")
