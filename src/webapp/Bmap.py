@@ -225,10 +225,12 @@ class Bmap(object):
             annotator = self._get_annotator(find_form)
             
             if show_main:
-                datasets_ids = map_config.get_main_datasets()
+                datasets_enrichment = map_config.get_main_datasets()
+            else:
+                datasets_enrichment = datasets_ids
             
             mapMarkers.enrichment(annotator, show_markers, show_genes, show_anchored, show_how,
-                                  datasets_facade, datasets_ids, extend_window, collapsed_view, constrain_fine_mapping)
+                                  datasets_facade, datasets_enrichment, extend_window, collapsed_view, constrain_fine_mapping)
             
             mapping_results = mapMarkers.get_mapping_results()
             
@@ -295,7 +297,7 @@ class Bmap(object):
         show_markers = align_form.get_show_markers()
         show_genes = align_form.get_show_genes()
         show_anchored = align_form.get_show_anchored()
-        show_main = True if align_form.get_show_main() == "1" else False
+        show_main = True if find_form.get_show_main() == "1" else False
         show_how = SHOW_ON_MARKERS if align_form.get_show_how() == "1" else SHOW_ON_INTERVALS
         collapsed_view = align_form.get_collapsed_view()
         constrain_fine_mapping = True
