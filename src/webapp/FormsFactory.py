@@ -309,8 +309,11 @@ class InputForm(object):
         form.set_query(query)
         form.set_multiple(multiple)
         form.set_sort(sort)
+        show_markers = show_markers if show_markers else "0"
         form.set_show_markers(show_markers)
+        show_genes = show_genes if show_genes else "0"
         form.set_show_genes(show_genes)
+        show_anchored = show_anchored if show_anchored else "0"
         form.set_show_anchored(show_anchored)
         show_main = show_main if show_main else "0"
         form.set_show_main(show_main)

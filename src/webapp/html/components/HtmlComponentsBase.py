@@ -170,7 +170,8 @@ class HtmlComponentsBase(object):
                       """)
         
         if show_genes == "1": output.append(" checked/>")
-        else: output.append(" />")
+        elif show_genes == "0": output.append(" />")
+        else: output.append(" checked/>")
         
         output.append("""
                       </td>
@@ -187,7 +188,8 @@ class HtmlComponentsBase(object):
                       """)
         
         if show_markers == "1": output.append(" checked/>")
-        else: output.append(" />")
+        elif show_markers == "0": output.append(" />")
+        else: output.append(" checked/>")
         
         output.append("""
                       </td>

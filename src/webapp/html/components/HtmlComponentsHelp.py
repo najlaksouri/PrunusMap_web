@@ -128,6 +128,7 @@ class HtmlComponentsHelp(object):
         output_buffer.append("""<br/><br/><span style="color:red;text-align:left;font-size:48px;"><strong>WARNING: this Help page corresponds to the Barleymap application POPSEQ edition.
                              The new help for the current edition will be available soon.
                              Please, consider all that is explained in this page as provisional and very likely outdated.
+                             Check "last changes" section in the main Barleymap page for an overview.
                              </strong></span><br/><br/>""")
         
         HtmlComponentsHelp._help_menu(output_buffer)

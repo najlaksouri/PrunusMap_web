@@ -134,8 +134,8 @@ class Bmap(object):
         return input_file_name
     
     ##
-    def _get_annotator(self, form):
-        if form.get_show_genes():
+    def _get_annotator(self, show_genes):
+        if show_genes:
             paths_config = self._paths_config
             __app_path = paths_config.get_app_path()
             ## Load annotation config
@@ -192,9 +192,9 @@ class Bmap(object):
         ###########
         sort_param = find_form.get_sort()
         multiple_param = True if find_form.get_multiple()=="1" else False
-        show_markers = find_form.get_show_markers()
-        show_genes = find_form.get_show_genes()
-        show_anchored = find_form.get_show_anchored()
+        show_markers = True if find_form.get_show_markers()=="1" else False
+        show_genes = True if find_form.get_show_genes()=="1" else False
+        show_anchored = True if find_form.get_show_anchored()=="1" else False
         show_main = True if find_form.get_show_main() == "1" else False
         show_how = SHOW_ON_MARKERS if find_form.get_show_how() == "1" else SHOW_ON_INTERVALS
         collapsed_view = find_form.get_collapsed_view()
@@ -222,7 +222,7 @@ class Bmap(object):
             
             #load_annot = True always
             # GenesAnnotator
-            annotator = self._get_annotator(find_form)
+            annotator = self._get_annotator(show_genes)
             
             if show_main:
                 datasets_enrichment = map_config.get_main_datasets()
@@ -294,9 +294,9 @@ class Bmap(object):
         ###########
         sort_param = align_form.get_sort()
         multiple_param = True if align_form.get_multiple()=="1" else False
-        show_markers = align_form.get_show_markers()
-        show_genes = align_form.get_show_genes()
-        show_anchored = align_form.get_show_anchored()
+        show_markers = True if align_form.get_show_markers() == "1" else False
+        show_genes = True if align_form.get_show_genes() == "1" else False
+        show_anchored = True if align_form.get_show_anchored() == "1" else False
         show_main = True if align_form.get_show_main() == "1" else False
         show_how = SHOW_ON_MARKERS if align_form.get_show_how() == "1" else SHOW_ON_INTERVALS
         collapsed_view = align_form.get_collapsed_view()
@@ -339,7 +339,7 @@ class Bmap(object):
             
             # GenesAnnotator
             #load_annot = True always
-            annotator = self._get_annotator(align_form)
+            annotator = self._get_annotator(show_genes)
             
             if show_main:
                 datasets_ids = map_config.get_main_datasets()
