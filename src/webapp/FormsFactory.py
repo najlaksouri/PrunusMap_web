@@ -339,7 +339,7 @@ class InputForm(object):
         ret_value.append("Extend search: "+self.get_extend())
         ret_value.append("Extend interval (cM): "+self.get_extend_cm())
         ret_value.append("Extend interval (bp): "+self.get_extend_bp())
-        ret_value.append("Maps: "+self.get_maps())
+        ret_value.append("Maps: "+",".join(self.get_maps()))
         
         return "\n".join(ret_value)
     
