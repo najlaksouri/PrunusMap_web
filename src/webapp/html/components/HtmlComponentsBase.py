@@ -72,7 +72,7 @@ class HtmlComponentsBase(object):
         
         ## <!-- <fieldset style="border:solid thin;width:350px;height:170px;"> -->
         output.append("""
-                <fieldset style="border:solid thin;width:350px;">
+                <fieldset style="border:solid thin;width:350px;height:180px">
                 <legend>Output options:</legend>
                     <table style="width:100%;text-align:center;">
                     <tr>
@@ -152,7 +152,7 @@ class HtmlComponentsBase(object):
         ##<fieldset style="border:solid thin;height:170px;padding-bottom: 1em;padding-top: 0%;width:430px">
         output.append("""
                 <!-- GENES AND MARKERS OPTIONS -->
-                <fieldset style="border:solid thin;height:160px;padding-bottom: 1em;padding-top: 0%;width:430px">
+                <fieldset style="border:solid thin;padding-bottom: 1em;padding-top: 0%;width:430px;height:180px;">
                     <legend>Genes/Markers enrichment:</legend>
                     """)
         

@@ -125,6 +125,11 @@ class HtmlComponentsHelp(object):
                                 <a href="{0}"><img style="width:5%;height:5%;border:none;" src="{1}" alt="back"/></a>
                              """.format(base_url+"/", base_url+"/img/back.gif"))
         
+        output_buffer.append("""<br/><br/><span style="color:red;text-align:left;font-size:12px;"><strong>WARNING: this Help page corresponds to the Barleymap application POPSEQ edition.
+                             The new help for the current edition will be available soon.
+                             Please, consider all that is explained in this page as provisional and very likely outdated.
+                             </strong></span><br/><br/>""")
+        
         HtmlComponentsHelp._help_menu(output_buffer)
         
         ## OVERVIEW
