@@ -379,21 +379,49 @@ class Bmap(object):
     ## Send email with results
     ##
     def email(self, form, csv_files, email_conf):
+        
+        # Maps configuration files
+        paths_config = self._paths_config
+        __app_path = paths_config.get_app_path()
+        maps_conf_file = __app_path+MAPS_CONF
+        maps_config = MapsConfig(maps_conf_file, self._verbose)
+        
         try:
             csv_filenames = []
+            csv_filedescs = []
             maps_csv_files = csv_files.get_maps_csv_files()
             for map_id in maps_csv_files:
+                map_name = maps_config.get_map_config(map_id).get_name()
+                
                 map_csv_files = maps_csv_files[map_id]
-                if map_csv_files.get_mapped(): csv_filenames.append(map_csv_files.get_mapped())
-                if map_csv_files.get_map_with_genes(): csv_filenames.append(map_csv_files.get_map_with_genes())
-                if map_csv_files.get_map_with_markers(): csv_filenames.append(map_csv_files.get_map_with_markers())
-                if map_csv_files.get_map_with_anchored(): csv_filenames.append(map_csv_files.get_map_with_anchored())
-                if map_csv_files.get_unmapped(): csv_filenames.append(map_csv_files.get_unmapped())
-                if map_csv_files.get_unaligned(): csv_filenames.append(map_csv_files.get_unaligned())
+                if map_csv_files.get_mapped():
+                    csv_filenames.append(map_csv_files.get_mapped())
+                    csv_filedescs.append(map_name+".mapped")
+                
+                if map_csv_files.get_map_with_genes():
+                    csv_filenames.append(map_csv_files.get_map_with_genes())
+                    csv_filedescs.append(map_name+".with_genes")
+                
+                if map_csv_files.get_map_with_markers():
+                    csv_filenames.append(map_csv_files.get_map_with_markers())
+                    csv_filedescs.append(map_name+".with_markers")
+                
+                if map_csv_files.get_map_with_anchored():
+                    csv_filenames.append(map_csv_files.get_map_with_anchored())
+                    csv_filedescs.append(map_name+".with_anchored")
+                
+                if map_csv_files.get_unmapped():
+                    csv_filenames.append(map_csv_files.get_unmapped())
+                    csv_filedescs.append(map_name+".unmapped")
+                
+                if map_csv_files.get_unaligned():
+                    csv_filenames.append(map_csv_files.get_unaligned())
+                    csv_filedescs.append(map_name+".unaligned")
+                
             
             ## Send CSV by EMAIL if requested
             if form.get_send_email() and form.get_send_email()=="1" and len(csv_filenames)>0:
-                m2p_mail.send_files(form, csv_filenames, email_conf)
+                m2p_mail.send_files(form, csv_filenames, csv_filedescs, email_conf)
             
         except m2pException as e:
             ## Just log it, but keep giving output maps to the user
