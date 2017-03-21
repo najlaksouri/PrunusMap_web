@@ -51,6 +51,45 @@ def send_files(form, filenames, email_conf):
     except Exception:
         traceback.print_exc(file=sys.stderr)
         raise m2pException("Error sending email")
+    
+    return
+
+def send_files_smtp(form, filenames, email_conf):
+    try:
+        email_to = form.get_email_to()
+        
+        sys.stderr.write("M2P: Sending email to "+email_to+"\n")
+        
+        params = form.as_params_string() # This should be a string with one line per parameter "name: value"
+        
+        email_dict = __load_email_dict(email_conf)
+        # Create the enclosing (outer) message
+        email_from = email_dict[MAIL_SENDER]
+        
+        outer = __create_outer_msg(email_from, email_to, 'Markers mapped to barleymap')
+        
+        # Main Text
+        email_text = MIMEText(params, _subtype='plain')
+        outer.attach(email_text)
+        
+        # Attachments
+        i = 0
+        for file_name in filenames:
+            sys.stderr.write("m2p_mail: "+file_name+"\n")
+            __add_file(file_name, outer, file_name+".csv")
+            
+            i+=1
+        
+        # Connection to server and delivery
+        __send(email_from, email_to, outer, email_dict)
+    
+    except m2pException:
+        raise
+    except Exception:
+        traceback.print_exc(file=sys.stderr)
+        raise m2pException("Error sending email")
+    
+    return
 
 def __load_email_dict(email_conf):
     email_dict = {}
@@ -93,7 +132,7 @@ def __send(email_from, email_to, outer, email_dict):
     # Connection to server and delivery
     s = smtplib.SMTP()
     try:
-        s.connect(email_dict[MAIL_HOST], email_dict[MAIL_PORT])
+        s.connect(email_dict[MAIL_HOST], int(email_dict[MAIL_PORT]))
         s.starttls()
         s.login(email_dict[MAIL_USER], email_dict[MAIL_PASS])
         s.sendmail(email_from, [email_to], outer.as_string())
@@ -104,49 +143,5 @@ def __send(email_from, email_to, outer, email_dict):
         s.close()
     
     return
-
-#def _format_params(params):
-#    # Parameters (see mapmarkers_cp.py --> parameters_list)
-#    # [input_query, multiple, action, input_datasets, input_genes, input_sort, genes_window,
-#    # queries_type, threshold_id, threshold_cov]
-#    
-#    text_params = []
-#    
-#    for a in [0]:
-#        text_params.append(params[a][0]+": "+str(params[a][1]))
-#    
-#    if params[0][1] == ALIGN_ACTION:
-#        for a in [1, 2, 3]:
-#            text_params.append(params[a][0]+": "+str(params[a][1]))
-#    
-#    for a in [6, 5, 7, 8, 9, 4, 10, 11]:
-#        text_params.append(params[a][0]+": "+str(params[a][1]))
-#    
-#    return "\n".join(text_params)
-
-#def send_file(email_to, filename, params):
-#    try:
-#        sys.stderr.write("M2P: Sending email to "+email_to+"\n")
-#        
-#        # Create the enclosing (outer) message
-#        outer = __create_outer_msg(email_to, 'Markers mapped to barley map')
-#        
-#        # Main Text
-#        email_text = MIMEText(_format_params(params), _subtype='plain')
-#        outer.attach(email_text)
-#        
-#        # Attachment
-#        __add_file(filename, outer, "markers2barleymap.csv")
-#        
-#        # Connection to server and delivery
-#        __send(email_to, outer)
-#    
-#    except m2pException:
-#        raise
-#    except Exception:
-#        traceback.print_exc(file=sys.stderr)
-#        raise m2pException("Error sending email to "+email_to)
-#    
-#    return
 
 ## END
