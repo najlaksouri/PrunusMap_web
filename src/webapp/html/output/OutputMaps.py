@@ -138,6 +138,8 @@ class OutputMaps(object):
             if mapping_results.get_unmapped(): self._output_unmapped(mapping_results, map_links_dict, map_csv_files)
             if mapping_results.get_unaligned(): self._output_unaligned(mapping_results, map_links_dict, map_csv_files)
             
+            html_writer.output_text('<hr/>')
+            
             sys.stderr.write("Output for map "+str(map_config.get_name())+" finished.\n")
         
         ################################################################
