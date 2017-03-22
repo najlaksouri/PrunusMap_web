@@ -413,7 +413,9 @@ class HtmlComponentsBase(object):
         
         output.append('<select name="{0}" id="{0}" multiple>'.format(str(input_name)))
         
-        if input_data == "":
+        if not input_data:
+            input_data = []
+        elif input_data == "":
             input_data = []
         elif isinstance(input_data, basestring): # If only one dataset provided, best if embeb it in a list
             input_data = [input_data]

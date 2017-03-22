@@ -135,6 +135,9 @@ class InputForm(object):
     def get_action(self, ):
         return self._action
     
+    def set_action(self, action):
+        self._action = action
+    
     def get_query(self):
         return self._query
     
@@ -296,6 +299,9 @@ class InputForm(object):
         form._collapsed_view = session.get(form.COLLAPSED_VIEW)
         
         form._is_empty = False
+        
+        if session[form.ACTION] == "index":
+            form.set_action("index")
         
         return form
     

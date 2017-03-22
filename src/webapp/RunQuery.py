@@ -37,6 +37,78 @@ class Root():
     def _get_html_layout(self):
         return HtmlLayout(self.MOUNT_POINT)
     
+    # Index method for direct requests from outside barleymap by url
+    # For example, T3 or GrainGenes links
+    # Maybe, this could be implemented as REST API in the future
+    @cherrypy.expose
+    def index(self, action = "", input_query = "", input_multiple = "", input_sort = "", input_genes = "",
+              load_annot = "", genes_window = "",
+              input_maps = "", send_email = "", email_to = ""):
+        
+        # GET /barleymap/mapmarkers/index?load_annot=1&genes_window=2.0&input_query=owbGBS1718
+        # GET /barleymap/mapmarkers/index?load_annot=1&genes_window=2.0&input_query=12_30588
+        
+        sys.stderr.write("server.py: GET request to /mapmarkers/index\n")
+        
+        action = "index"
+        query = input_query
+        multiple = "1"
+        sort = "bp"
+        show_markers = "1"
+        show_genes = "1"
+        show_anchored = "0"
+        show_main = "1"
+        show_how = "1"
+        extend = "1"
+        extend_cm = 50000
+        extend_bp = 50000
+        maps = "morex_genome" # so that all will be used
+        send_email = "0"
+        email_to = ""
+        user_file = None
+        
+        try:
+            bmap_settings = cherrypy.request.app.config['bmapsettings']
+            
+            form = FormsFactory.get_find_form_new(query, multiple, sort,
+                                                       show_markers, show_genes, show_anchored,
+                                                       show_main, show_how,
+                                                       extend, extend_cm, extend_bp,
+                                                       maps, send_email, email_to, user_file)
+            
+            form.set_action(action)
+            form.set_session(cherrypy.session)
+            
+            paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
+            
+            app_name = bmap_settings[APP_NAME]
+            n_threads = bmap_settings[N_THREADS]
+            max_queries = bmap_settings[MAX_QUERIES]
+            
+            bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, max_queries, FIND_ACTION, n_threads, app_name, self.VERBOSE)
+            
+            results = bmap.find(form)
+            
+            csv_files = bmap.csv_files(results, form)
+            
+            output = bmap.output(results, form, self._get_html_layout(), csv_files)
+            
+            email_conf = bmap_settings[EMAIL_CONF]
+            
+            bmap.email(form, csv_files, email_conf)
+            
+        except m2pException as m2pe:
+            sys.stderr.write(str(m2pe)+"\n")
+            traceback.print_exc(file=sys.stderr)
+            output = str(m2pe)
+            
+        except Exception, e:
+            sys.stderr.write(str(e)+"\n")
+            traceback.print_exc(file=sys.stderr)
+            output = "There was a server error. Please, contact with barleymap web application adminitrators."
+        
+        return output
+    
     @cherrypy.expose
     def find(self, action = "", query = "", multiple = "", sort = "",
              show_markers = "", show_genes = "", show_anchored = "",

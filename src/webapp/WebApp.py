@@ -93,6 +93,14 @@ class Root():
             session = cherrypy.session
             if session.get('session_token'):
                 find_form = FormsFactory.get_find_form_session(session)
+                
+                if find_form.get_action() == "index":
+                    window_cm = bmap_settings[DEFAULT_GENES_WINDOW_CM]
+                    window_bp = bmap_settings[DEFAULT_GENES_WINDOW_BP]
+                    maps = bmap_settings[DEFAULT_MAPS]
+                    
+                    find_form = FormsFactory.get_find_form_empty(window_cm, window_bp, maps)
+                    
             else:
                 window_cm = bmap_settings[DEFAULT_GENES_WINDOW_CM]
                 window_bp = bmap_settings[DEFAULT_GENES_WINDOW_BP]
@@ -150,6 +158,14 @@ class Root():
             
             if session.get('session_token'):
                 align_form = FormsFactory.get_align_form_session(session, aligner, threshold_id, threshold_cov)
+                
+                if align_form.get_action() == "index":
+                    window_cm = bmap_settings[DEFAULT_GENES_WINDOW_CM]
+                    window_bp = bmap_settings[DEFAULT_GENES_WINDOW_BP]
+                    maps = bmap_settings[DEFAULT_MAPS]
+                    
+                    align_form = FormsFactory.get_align_form_empty(window_cm, window_bp, maps, aligner, threshold_id, threshold_cov)
+                    
             else:
                 window_cm = bmap_settings[DEFAULT_GENES_WINDOW_CM]
                 window_bp = bmap_settings[DEFAULT_GENES_WINDOW_BP]
