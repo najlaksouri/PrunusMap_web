@@ -90,6 +90,42 @@ class FormsFactory(object):
         find_form = FindForm.init_from_session(session)
         
         return find_form
+    
+    @staticmethod
+    def get_locate_form_new(query = "", multiple = "", sort = "",
+                           show_markers = "", show_genes = "", show_anchored = "",
+                           show_main = "", show_how = "",
+                           extend = "", extend_cm = "", extend_bp = "",
+                           maps = "", send_email = "", email_to = "", user_file = None):
+        
+        form = LocateForm()
+        
+        form.set_parameters(query, multiple, sort,
+                           show_markers, show_genes, show_anchored,
+                           show_main, show_how,
+                           extend, extend_cm, extend_bp,
+                           maps, send_email, email_to, user_file)
+        
+        return form
+    
+    @staticmethod
+    def get_locate_form_empty(DEFAULT_GENES_WINDOW_CM, DEFAULT_GENES_WINDOW_BP, DEFAULT_MAPS):
+        
+        form = LocateForm()
+        
+        form.set_extend_cm(DEFAULT_GENES_WINDOW_CM)
+        form.set_extend_bp(DEFAULT_GENES_WINDOW_BP)
+        form.set_maps(DEFAULT_MAPS)
+        
+        return form
+    
+    @staticmethod
+    def get_locate_form_session(session):
+        form = None
+        
+        form = LocateForm.init_from_session(session)
+        
+        return form
 
 class InputForm(object):
     
@@ -438,6 +474,35 @@ class FindForm(InputForm):
     def init_from_session(session):
         
         new_form = FindForm()
+        
+        InputForm.init_from_session(session, new_form)
+        
+        return new_form
+    
+    def set_session(self, session):
+        
+        self.set_session_input_form(session)
+        
+        return
+    
+    def as_params_string(self, ):
+        ret_value = []
+        
+        ret_value.append(self.as_params_string_input_form())
+        
+        return "\n".join(ret_value)
+
+class LocateForm(InputForm):
+    
+    _action = "locate"
+    
+    def __init__(self):
+        pass
+    
+    @staticmethod
+    def init_from_session(session):
+        
+        new_form = LocateForm()
         
         InputForm.init_from_session(session, new_form)
         

@@ -67,6 +67,27 @@ class HtmlComponentsBase(object):
         return "".join(output)
     
     @staticmethod
+    def _load_query_area_locate(input_query, user_file, legend, action, name = "query"):
+        output = []
+        
+        output.append("""
+                <!-- QUERY AREA -->
+                <fieldset style="border:none">
+                    <legend>{2}
+                        <input type="button" id="locate_demo_button" value="demo" class="demobutton"/>
+                        <input type="button" id="clear_demo_button" value="clear" class="demobutton"/>
+                    </legend>
+                    <textarea rows="16" cols="100" id="{1}_{3}" name="{3}"
+                    autofocus="autofocus">{0}</textarea>
+                    """.format(input_query, action, legend, name))
+        output.append(HtmlComponentsBase._load_input_file(user_file))
+        output.append("""
+                </fieldset>
+        """)
+        
+        return "".join(output)
+    
+    @staticmethod
     def _load_output_area(input_multiple, input_sort, send_email, email_to, action):
         output = []
         

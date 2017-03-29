@@ -11,6 +11,7 @@ from HtmlLayoutBarleymap import HtmlLayoutBarleymap
 
 PREFIX_UI_CTRLS_ALIGN = "align"
 PREFIX_UI_CTRLS_FIND = "find"
+PREFIX_UI_CTRLS_LOCATE = "locate"
 
 class HtmlLayout(object):
     _base_url = None
@@ -53,7 +54,8 @@ class HtmlLayout(object):
     ##
     def main_text(self, citation):
         
-        return HtmlLayoutBarleymap.main_text(citation, self._base_url, PREFIX_UI_CTRLS_ALIGN, PREFIX_UI_CTRLS_FIND)
+        return HtmlLayoutBarleymap.main_text(citation, self._base_url, PREFIX_UI_CTRLS_ALIGN, PREFIX_UI_CTRLS_FIND,
+                                             PREFIX_UI_CTRLS_LOCATE)
     
     def menu(self, citation):
         
@@ -79,6 +81,13 @@ class HtmlLayout(object):
     def find_components(self, find_form, maps_config):
         
         find_components = HtmlComponents.find(self._base_url, find_form, PREFIX_UI_CTRLS_FIND,
+                                              maps_config)
+        
+        return find_components
+    
+    def locate_components(self, form, maps_config):
+        
+        find_components = HtmlComponents.locate(self._base_url, form, PREFIX_UI_CTRLS_LOCATE,
                                               maps_config)
         
         return find_components

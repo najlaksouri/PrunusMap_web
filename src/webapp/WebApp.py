@@ -199,6 +199,67 @@ class Root():
         return output
     
     @cherrypy.expose
+    def locate(self):
+        sys.stderr.write("server.py: request to /locate/\n")
+        
+        try:
+            bmap_settings = cherrypy.request.app.config['bmapsettings']
+            
+            paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
+            
+            html_layout = self._get_html_layout()
+            
+            app_path = paths_config.get_app_path()#[PathsConfig._APP_PATH]
+            maps_conf_file = app_path+ConfigBase.MAPS_CONF
+            maps_config = MapsConfig(maps_conf_file, self.VERBOSE)
+            
+            session = cherrypy.session
+            if session.get('session_token'):
+                form = FormsFactory.get_locate_form_session(session)
+                
+                if form.get_action() == "index":
+                    window_cm = bmap_settings[DEFAULT_GENES_WINDOW_CM]
+                    window_bp = bmap_settings[DEFAULT_GENES_WINDOW_BP]
+                    maps = bmap_settings[DEFAULT_MAPS]
+                    
+                    form = FormsFactory.get_locate_form_empty(window_cm, window_bp, maps)
+                    
+            else:
+                window_cm = bmap_settings[DEFAULT_GENES_WINDOW_CM]
+                window_bp = bmap_settings[DEFAULT_GENES_WINDOW_BP]
+                maps = bmap_settings[DEFAULT_MAPS]
+                
+                form = FormsFactory.get_locate_form_empty(window_cm, window_bp, maps)
+            
+            form.get_query()
+            
+            # It should be the same layout as for the find page
+            locate_component = html_layout.locate_components(form, maps_config)
+            
+            citation = paths_config.get_citation().replace("_", " ")#paths_config[PathsConfig._CITATION].replace("_", " ")
+            
+            contents = [html_layout.menu(citation),
+                        locate_component]
+            
+            output = "".join([html_layout.html_head(),
+                              html_layout.header(),
+                              html_layout.html_container(contents),
+                              html_layout.footer(),
+                              html_layout.html_end()])
+        
+        except m2pException as m2pe:
+            sys.stderr.write(str(m2pe)+"\n")
+            traceback.print_exc(file=sys.stderr)
+            output = str(m2pe)
+            
+        except Exception, e:
+            sys.stderr.write(str(e)+"\n")
+            traceback.print_exc(file=sys.stderr)
+            output = "There was a server error. Please, contact with barleymap web application adminitrators."
+        
+        return output
+    
+    @cherrypy.expose
     def help(self):
         sys.stderr.write("server.py: request to /help/\n")
         

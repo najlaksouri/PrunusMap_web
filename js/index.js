@@ -60,6 +60,7 @@ ATAGAGCAATATTACTTGCATTCAGTTTTGTGTCGTCGTGGAAATTCAGATGGCCGTCTCNTGACGCCACAACGTCTTCA
     $("#clear_demo_button").click(function(){
         $("#align_query").text("");
         $("#find_query").text("");
+        $("#locate_query").text("");
     });
     
     // LOAD DEMO IDS
@@ -80,7 +81,6 @@ i_SCRI_RS_114741\ni_SCRI_RS_171543\ni_11_11534\ni_11_20514\ni_11_20528\ni_11_205
 i_SCRI_RS_1426\ni_SCRI_RS_198888\ni_SCRI_RS_128254\ni_SCRI_RS_223224\ni_SCRI_RS_1429\ni_11_10775\ni_11_20660\n");
     });
     
-    
     //>100002678|F|0 \n\GBS PAVs \n\>100021533|F|0--60:C>G \n\GBS SNPs"
     
     // LOAD DEMO IDS
@@ -95,6 +95,22 @@ SCRI_RS_150677\n\
 SCRI_RS_189465\n\
 owbGBS13547\n\
 11_20749\n");
+    });
+    
+    // LOAD DEMO POSITIONS
+    $("#locate_demo_button").click(function(){
+        $("#locate_query").text("chr1H	3770174\n\
+chr1H	81042669\n\
+chr2H	711398163\n\
+chr6H	376635036\n\
+chr7H	4184387\n\
+chr7H	227367117\n\
+morex_contig_1761774	1\n\
+morex_contig_1574272	1\n\
+morex_contig_1574864	1\n\
+morex_contig_1577643	1\n\
+bowman_contig_866000	1\n\
+bowman_contig_229328	1");
     });
     
     $("#show_genes").change(function(){

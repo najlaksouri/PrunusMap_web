@@ -59,10 +59,14 @@ def start_standalone():
     
     ################ STARTING THE SERVER
     ####################################
-    if hasattr(cherrypy.engine, "signal_handler"):
-        cherrypy.engine.signal_handler.subscribe()
-    if hasattr(cherrypy.engine, "console_control_handler"):
-        cherrypy.engine.console_control_handler.subscribe()
+    #if hasattr(cherrypy.engine, "signal_handler"):
+    #    cherrypy.engine.signal_handler.subscribe()
+    #if hasattr(cherrypy.engine, "console_control_handler"):
+    #    cherrypy.engine.console_control_handler.subscribe()
+    
+    # or
+    
+    #cherrypy.engine.signals.subscribe()
     
     cherrypy.engine.start()
     

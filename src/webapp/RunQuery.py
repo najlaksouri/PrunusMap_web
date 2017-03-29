@@ -14,7 +14,7 @@ from barleymapcore.m2p_exception import m2pException
 from html.HtmlLayout import HtmlLayout
 
 from FormsFactory import FormsFactory
-from Bmap import Bmap, FIND_ACTION, ALIGN_ACTION
+from Bmap import Bmap, FIND_ACTION, ALIGN_ACTION, LOCATE_ACTION
 
 DEFAULT_SORT_PARAM = "map default"
 EMAIL_CONF = "EMAIL_CONF"
@@ -190,6 +190,56 @@ class Root():
             bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, max_queries, ALIGN_ACTION, n_threads, app_name, self.VERBOSE)
             
             results = bmap.align(form)
+            
+            csv_files = bmap.csv_files(results, form)
+            
+            output = bmap.output(results, form, self._get_html_layout(), csv_files)
+            
+            email_conf = bmap_settings[EMAIL_CONF]
+            
+            bmap.email(form, csv_files, email_conf)
+        
+        except m2pException as m2pe:
+            sys.stderr.write(str(m2pe)+"\n")
+            traceback.print_exc(file=sys.stderr)
+            output = str(m2pe)
+            
+        except Exception, e:
+            sys.stderr.write(str(e)+"\n")
+            traceback.print_exc(file=sys.stderr)
+            output = "There was a server error. Please, contact with barleymap web application adminitrators."
+        
+        return output
+    
+    @cherrypy.expose
+    def locate(self, action = "", query = "", multiple = "", sort = "",
+             show_markers = "", show_genes = "", show_anchored = "",
+             show_main = "", show_how = "",
+             load_annot = "", extend = "", extend_cm = "", extend_bp = "",
+             maps = "", send_email = "", email_to = "", user_file = None):
+        
+        sys.stderr.write("server.py: request to /mapmarkers/locate\n")
+        
+        try:
+            bmap_settings = cherrypy.request.app.config['bmapsettings']
+            
+            form = FormsFactory.get_locate_form_new(query, multiple, sort,
+                                                       show_markers, show_genes, show_anchored,
+                                                       show_main, show_how,
+                                                       extend, extend_cm, extend_bp,
+                                                       maps, send_email, email_to, user_file)
+            
+            form.set_session(cherrypy.session)
+            
+            paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
+            
+            app_name = bmap_settings[APP_NAME]
+            n_threads = bmap_settings[N_THREADS]
+            max_queries = bmap_settings[MAX_QUERIES]
+            
+            bmap = Bmap(paths_config, DEFAULT_SORT_PARAM, max_queries, LOCATE_ACTION, n_threads, app_name, self.VERBOSE)
+            
+            results = bmap.locate(form)
             
             csv_files = bmap.csv_files(results, form)
             

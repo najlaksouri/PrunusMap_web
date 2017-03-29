@@ -8,6 +8,7 @@
 from HtmlComponentsHelp import HtmlComponentsHelp
 from HtmlComponentsAlign import HtmlComponentsAlign
 from HtmlComponentsFind import HtmlComponentsFind
+from HtmlComponentsLocate import HtmlComponentsLocate
 
 class HtmlComponents(object):
     
@@ -22,5 +23,9 @@ class HtmlComponents(object):
     @staticmethod
     def find(base_url, find_form, PREFIX_UI_CTRLS_FIND, maps_config):
         return HtmlComponentsFind.find(base_url, find_form, PREFIX_UI_CTRLS_FIND, maps_config)
+    
+    @staticmethod
+    def locate(base_url, form, PREFIX_UI_CTRLS_LOCATE, maps_config):
+        return HtmlComponentsLocate.locate(base_url, form, PREFIX_UI_CTRLS_LOCATE, maps_config)
 
 ## END
