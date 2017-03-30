@@ -209,8 +209,10 @@ class HtmlComponentsBase(object):
                       """)
         
         if show_markers == "1": output.append(" checked/>")
-        elif show_markers == "0": output.append(" />")
-        else: output.append(" checked/>")
+        else: output.append(" />")
+        #if show_markers == "1": output.append(" checked/>")
+        #elif show_markers == "0": output.append(" />")
+        #else: output.append(" checked/>")
         
         output.append("""
                       </td>
