@@ -62,13 +62,25 @@ class HtmlComponentsLocate(object):
                     </fieldset>
                 </td><td id="submit_button_td">
                     <button class="boton" id="submit_button" name="action" type="submit" value="Locate">
-                        <img src="{0}"/>
+                        <img src="{0}" onmouseover="hover_{1}(this);" onmouseout="unhover_{1}(this);"/>
                     </button>
                 </td>
                 </tr></table>
             </form>
         </section><hr/> <!-- content -->
-        """.format(base_url+"/img/ui_buttons_find.png"))
+        """.format(base_url+"/img/ui_buttons_locate.png", "locate"))
+        
+        output.append("""
+        <script>
+            // Functions to change image with mouse over and out
+            function hover_{0}(element) {{
+                element.setAttribute('src', '{2}');
+            }}
+            function unhover_{0}(element) {{
+                element.setAttribute('src', '{1}');
+            }}
+        </script>
+        """.format("locate", base_url+"/img/ui_buttons_locate_mini.png", base_url+"/img/ui_buttons_locate_mini_hover.png"))
         
         return "".join(output)
 

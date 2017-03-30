@@ -31,7 +31,7 @@ a:hover {
 }
 
 a .boton{
-    text-decolration: none;
+    text-decoration: none;
 }
 
 /* Containers */
@@ -247,12 +247,12 @@ input.demobutton{
     cursor:pointer;
     padding: 0px 0px 0px 0px;
     width:120px;
-    height:60px;
+    height:53px;
 }
 
 #submit_button img{
     width:120px;
-    height:60px;
+    height:53px;
 }
 
 #submit_button_td{

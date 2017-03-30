@@ -8,10 +8,28 @@
 class HtmlLayoutBarleymap(object):
     
     @staticmethod
-    def output_html_img_button(url, img_url, width = "3%", height = "3%"):
+    def output_html_img_button(action, url, img_url, width = "3%", height = "3%", img_url_hover = None):
         output = []
         if url and img_url:
-            output.append('<a href="'+url+'"><img style="width:'+str(width)+';height:'+str(height)+'; border:none;" src="'+img_url+'"/></a>')
+            output.append("""<a href="{1}">
+                          <img style="width:{2};height:{3}; border:0;"
+                          onmouseover="hover_{0}(this);" onmouseout="unhover_{0}(this);"
+                          src="{4}"/>
+                          </a>""".format(action, url, width, height, img_url))
+            
+            if img_url_hover:
+                # Functions to change maps image (zoom or full maps)
+                output.append("""
+                <script>
+                    // Functions to change image with mouse over and out
+                    function hover_{0}(element) {{
+                        element.setAttribute('src', '{2}');
+                    }}
+                    function unhover_{0}(element) {{
+                        element.setAttribute('src', '{1}');
+                    }}
+                </script>
+                """.format(action, img_url, img_url_hover))
         else:
             Exception("HtmlLayoutBarleymap: No URL or img_url provided for img button.")
         
@@ -24,16 +42,24 @@ class HtmlLayoutBarleymap(object):
         output.append('<div id="main_buttons" style="margin:0px;">')
         output.append('<table id="main_buttons_table" center><tr>')
         output.append('<td style="text-align:center;">')
-        output.append(HtmlLayoutBarleymap.output_html_img_button(base_url+"/"+PREFIX_UI_CTRLS_FIND+"/", base_url+"/img/ui_buttons_find.png", "200px", "100px"))
+        output.append(HtmlLayoutBarleymap.output_html_img_button(PREFIX_UI_CTRLS_FIND, base_url+"/"+PREFIX_UI_CTRLS_FIND+"/",
+                                                                 base_url+"/img/ui_buttons_find.png", "200px", "100px",
+                                                                 base_url+"/img/ui_buttons_find_hover.png"))
         output.append("</td>")
         output.append('<td style="text-align:center;">')
-        output.append(HtmlLayoutBarleymap.output_html_img_button(base_url+"/"+PREFIX_UI_CTRLS_ALIGN+"/", base_url+"/img/ui_buttons_align.png", "200px", "100px"))
+        output.append(HtmlLayoutBarleymap.output_html_img_button(PREFIX_UI_CTRLS_ALIGN, base_url+"/"+PREFIX_UI_CTRLS_ALIGN+"/",
+                                                                 base_url+"/img/ui_buttons_align.png", "200px", "100px",
+                                                                 base_url+"/img/ui_buttons_align_hover.png"))
         output.append("</td>")
         output.append('<td style="text-align:center;">')
-        output.append(HtmlLayoutBarleymap.output_html_img_button(base_url+"/"+PREFIX_UI_CTRLS_LOCATE+"/", base_url+"/img/ui_buttons_find.png", "200px", "100px"))
+        output.append(HtmlLayoutBarleymap.output_html_img_button(PREFIX_UI_CTRLS_LOCATE, base_url+"/"+PREFIX_UI_CTRLS_LOCATE+"/",
+                                                                 base_url+"/img/ui_buttons_locate.png", "200px", "100px",
+                                                                 base_url+"/img/ui_buttons_locate_hover.png"))
         output.append("</td>")
         output.append('<td style="text-align:center;">')
-        output.append(HtmlLayoutBarleymap.output_html_img_button(base_url+"/help/", base_url+"/img/ui_buttons_help.png", "200px", "100px"))
+        output.append(HtmlLayoutBarleymap.output_html_img_button("help", base_url+"/help/",
+                                                                 base_url+"/img/ui_buttons_help.png", "200px", "100px",
+                                                                 base_url+"/img/ui_buttons_help_hover.png"))
         output.append("</td>")
         output.append("</tr>")
         output.append("</table>")
@@ -128,6 +154,11 @@ class HtmlLayoutBarleymap(object):
             <strong><a href="{0}#references_and_algorithms_used_for_alignment">sequence alignment</a></strong> to the selected map (IBSC2012, POPSEQ or MorexGenome).
             <br/><br/>
             
+            The <strong><i><a href="{2}/locate/">Locate by position</a></i></strong> option allows to examine the map context of specific positions,
+            which must be provided as tuples with chromosome (or contig) and position (local position, within the chromosome or contig, in base pairs).
+            For example, an user could provide as input "chr1H   10000" to find out which genes are in that specific region of chromosome 1H.
+            <br/><br/>
+            
             In addition to locate a list of markers or sequences,
             <strong><a href="{0}#genes_markers_enrichment_and_annotation">information of genes, genetic markers, and anchored features,</a></strong>
             that enrich the context around or between the queries will be shown.<br/><br/>
@@ -179,6 +210,9 @@ class HtmlLayoutBarleymap(object):
             this Morex Genome 2017 edition are explained next.
             Note that most of this information will be included, and more detailed, in the Help section in the near future.
             This is also true for the standalone application, which is in general updated but the help files are not.
+            
+            <br/><br/>2017-03-30:<br/>
+            · New <strong><i><a href="{2}/locate/">Locate by position</a></i></strong> action available.
             
             <br/><br/><!--07-03-2017:<br/>-->
             · Support for the <strong>Morex Genome released in 2017</strong>.

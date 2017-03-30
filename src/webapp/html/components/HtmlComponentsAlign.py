@@ -66,13 +66,25 @@ class HtmlComponentsAlign(object):
                     </fieldset>
                 </td><td id="submit_button_td">
                     <button id="submit_button" name="action" type="submit" value="Blast">
-                        <img src="{0}"/>
+                        <img src="{0}" onmouseover="hover_{1}(this);" onmouseout="unhover_{1}(this);"/>
                     </button>
                 </td>
                 </tr></table>
             </form>
         </section><hr/> <!-- content -->
-        """.format(base_url+"/img/ui_buttons_align.png"))
+        """.format(base_url+"/img/ui_buttons_align.png", "align"))
+        
+        output.append("""
+        <script>
+            // Functions to change image with mouse over and out
+            function hover_{0}(element) {{
+                element.setAttribute('src', '{2}');
+            }}
+            function unhover_{0}(element) {{
+                element.setAttribute('src', '{1}');
+            }}
+        </script>
+        """.format("align", base_url+"/img/ui_buttons_align_mini.png", base_url+"/img/ui_buttons_align_mini_hover.png"))
         
         return "".join(output)
     
