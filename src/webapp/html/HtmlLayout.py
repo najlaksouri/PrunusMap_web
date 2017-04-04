@@ -15,23 +15,25 @@ PREFIX_UI_CTRLS_LOCATE = "locate"
 
 class HtmlLayout(object):
     _base_url = None
+    _app_google_analytics_id = ""
     
-    def __init__(self, base_url):
+    def __init__(self, base_url, app_google_analytics_id):
         self._base_url = base_url
+        self._app_google_analytics_id = app_google_analytics_id
     
     ## Basic layout methods
     ##
     def html_head(self):
         output = []
         output.append(HtmlLayoutBarleymap.head(self._base_url))
-        output.append(HtmlLayoutBarleymap.js_scripts(self._base_url))
+        output.append(HtmlLayoutBarleymap.js_scripts(self._base_url, self._app_google_analytics_id))
         
         return "".join(output)  
     
     def html_head_maps(self):
         output = []
         output.append(HtmlLayoutBarleymap.head(self._base_url))
-        output.append(HtmlLayoutBarleymap.js_scripts_maps(self._base_url))
+        output.append(HtmlLayoutBarleymap.js_scripts_maps(self._base_url, self._app_google_analytics_id))
         
         return "".join(output)
     

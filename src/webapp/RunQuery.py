@@ -21,6 +21,7 @@ EMAIL_CONF = "EMAIL_CONF"
 APP_NAME = "APP_NAME"
 N_THREADS = "N_THREADS"
 MAX_QUERIES = "MAX_QUERIES"
+APP_GOOGLE_ANALYTICS_ID = "APP_GOOGLE_ANALYTICS_ID"
 
 class Root():
     
@@ -34,8 +35,8 @@ class Root():
         self.PATHS_CONFIG = PATHS_CONFIG
         self.VERBOSE = VERBOSE
     
-    def _get_html_layout(self):
-        return HtmlLayout(self.MOUNT_POINT)
+    def _get_html_layout(self, bmap_settings):
+        return HtmlLayout(self.MOUNT_POINT, bmap_settings[APP_GOOGLE_ANALYTICS_ID])
     
     # Index method for direct requests from outside barleymap by url
     # For example, T3 or GrainGenes links
@@ -91,7 +92,7 @@ class Root():
             
             csv_files = bmap.csv_files(results, form)
             
-            output = bmap.output(results, form, self._get_html_layout(), csv_files)
+            output = bmap.output(results, form, self._get_html_layout(bmap_settings), csv_files)
             
             email_conf = bmap_settings[EMAIL_CONF]
             
@@ -141,7 +142,7 @@ class Root():
             
             csv_files = bmap.csv_files(results, form)
             
-            output = bmap.output(results, form, self._get_html_layout(), csv_files)
+            output = bmap.output(results, form, self._get_html_layout(bmap_settings), csv_files)
             
             email_conf = bmap_settings[EMAIL_CONF]
             
@@ -193,7 +194,7 @@ class Root():
             
             csv_files = bmap.csv_files(results, form)
             
-            output = bmap.output(results, form, self._get_html_layout(), csv_files)
+            output = bmap.output(results, form, self._get_html_layout(bmap_settings), csv_files)
             
             email_conf = bmap_settings[EMAIL_CONF]
             
@@ -243,7 +244,7 @@ class Root():
             
             csv_files = bmap.csv_files(results, form)
             
-            output = bmap.output(results, form, self._get_html_layout(), csv_files)
+            output = bmap.output(results, form, self._get_html_layout(bmap_settings), csv_files)
             
             email_conf = bmap_settings[EMAIL_CONF]
             

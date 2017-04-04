@@ -91,7 +91,7 @@ class HtmlLayoutBarleymap(object):
         </head>""".format(base_url+"/style.css")
     
     @staticmethod
-    def js_scripts(base_url):
+    def js_scripts(base_url, app_google_analytics_id):
         scripts = ""
         
         scripts = """
@@ -109,7 +109,7 @@ class HtmlLayoutBarleymap(object):
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
           
-            ga('create', 'UA-96753146-1', 'auto');
+            ga('create', '"""+app_google_analytics_id+"""', 'auto');
             ga('send', 'pageview');
           
         </script>
@@ -118,7 +118,7 @@ class HtmlLayoutBarleymap(object):
         return scripts
     
     @staticmethod
-    def js_scripts_maps(base_url):
+    def js_scripts_maps(base_url, app_google_analytics_id):
         scripts = ""
         
         scripts = """
@@ -136,7 +136,7 @@ class HtmlLayoutBarleymap(object):
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
           
-            ga('create', 'UA-96753146-1', 'auto');
+            ga('create', '"""+app_google_analytics_id+"""', 'auto');
             ga('send', 'pageview');
           
         </script>

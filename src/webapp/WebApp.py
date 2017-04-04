@@ -27,6 +27,7 @@ DEFAULT_ALIGNER = "DEFAULT_ALIGNER"
 DEFAULT_MAPS = "DEFAULT_MAPS"
 DEFAULT_GENES_WINDOW_CM = "DEFAULT_GENES_WINDOW_CM"
 DEFAULT_GENES_WINDOW_BP = "DEFAULT_GENES_WINDOW_BP"
+APP_GOOGLE_ANALYTICS_ID = "APP_GOOGLE_ANALYTICS_ID"
 
 class Root():
     
@@ -41,17 +42,20 @@ class Root():
         self.VERBOSE = VERBOSE
         return
     
-    def _get_html_layout(self):
-        return HtmlLayout(self.MOUNT_POINT)
+    def _get_html_layout(self, bmap_settings):
+        
+        return HtmlLayout(self.MOUNT_POINT, bmap_settings[APP_GOOGLE_ANALYTICS_ID])
     
     @cherrypy.expose
     def index(self):
         try:
             sys.stderr.write("server.py: request to /index\n")
             
+            bmap_settings = cherrypy.request.app.config['bmapsettings']
+            
             paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
             
-            html_layout = self._get_html_layout()
+            html_layout = self._get_html_layout(bmap_settings)
             
             citation = paths_config.get_citation().replace("_", " ")#[PathsConfig._CITATION].replace("_", " ")
             
@@ -84,7 +88,7 @@ class Root():
             
             paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
             
-            html_layout = self._get_html_layout()
+            html_layout = self._get_html_layout(bmap_settings)
             
             app_path = paths_config.get_app_path()#paths_config[PathsConfig._APP_PATH]
             maps_conf_file = app_path+ConfigBase.MAPS_CONF
@@ -144,7 +148,7 @@ class Root():
             
             paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
             
-            html_layout = self._get_html_layout()
+            html_layout = self._get_html_layout(bmap_settings)
             
             app_path = paths_config.get_app_path()#[PathsConfig._APP_PATH]
             maps_conf_file = app_path+ConfigBase.MAPS_CONF
@@ -207,7 +211,7 @@ class Root():
             
             paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
             
-            html_layout = self._get_html_layout()
+            html_layout = self._get_html_layout(bmap_settings)
             
             app_path = paths_config.get_app_path()#[PathsConfig._APP_PATH]
             maps_conf_file = app_path+ConfigBase.MAPS_CONF
@@ -264,9 +268,11 @@ class Root():
         sys.stderr.write("server.py: request to /help/\n")
         
         try:
+            bmap_settings = cherrypy.request.app.config['bmapsettings']
+            
             paths_config = PathsConfig.from_dict(cherrypy.request.app.config[self.PATHS_CONFIG])
             
-            html_layout = self._get_html_layout()
+            html_layout = self._get_html_layout(bmap_settings)
             
             citation = paths_config.get_citation().replace("_", " ")#[PathsConfig._CITATION].replace("_", " ")
             
