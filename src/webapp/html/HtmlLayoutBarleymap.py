@@ -92,21 +92,57 @@ class HtmlLayoutBarleymap(object):
     
     @staticmethod
     def js_scripts(base_url):
-        return """
+        scripts = ""
+        
+        scripts = """
             <body>
         <script src="{0}"></script>
         <script src="{1}"></script>
         """.format("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", \
                    base_url+"/js/index.js")
+        
+        scripts = scripts + """
+        <!-- Google Analytics -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+          
+            ga('create', 'UA-96753146-1', 'auto');
+            ga('send', 'pageview');
+          
+        </script>
+        """
+        
+        return scripts
     
     @staticmethod
     def js_scripts_maps(base_url):
-        return """
+        scripts = ""
+        
+        scripts = """
             <body>
         <script src="{0}"></script>
         <script src="{1}"></script>
         """.format("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", \
                    base_url+"/js/maps.js")
+        
+        scripts = scripts + """
+        <!-- Google Analytics -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+          
+            ga('create', 'UA-96753146-1', 'auto');
+            ga('send', 'pageview');
+          
+        </script>
+        """
+        
+        return scripts
     
     @staticmethod
     def title_header(base_url):
