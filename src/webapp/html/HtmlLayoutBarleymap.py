@@ -168,8 +168,29 @@ class HtmlLayoutBarleymap(object):
     @staticmethod
     def text_menu(citation, base_url, show_last_changes = False):
         text_buffer = []
+        if show_last_changes:
+            text_buffer.append("""
+            <br/><strong>Latest changes</strong>
+            <br/><br/>07-03-2017:<br/>
+            · Support for the <strong>Illumina50K</strong><sup>[4]</sup> markers, which can now be searched in the
+            IBSC<sup>[1]</sup>, POPSEQ<sup>[2]</sup> and Morex Genome<sup>[3]</sup> released in 2017,
+            through the
+            <strong><i><a href="{0}/find/">Find markers</a></i></strong> option.
+            <br/>
+            <br/>
+            <cite><sup>[4]</sup>Bayer et al. 2017
+            <a href="https://www.frontiersin.org/articles/10.3389/fpls.2017.01792/full" target="_blank">
+            Development and Evaluation of a Barley 50k iSelect SNP Array
+            </a>
+            Frontiers in Plant Science. 8:1792. doi:10.3389/fpls.2017.01792
+            </cite>
+        """.format(base_url))
+            
         text_buffer.append("""
-            <b><a href="{2}">Barleymap</a></b> was designed to search the position of barley genetic markers on the <strong>Barley Physical Map</strong> (IBSC<sup>[1]</sup>) 
+            <br/><br/>
+            <hr/>
+            <b><a href="{2}">Barleymap</a></b> was designed to search the position of barley genetic markers
+            on the <strong>Barley Physical Map</strong> (IBSC<sup>[1]</sup>) 
             and the <strong>POPSEQ map</strong> (Mascher <i>et al.</i><sup>[2]</sup>). 
             The current version was updated to work with the <strong>Morex Genome</strong> (released in 2017)<sup>[3]</sup>.
             <br/><br/>
@@ -217,76 +238,36 @@ class HtmlLayoutBarleymap(object):
             <a href="mailto:bcontreras@eead.csic.es">Bruno Contreras-Moreira</a>
             <br/><br/>
             
-            <strong>Citation:</strong> <a href="http://link.springer.com/article/10.1007%2Fs11032-015-0253-1">{1}</a>
+            <strong>Citation:</strong>
+            <a href="http://link.springer.com/article/10.1007%2Fs11032-015-0253-1">{1}</a>
             <br/><br/>
             <hr/>
             <br/>
             
             <cite><sup>[1]</sup>IBSC. 2012.
-            <a href="http://dx.doi.org/10.1038/nature11543" target="_blank">A physical, genetic and functional sequence assembly of the barley genome.</a>
+            <a href="http://dx.doi.org/10.1038/nature11543" target="_blank">
+            A physical, genetic and functional sequence assembly of the barley genome.
+            </a>
             Nature. 491:711-16. doi:10.1038/nature11543
             </cite>
             <br/>
+            
             <cite><sup>[2]</sup>Mascher et al. 2013.
-            <a href="http://onlinelibrary.wiley.com/doi/10.1111/tpj.12319/abstract" target="_blank">Anchoring and ordering NGS contig assemblies by population sequencing (POPSEQ).</a>
-            The Plant Journal, 76: 718–727. doi: 10.1111/tpj.12319
+            <a href="http://onlinelibrary.wiley.com/doi/10.1111/tpj.12319/abstract" target="_blank">
+            Anchoring and ordering NGS contig assemblies by population sequencing (POPSEQ).
+            </a>
+            The Plant Journal, 76: 718–727. doi:10.1111/tpj.12319
             </cite>
             <br/>
-            <cite><sup>[3]</sup>In press
-            <!--<a href="http://onlinelibrary.wiley.com/doi/10.1111/tpj.12319/abstract" target="_blank">Anchoring and ordering NGS contig assemblies by population sequencing (POPSEQ).</a>-->
-            <!--The Plant Journal, 76: 718–727. doi: 10.1111/tpj.12319-->
+            
+            <cite><sup>[3]</sup>Mascher et al. 2017
+            <a href="https://www.nature.com/articles/nature22043" target="_blank">
+            A chromosome conformation capture ordered sequence of the barley genome
+            </a>
+            Nature. 544:427-433. doi:10.1038/nature22043
             </cite>
+            
         """.format(base_url+"/help/", citation, base_url))
-        
-        if show_last_changes:
-            text_buffer.append("""
-            <br/><br/><hr/><br/><strong>Last changes</strong>
-            <br/><br/>
-            This is an early deployment of Barleymap Morex Genome 2017 edition. Therefore, the <strong>main updates</strong> from the previous POPSEQ edition to
-            this Morex Genome 2017 edition are explained next.
-            Note that most of this information will be included, and more detailed, in the Help section in the near future.
-            This is also true for the standalone application, which is in general updated but the help files are not.
-            
-            <br/><br/>2017-03-30:<br/>
-            · New <strong><i><a href="{2}/locate/">Locate by position</a></i></strong> action available.
-            
-            <br/><br/><!--07-03-2017:<br/>-->
-            · Support for the <strong>Morex Genome released in 2017</strong>.
-            
-            <br/><br/>
-            · New datasets have been added, to be searched with Barleymap Find, including: BOPA1, BOPA2, iSelect Infinium 9K,
-            <strong>Illumina 50K</strong>, Darts, DartSeq, GBS SNPs from OWB, Haruna Nijo flcDNAs, HarvEST 36 tags,
-            IBSC2012 genes ("MLOCs"), <strong>IBSC2016 genes ("HORVUs")</strong>,
-            and IBSC2012 BacEndSequences (BES), sequenced BACs, and <strong>IBSC2012 WGS contigs</strong> from Barke, Bowman and Morex.
-            Note that not all this datasets can be searched in the three maps. For example, HORVUs are limited to MorexGenome (2017),
-            whereas Barke WGS contigs can only be found in IBSC2012 and MorexGenome, but no in POPSEQ; Morex WGS contigs can be found in all three maps.
-            Finally, some of these datasets can be queried with different synonyms. For example, BOPA1 markers (e.g.: BOPA1_10114-1946, 10114-1946), or
-            iSelect Infinium 9K markers (e.g.: i_SCRI_RS_100054, SCRI_RS_100054; or i_11_10006, 11_10006, 1016-376, BOPA1_1016-376).
-            
-            <br/><br/>
-            · IBSC2012 BES, sequenced BACs and WGS contigs are not genes nor markers, but a different kind of feature which we called <strong>anchored features</strong>.
-            Besides searching them by identifier, anchored features close to map positions obtained can be included
-            in the output map through the enrichment options.
-            This allows including, for example, the position of Morex WGS contigs in the output map.
-            However, note that the enrichment with anchored features is slow, so we encourage you to use enrichment of anchored features only when really needed.
-            
-            <br/><br/>
-            · A new option <strong>"show only main features"</strong>, has been added in the "enrichment" options section. When checked, the output map will include, as additional features,
-            only the main ones (for example, the HORVUs in the MorexGenome, but no the MLOCs or the flcDNAs). When unchecked, the enrichment process will be slower,
-            but all the available features will be included in
-            the output map (in the previous example, MLOCs, flcDNAs, and other genes will be included along with HORVUs).
-            
-            <br/><br/>
-            · The <strong>results tables</strong> have been remodelled.
-            Now, the enriched features are shown in line with the queries, but in a different background color.
-            In the downloadable CSV files, both row types are differentiated with the first field of the table.
-            
-            <br/><br/>
-            · Also in the results page, an icon has been included to <strong>zoom</strong> in the markers of interest in the graphical chromosomes.
-            
-            <br/><br/>
-            · There are <strong>other minor changes</strong>, and more of them in the standalone application and the core API.
-                               """)
         
         return "".join(text_buffer)
     
