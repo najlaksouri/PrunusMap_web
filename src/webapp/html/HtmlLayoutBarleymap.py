@@ -171,7 +171,7 @@ class HtmlLayoutBarleymap(object):
         if show_last_changes:
             text_buffer.append("""
             <br/><strong>Latest changes</strong>
-            <br/><br/>07-03-2017:<br/>
+            <br/><br/>19-12-2017:<br/>
             · Support for the <strong>Illumina50K</strong><sup>[4]</sup> markers, which can now be searched in the
             IBSC<sup>[1]</sup>, POPSEQ<sup>[2]</sup> and Morex Genome<sup>[3]</sup> released in 2017,
             through the
