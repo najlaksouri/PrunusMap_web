@@ -5,11 +5,11 @@
 # As in the standalone interface (https://github.com/Cantalapiedra/barleymap), this web version relies on the use of the barleymapcore library (https://github.com/Cantalapiedra/barleymapcore), which is already included (barleymapcore/ directory).
 
 # This web interface has been designed to be used with a CherryPy server (http://cherrypy.org/), which should be installed and configured independently.
-# Besides that, it could be needed to include the path to the web application in the PYTHONPATH of your system, and also some routine to clean the temporary files (tmp_files/ directory) from time to time.
+# Besides that, it could be needed to include the path to the web application in the PYTHONPATH environmental variable of your system, and also some routine to clean the temporary files (tmp_files/ directory) from time to time.
 
 ########### CONFIGURATION FILES
-# Several configuration files should be created within the "conf/" directory, before running the application.
-# All this files contain blank space-separated fields.
+# Before running the barleymap web server application, several configuration files should be created and edited within the "conf/" directory.
+# All these files contain blank space-separated fields.
 
 #### conf/paths.conf
 ## This file contains basic configuration info required by barleymap web to run properly.
