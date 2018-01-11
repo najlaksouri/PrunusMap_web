@@ -5,9 +5,33 @@
 # As in the standalone interface (https://github.com/Cantalapiedra/barleymap), this web version relies on the use of the barleymapcore library (https://github.com/Cantalapiedra/barleymapcore), which is already included (barleymapcore/ directory).
 
 # This web interface has been designed to be used with a CherryPy server (http://cherrypy.org/), which should be installed and configured independently.
-# Besides that, it could be needed to include the path to the web application in the PYTHONPATH of your system, and also some routine to clean the temporary files (at tmp_files/ directory) from time to time.
+# Besides that, it could be needed to include the path to the web application in the PYTHONPATH of your system, and also some routine to clean the temporary files (tmp_files/ directory) from time to time.
 
-# There are 3 auxiliary scripts to manage the server application:
-- _START: to start the barleymap web application (runs the CherryPy server), when it is not already running, and begin logging
-- _STOP: to stop the barleymap web application (shuts down the CherryPy server)
-- _RESTART: to stop and immediately start the barleymap web application when it is already running.
+########### CONFIGURATION FILES
+# Several configuration files should be created within the "conf/" directory, before running the application.
+# All this files contain blank space-separated fields.
+
+#### conf/paths.conf
+## This file contains basic configuration info required by barleymap web to run properly.
+## see HOWTO_CONFIGURE_PATHS file
+
+#### conf/databases.conf
+## This file is required to configure fasta databases to perform sequence alignments with barleymap.
+## see HOWTO_ADD_DATABASES file
+
+#### conf/maps.conf
+## This file is required to configure maps so that barleymap can report map positions of queries.
+## see HOWTO_ADD_MAPS file
+
+#### conf/datasets.conf
+## This file is required to configure datasets of features with pre-computed map positions, so it is not required to repeat the same alignments with common use queries.
+## see HOWTO_ADD_DATASETS file
+
+############ WEB APP SERVER FILES
+# There are 3 auxiliary scripts to manage the barleymap web server application:
+- _START: to start the application (runs the CherryPy server), when it is not already running, and begin logging.
+- _STOP: to stop the application (shuts down the CherryPy server)
+- _RESTART: to stop and immediately start the application, when it is already running.
+
+## CITATION
+Cantalapiedra CP, Boudiar R, Casas AM, Igartua E, Contreras-Moreira B. BARLEYMAP: physical and genetic mapping of nucleotide sequences and annotation of surrounding loci in barley. Mol Breeding (2015) 35:13 DOI 10.1007/s11032-015-0253-1
