@@ -1,3 +1,13 @@
-# Launching the server
+# This is the web interface of barleymap application.
+# Copyright (C)  2013-2014  Carlos P Cantalapiedra.
+# (terms of use can be found within the distributed LICENSE file).
 
-python ./src/server.py
+# As in the standalone interface (https://github.com/Cantalapiedra/barleymap), this web version relies on the use of the barleymapcore library (https://github.com/Cantalapiedra/barleymapcore), which is already included (barleymapcore/ directory).
+
+# This web interface has been designed to be used with a CherryPy server (http://cherrypy.org/), which should be installed and configured independently.
+# Besides that, it could be needed to include the path to the web application in the PYTHONPATH of your system, and also some routine to clean the temporary files (at tmp_files/ directory) from time to time.
+
+# There are 3 auxiliary scripts to manage the server application:
+- _START: to start the barleymap web application (runs the CherryPy server), when it is not already running, and begin logging
+- _STOP: to stop the barleymap web application (shuts down the CherryPy server)
+- _RESTART: to stop and immediately start the barleymap web application when it is already running.
