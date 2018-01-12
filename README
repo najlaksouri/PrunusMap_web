@@ -27,7 +27,7 @@ But for more complex maps, the positions within sequences are just local positio
 As a summary of how maps and databases work:
 the user has a query sequence and wishes to obtain its position in a given map. Internally, barleymap obtains the databases associated to such map.
 Then, it aligns the user query to the databases. From the alignment result, barleymap takes the identifiers of the targets and searches for their positions within the map.
-These map positions will be reported to the user. For a more detailed view of how barleymap works see http://floresta.eead.csic.es/barleymap/help/#align_sequences or the original paper https://doi.org/10.1007/s11032-015-0253-1.
+These map positions will be reported to the user. For a more detailed view of how barleymap works see http://floresta.eead.csic.es/barleymap/help/ or the original paper https://doi.org/10.1007/s11032-015-0253-1.
 
 The other important entity are the datasets. When some query sequence is searched very often, for example a gene or a common use genetic marker from a popular genotyping platform, it is tedious to map the query once and again against the same map.
 Instead, its map position can be stored, so that barleymap skips the alignment (to databases) and map (to maps) steps, and just retrieves the pre-computed position by its identifier.
@@ -76,3 +76,5 @@ _RESTART: to stop and immediately start the application, when it is already runn
 
 ############ CITATION
 Cantalapiedra CP, Boudiar R, Casas AM, Igartua E, Contreras-Moreira B. BARLEYMAP: physical and genetic mapping of nucleotide sequences and annotation of surrounding loci in barley. Mol Breeding (2015) 35:13 https://doi.org/10.1007/s11032-015-0253-1
+
+#
