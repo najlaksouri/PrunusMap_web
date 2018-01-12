@@ -4,71 +4,71 @@
 
 ############ INTRODUCTION
 
-# Barleymap is a software tool to facilitate the mapping of DNA sequences to a collection of heterogeneus genomic sequence resources.
-# It was originally designed to map sequences in the barley genetic/physical map published in 2012, which comprised 3 WGS genome assemblies, 1 set of sequenced BAC contigs and also Bac-End Sequences, all of them anchored in a single map framework.
-# However, barleymap could be setup for any organism, from those with a single high-quality genome to the ones with pan-genome or heterogeneous references.
+Barleymap is a software tool to facilitate the mapping of DNA sequences to a collection of heterogeneus genomic sequence resources.
+It was originally designed to map sequences in the barley genetic/physical map published in 2012, which comprised 3 WGS genome assemblies, 1 set of sequenced BAC contigs and also Bac-End Sequences, all of them anchored in a single map framework.
+However, barleymap could be setup for any organism, from those with a single high-quality genome to the ones with pan-genome or heterogeneous references.
 
-# Barleymap facilitates the process of obtaining a map position of DNA sequences by hidding to the user the underlying complexity of alignment and mapping steps.
-# Also, it puts into context different annotation resources, including genes, genetic markers, or any other annotation associated to a given physical map or genome.
+Barleymap facilitates the process of obtaining a map position of DNA sequences by hidding to the user the underlying complexity of alignment and mapping steps.
+Also, it puts into context different annotation resources, including genes, genetic markers, or any other annotation associated to a given physical map or genome.
 
-# Besides the web interface, there is also a barleymap standalone interface (https://github.com/Cantalapiedra/barleymap), which includes additional functionalities and parameters.
-# Both interface versions rely on and include the barleymapcore library (https://github.com/Cantalapiedra/barleymapcore).
+Besides the web interface, there is also a barleymap standalone interface (https://github.com/Cantalapiedra/barleymap), which includes additional functionalities and parameters.
+Both interface versions rely on and include the barleymapcore library (https://github.com/Cantalapiedra/barleymapcore).
 
-# There are 2 basic entities which are used by barleymap: maps and databases. There is a third entity, the datasets, which is optional but highly recommended (see below).
+There are 2 basic entities which are used by barleymap: maps and databases. There is a third entity, the datasets, which is optional but highly recommended (see below).
 
-# Maps comprises the positions which will be finally reported to the user.
-# As such, a map could be a complete genome, in which the positions are just the chromosome and position of a given sequence within such chromosome.
-# However, a map could also be a genetic/physical map, in which the positions are associated to contigs or other sequence features anchored to the map, from one or more databases.
+Maps comprises the positions which will be finally reported to the user.
+As such, a map could be a complete genome, in which the positions are just the chromosome and position of a given sequence within such chromosome.
+However, a map could also be a genetic/physical map, in which the positions are associated to contigs or other sequence features anchored to the map, from one or more databases.
 
-# Databases contain just sequences (e.g. a blast database) and, as such, are unaware of map positions.
-# Obviously, for a map which is just a genome, the map positions are the same as the local positions within the sequence database.
-# But for more complex maps, the positions within sequences are just local positions, which may or may not be added to global map positions.
+Databases contain just sequences (e.g. a blast database) and, as such, are unaware of map positions.
+Obviously, for a map which is just a genome, the map positions are the same as the local positions within the sequence database.
+But for more complex maps, the positions within sequences are just local positions, which may or may not be added to global map positions.
 
-# As a summary of how maps and databases work:
-# the user has a query sequence and wishes to obtain its position in a given map. Internally, barleymap obtains the databases associated to such map.
-# Then, it aligns the user query to the databases. From the alignment result, barleymap takes the identifiers of the targets and searches for their positions within the map.
-# These map positions will be reported to the user. For a more detailed view of how barleymap works see http://floresta.eead.csic.es/barleymap/help/#align_sequences or the original paper https://doi.org/10.1007/s11032-015-0253-1.
+As a summary of how maps and databases work:
+the user has a query sequence and wishes to obtain its position in a given map. Internally, barleymap obtains the databases associated to such map.
+Then, it aligns the user query to the databases. From the alignment result, barleymap takes the identifiers of the targets and searches for their positions within the map.
+These map positions will be reported to the user. For a more detailed view of how barleymap works see http://floresta.eead.csic.es/barleymap/help/#align_sequences or the original paper https://doi.org/10.1007/s11032-015-0253-1.
 
-# The other important entity are the datasets. When some query sequence is searched very often, for example a gene or a common use genetic marker from a popular genotyping platform, it is tedious to map the query once and again against the same map.
-# Instead, its map position can be stored, so that barleymap skips the alignment (to databases) and map (to maps) steps, and just retrieves the pre-computed position by its identifier.
-# Therefore, a dataset is a set of sequences for which the map position is already known, and has been stored to be reported faster and consistently.
+The other important entity are the datasets. When some query sequence is searched very often, for example a gene or a common use genetic marker from a popular genotyping platform, it is tedious to map the query once and again against the same map.
+Instead, its map position can be stored, so that barleymap skips the alignment (to databases) and map (to maps) steps, and just retrieves the pre-computed position by its identifier.
+Therefore, a dataset is a set of sequences for which the map position is already known, and has been stored to be reported faster and consistently.
 
 ############ SETUP
 
-###### The web server
+#### The web server
 
-# The barleymap web interface was designed to be used with a CherryPy server (http://cherrypy.org/), which should be installed and configured independently.
-# Those interested on running their own barleymap web servers should check the CherryPy documentation to setup the server with their own infrastructure.
-# For example, when using CherryPy after an Apache server you could need to add to its configuration files a reverse proxy, like:
+The barleymap web interface was designed to be used with a CherryPy server (http://cherrypy.org/), which should be installed and configured independently.
+Those interested on running their own barleymap web servers should check the CherryPy documentation to setup the server with their own infrastructure.
+For example, when using CherryPy after an Apache server you could need to add to its configuration files a reverse proxy, like:
 
 ProxyPass /barleymap http://127.0.0.1:$CHERRYPYPORT/barleymap/
 ProxyPassReverse /barleymap http://127.0.0.1:$CHERRYPYPORT/barleymap/
 
-# Besides that, it is recommendable to include the path to the web application in the PYTHONPATH environmental variable of the system, and also some routine (e.g. crontab) to clean the temporary files (tmp_files/ directory) from time to time.
+Besides that, it is recommendable to include the path to the web application in the PYTHONPATH environmental variable of the system, and also some routine (e.g. crontab) to clean the temporary files (tmp_files/ directory) from time to time.
 
-###### Barleymap configuration files
+#### Barleymap configuration files
 
-# Before running the barleymap web server application, several configuration files should be created and edited within the barleymap "conf/" directory.
+Before running the barleymap web server application, several configuration files should be created and edited within the barleymap "conf/" directory.
 
 ## conf/paths.conf
-# This file contains basic configuration info required by barleymap web to run properly.
-# see HOWTO_CONFIGURE_PATHS file
+This file contains basic configuration info required by barleymap web to run properly.
+see HOWTO_CONFIGURE_PATHS file
 
 ## conf/databases.conf
-# This file is required to configure fasta databases to perform sequence alignments with barleymap.
-# see HOWTO_ADD_DATABASES file
+This file is required to configure fasta databases to perform sequence alignments with barleymap.
+see HOWTO_ADD_DATABASES file
 
 ## conf/maps.conf
-# This file is required to configure maps so that barleymap can report map positions of queries.
-# see HOWTO_ADD_MAPS file
+This file is required to configure maps so that barleymap can report map positions of queries.
+see HOWTO_ADD_MAPS file
 
 ## conf/datasets.conf
-# This file is required to configure datasets of features with pre-computed map positions, so it is not required to repeat the same alignments with common use queries.
-# see HOWTO_ADD_DATASETS file
+This file is required to configure datasets of features with pre-computed map positions, so it is not required to repeat the same alignments with common use queries.
+see HOWTO_ADD_DATASETS file
 
 ############ RUNNING BARLEYMAP WEB SERVER
 
-# There are 3 auxiliary scripts to manage the barleymap web server application:
+There are 3 auxiliary scripts to manage the barleymap web server application:
 
 _START: to start the application (runs the CherryPy server), when it is not already running, and begin logging.
 _STOP: to stop the application (shuts down the CherryPy server)
