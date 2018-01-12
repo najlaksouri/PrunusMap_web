@@ -16,18 +16,18 @@
 
 # There are 2 basic entities which are used by barleymap: maps and databases. There is a third entity, the datasets, which is optional but highly recommended (see below).
 
-# Maps comprises the positions which will be finally reported to the user. Those positions are associated to sequences databases.
+# Maps comprises the positions which will be finally reported to the user.
 # As such, a map could be a complete genome, in which the positions are just the chromosome and position of a given sequence within such chromosome.
 # However, a map could also be a genetic/physical map, in which the positions are associated to contigs or other sequence features anchored to the map, from one or more databases.
 
-# Databases just contain sequences and, as such, are unaware of map positions.
+# Databases contain just sequences (e.g. a blast database) and, as such, are unaware of map positions.
 # Obviously, for a map which is just a genome, the map positions are the same as the local positions within the sequence database.
-# But for more complex maps, the positions within sequences are just local positions, which may or may not be added to a global map position.
+# But for more complex maps, the positions within sequences are just local positions, which may or may not be added to global map positions.
 
 # As a summary of how maps and databases work:
 # the user has a query sequence and wishes to obtain its position in a given map. Internally, barleymap obtains the databases associated to such map.
 # Then, it aligns the user query to the databases. From the alignment result, barleymap takes the identifiers of the targets and searches for their positions within the map.
-# Those positions will be reported to the user.
+# These map positions will be reported to the user. For a more detailed view of how barleymap works see http://floresta.eead.csic.es/barleymap/help/#align_sequences or the original paper https://doi.org/10.1007/s11032-015-0253-1.
 
 # The other important entity are the datasets. When some query sequence is searched very often, for example a gene or a common use genetic marker from a popular genotyping platform, it is tedious to map the query once and again against the same map.
 # Instead, its map position can be stored, so that barleymap skips the alignment (to databases) and map (to maps) steps, and just retrieves the pre-computed position by its identifier.
