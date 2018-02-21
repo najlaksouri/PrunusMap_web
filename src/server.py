@@ -9,6 +9,8 @@
 import os, sys
 import cherrypy
 
+import barleymapcore
+
 from barleymapcore.db.PathsConfig import PathsConfig
 
 import webapp.WebApp as WebApp
@@ -27,6 +29,11 @@ VERBOSE = False
 ## and deploys the server
 def start_standalone():
     sys.stderr.write("Starting server...\n")
+    
+    sys.stderr.write("Path of barleymapcore:\n")
+    sys.stderr.write(str(barleymapcore.__file__)+"\n")
+    sys.stderr.write("Python path:\n")
+    sys.stderr.write(str(sys.path)+"\n")
     
     ############## LOAD SERVER CONFIGURATION
     ########################################
