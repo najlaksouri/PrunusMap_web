@@ -173,7 +173,7 @@ class HtmlLayoutBarleymap(object):
             <br/><strong>Latest changes</strong>
             <br/>
             <br/>6-03-2018:<br/>
-            · Added a dataset of NCBI genes to the Morex Genome map.
+            · Added a dataset of NCBI genes to the Morex Genome map. This dataset includes genes like HvCO1, Int-c, Btr1, Vrs1, PhyB, HvCEN, etc... to a total of 894 entries.
             <br/>
             <br/>19-12-2017:<br/>
             · Support for the <strong>Illumina50K</strong><sup>[4]</sup> markers, which can now be searched in the
