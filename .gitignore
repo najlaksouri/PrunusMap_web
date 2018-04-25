@@ -8,7 +8,7 @@ logs/*
 
 conf/*
 !conf/.gitkeep
-!conf/*.example
+!conf/*.sample
 !conf/references*
 !conf/annotation_types.conf
 
