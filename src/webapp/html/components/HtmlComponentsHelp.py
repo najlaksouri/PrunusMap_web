@@ -19,97 +19,58 @@ class HtmlComponentsHelp(object):
                             Overview
                             
                         </a></li>
-                        <li><a href="#align_sequences">
-                        
-                            Align sequences
-                            
-                        </a></li>
-                            <ul>
-                                <li><a href="#references_and_algorithms_used_for_alignment">
-                                
-                                    References and algorithms used for alignment
-                                    
-                                </a></li>
-                                <li><a href="#alignment_input_and_parameters">
-                                
-                                    Alignment input and parameters
-                                    
-                                </a></li>
-                            </ul>
                         <li><a href="#find_markers">
                         
                             Find markers
                             
                         </a></li>
                             <ul>
-                                <li><a href="#barleymap_datasets">
+                                <li><a href="#datasets_included">
                                 
-                                    Barleymap datasets
-                                    
-                                </a></li>
-                                <li><a href="#input_for_finding_markers">
-                                
-                                    Input for finding markers
+                                    Datasets included in Barleymap web
                                     
                                 </a></li>
                             </ul>
-                        <li><a href="#output_options_and_genes_markers_enrichment">
+                            
+                        <li><a href="#align_sequences">
                         
-                            Output options and genes/markers enrichment
+                            Align sequences
                             
                         </a></li>
                             <ul>
-                                <li><a href="#output_options">
+                                <li><a href="#references_included">
                                 
-                                    Output options
-                                    
-                                </a></li>
-                                <li><a href="#genes_markers_enrichment_and_annotation">
-                                
-                                    Genes/markers enrichment and annotation
+                                    References included in Barleymap web
                                     
                                 </a></li>
                             </ul>
+                        <li><a href="#locate_by_position">
+                        
+                            Locate by position
+                            
+                        </a></li>
+                        
                         <li><a href="#barleymap_output">
                         
                             Barleymap output
                             
                         </a></li>
-                            <ul>
-                                <li><a href="#mapping_results">
-                                
-                                    Mapping results
-                                    
-                                </a></li>
-                                <li><a href="#map_enriched_with_genes_information">
-                                
-                                    Map enriched with genes information
-                                    
-                                </a></li>
-                                <li><a href="#other_markers_located_in_the_mapping_interval">
-                                
-                                    Other markers located in the mapping interval
-                                    
-                                </a></li>
-                                <li><a href="#unmapped_and_unaligned_markers">
-                                
-                                    Unmapped and unaligned markers
-                                    
-                                </a></li>
-                                <li><a href="#other_features">
-                                
-                                    Other features
-                                    
-                                </a></li>
-                            </ul>
+                            
                         <li><a href="#confidentiality">
                         
                             Confidentiality
                             
                         </a></li>
+                        
                         <li><a href="#disclaimer">
                         
                             Disclaimer
+                            
+                        </a></li>
+                        
+                        <li><a href="#references">
+                        
+                            References
                             
                         </a></li>
                     </ul>
@@ -125,11 +86,7 @@ class HtmlComponentsHelp(object):
                                 <a href="{0}"><img style="width:5%;height:5%;border:none;" src="{1}" alt="back"/></a>
                              """.format(base_url+"/", base_url+"/img/back.gif"))
         
-        output_buffer.append("""<br/><br/><span style="color:red;text-align:left;font-size:48px;"><strong>WARNING: this Help page corresponds to the Barleymap application POPSEQ edition.
-                             The new help for the current edition will be available soon.
-                             Please, consider all that is explained in this page as provisional and very likely outdated.
-                             Check "last changes" section in the main Barleymap page for an overview.
-                             </strong></span><br/><br/>""")
+        output_buffer.append("""<br/>""")
         
         HtmlComponentsHelp._help_menu(output_buffer)
         
@@ -144,15 +101,176 @@ class HtmlComponentsHelp(object):
                     
                         <br/>
                         Barleymap was designed to search the genetic and physical positions of barley markers on
-                        the Barley Physical Map<sup>[1]</sup> and the POPSEQ map<sup>[2]</sup>. Please, see the original 
-                        references for details on these resources and their comparison.
+                        the <strong>Barley Physical Map</strong> (IBSC<sup>[1]</sup>) and
+                        the <strong>POPSEQ</strong> map<sup>[2]</sup>.  
+                        The current version allows working with the <strong>Morex Genome</strong><sup>[3]</sup> also.
                         <br/><br/>
-                        Barleymap provides two separate applications to retrieve data from the maps:
+                        Barleymap provides <strong>three tools</strong> to retrieve data from the maps:
                         <ul class="help_list">
                             <li>"Find markers": to retrieve the position of markers providing their identifiers.</li>
                             <li>"Align sequences": to obtain the position of FASTA sequences by pairwise alignment.</li>
+                            <li>"Locate by position": to examine specific loci by map position.</li>
                         </ul>
                         <br/>
+                """.format(base_url))
+        
+        ## FIND MARKERS
+        
+        output_buffer.append("""
+                    <hr/>
+                    <br/>
+                    <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
+                    <h2 id="find_markers">Find markers</h2>
+                        
+                        <br/>
+                        
+                        The "Find markers" tool allows searching for loci which are commonly used by the barley community.
+                        These loci include genetic markers, genes, BAC contigs, WGS contigs, etc. from different <strong>datasets</strong>.
+                        Their map positions have been previously computed and stored, so that the users can retrieve
+                        them by providing the identifier of the locus.
+                        
+                        <br/><br/>
+                        
+                        Be aware that "Find markers" datasets were generated using <strong>fixed parameters</strong>.
+                        In those cases when the user wants to perform a more specific search, 
+                        e.g. by choosing the alignment tool or parameters, 
+                        it is recommended to get the FASTA sequence of the query and use the "Align sequences" tool instead.
+                        
+                        <br/><br/>
+                        
+                        As <strong>input data</strong>, the user must provide a list of identifiers to use as queries. Besides that,
+                        the user needs to choose which is the <strong>map</strong> (or maps) from which to obtain the positions,
+                        using the selection list "Choose maps".
+                        
+                        <br/><br/>
+                        
+                        The "Genes/Markers enrichment" area allows the user to customize which <strong>additional data</strong> will be output along
+                        with the map positions of queries. First, the user can choose whether to show "genes", "markers" and/or "anchored".
+                        The last usually refers to WGS contigs, BAC contigs, or other elements associated to map positions (anchored), 
+                        but which lack a biological meaning per se.
+                        Besides that, the user can also choose whether to "show only main features" for each map.
+                        For example, for Morex Genome, "HORVU" genes are configured as "main" whereas "MLOCs" are not.
+                        The "Add features" option involves 2 ways to add additional data to the results:
+                        
+                        <ul class="help_list">
+                            <li>
+                            "on markers": the additional data is searched for each marker independently.
+                            Each additional row is appended after the query position.
+                            </li>
+                            
+                            <li>
+                            "on intervals": the additional data is searched in the regions defined by all the queries.
+                            Each additional row is added only once, and in its actual position in relation to the queries.
+                            </li>
+                        </ul>
+                        
+                        Therefore, the "on markers" option is better to obtain detailed data associated to each query,
+                        whereas the "on intervals" option is better to obtain a map-like result.
+                        Note that both previous options show additional data in the same position as queries by default.
+                        To obtain additional data around the markers the "Extend genes/markers search" option
+                        must be activated and the interval, in cM or bp, depending on the value of the "Sort by" option (see below), should be adjusted.
+                        
+                        <br/><br/>
+                        
+                        <strong>Other parameters</strong> include whether to show or not markers with multiple mappings,
+                        whether to sort the output by centimorgans (cM) or basepairs (bp), and an option to send the results to an email address provided by the user.
+                        Note that the option "Sort by" will be applied only for IBSC2012, which has both cM and bp positions available.
+                        POPSEQ data will be always sorted by cM, and Morex Genome data by bp.
+                        
+                        <br/><br/>
+                        
+                        <h3 id="datasets_included">Datasets included in Barleymap web</h3>
+                        <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
+                        <br/>
+                        
+                        The next is a list of datasets whose map positions have been pre-computed and stored in this instance of the Barleymap web application.
+                        Note that the
+                        <a href="https://github.com/Cantalapiedra/barleymap">standalone version</a> or a custom
+                        <a href="https://github.com/Cantalapiedra/barleymap_web">web version</a> of barleymap could be used to create other datasets.
+                        
+                        <ul class="help_list">
+                        
+                            <li>
+                                <b>BOPA1</b> dataset<sup>[4][11]</sup>: bears 1,536 sequences.
+                                "BOPA consensus" (e.g.: 11_20003) or
+                                "POPA12" identifiers must be provided (e.g.: ABC09016-2-2-348, 7174-365, BOPA1_7174-365, ...).
+                                <br/>
+                                A full list of markers, different identifiers and their sequences can be found at [4][11] (supplementary Table S9).
+                            </li>
+                            
+                            <li>
+                                <b>BOPA2</b> dataset<sup>[4][11]</sup>: bears 1,536 sequences.
+                                "BOPA consensus" identifiers must be provided (e.g.: 12_31342, i_12_31342, BOPA2_12_31342).
+                                <br/>
+                                A full list of markers, different identifiers and their sequences can be found at [4][11] (supplementary Table S10).
+                            </li>
+                            
+                            <li>
+                                <b>Illumina iSelect Infinium</b><sup>[5]</sup>: 7,864 sequences.
+                                Identifiers can be provided in different formats (e.g.: i_11_10882, 11_10882, 6964-414, BOPA1_6964-414, ...).
+                                <br/>
+                                A full list of markers, different identifiers and their sequences can be found at [5] (supplementary Table 6).
+                                <br/>
+                                (Illumina Infinium iSelect technology belongs to Illumina®)
+                            </li>
+                            
+                            <li>
+                                <b>Illumina 50K</b><sup>[6][*]</sup>: X,XXX sequences.
+                                "Illumina 50K" identifiers must be provided (e.g.: JHI-Hv50k-2016-7), but it accepts previous identifiers for
+                                markers from previous datasets (e.g. SCRI_RS_10006).
+                                <br/>
+                                A full list of markers, different identifiers and their sequences can be found at [6][*'] (supplementary Table XX).
+                                <br/>
+                                (Illumina Infinium technology belongs to Illumina®)
+                            </li>
+                            
+                            <li><b>DArTs</b><sup>[7][6]</sup>: 2,000 sequences (e.g.: bPb-3150_PUR_f+r or bPb-2614_WSU_r).
+                                <br/>Sequences for DArTs can be found at [7][6'].
+                            </li>
+                            
+                            <li><b>DArTseq SNPs</b><sup>[8][7]</sup>: 8,535 sequences (e.g.: 3254894|F|0 or 3254894).</li>
+                            
+                            <li><b>DArTseq PAVs (SilicoDArTs)</b><sup>[8][7]</sup>: 15,526 sequences (e.g.: 3271396|F|0 or 3271396).
+                                <br/>
+                                NOTE that 1,761 sequences from DArTseq are PAVs and contain SNPs, so that the identifier is the same for both markers.
+                                <br/>
+                                (DArTs<sup>TM</sup> and DArTseq<sup>TM</sup> technologies belong to Diversity Arrays Technology®)
+                            </li>
+                            
+                            <li><b>Oregon Wolfe Barley GBS SNPs</b><sup>[9][8]</sup>: 34,396 sequences (e.g.: owbGBS1162 or owbGBS34926).
+                                <br/>
+                                A full list of markers their sequences can be found at [9][8] (supplementary Dataset S1).
+                            </li>
+                            
+                            <li><b>Haruna nijo cultivar flcDNAs</b><sup>[10][9]</sup>: 28620 sequences (e.g.: AK358336 or AK358336.1).</li>
+                            
+                            <li><b>HarvEST Unigenes (assembly #36)</b><sup>[11][10]</sup>: 70148 sequences (e.g.: U36_70143 or U36_998).</li>
+                            
+                            <li><b>IBSC2012 genes</b><sup>[2][*]</sup>: 14,923 HC and 19,415 LC genes (e.g.: MLOC_67805).</li>
+                            
+                            <li><b>IBSC2012 BES</b><sup>[2][*]</sup>: IBSC_2012 and Morex Genome only. More than 400,000 BAC-End sequences
+                            (e.g.: HV_MBa0001A01.f.scf).</li>
+                            
+                            <li><b>IBSC2012 BAC contigs</b><sup>[2][*]</sup>: IBSC_2012 only. 377,144 BAC contigs. 
+                            (e.g. HVVMRX83KHA0104A24_HVVMRXALLhA0391C07_v16_c28)</li>
+                            
+                            <li><b>IBSC2012 WGS contigs (Morex, Barke and Bowman)</b><sup>[2][*]</sup>:
+                            Barke and Bowman contigs mapped in IBSC_2012 and Morex Genome only.
+                            Morex contigs in POPSEQ map also.
+                           (e.g. morex_contig_15371, barke_contig_975766, bowman_contig_387623).</li>
+                            
+                            <li><b>NCBI barley genes</b><sup>[11][*]</sup>: Morex Genome only.
+                            894 sequences (e.g.: AAD02252.1, dhn11, AAF01699.1).</li>
+                            
+                            <li><b>IBSC2016 genes</b><sup>[3][*]</sup>: Morex Genome only.
+                            39,734 HC and 41,949 LC genes.
+                            (e.g.: HORVU1Hr1G000090).</li>
+                            
+                        </ul>
+                        
+                        <br/>We shall be pleased to add
+                        any dataset you suggest to the web application, granted that its use is free and public.
+                        <br/><br/>
                 """.format(base_url))
         
         ## ALIGN SEQUENCES
@@ -163,265 +281,152 @@ class HtmlComponentsHelp(object):
                     <a class="top_link"  href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
                     <h2 id="align_sequences">Align sequences</h2>
                         
-                        <h3 id="references_and_algorithms_used_for_alignment">References and algorithms used for alignment</h3>
-                        <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                        
                         <br/>
-                        The previous version of Barleymap used as reference for the alignment the DNA sequence datasets
-                        associated to the IBSC physical map: AC1, AC2 and AC3.
-                        However, we consider that the alignment step benefits from the use of more comprehensive sequence references.
-                        This also improves flexibility,
-                        since the results of alignment can be used to retrieve positions from different maps.
-                        Moreover, using the previous version of Barleymap resulted in a high number of false multiple position mappings.
-                        Therefore, the current version of Barleymap uses the following databases of sequences as references:
+                        
+                        The "Align sequences" tool allows searching the map position of <strong>FASTA formatted sequences</strong> through alignment.
+                        This process is slower than "Find markers", but allows adjusting the alignment parameters as needed and searching
+                        for any DNA sequences.
+                        
+                        <br/><br/>
+                        
+                        Some of the features of "Align sequences" are:
+                        
                         <ul class="help_list">
-                            <li>Three <i>WGS</i> assemblies from different cultivars: "MorexWGS", "BowmanWGS" and "BarkeWGS"</li>
-                            <li>Morex cultivar sequenced BACs, assembled into BAC contigs: "SequencedBACs"</li>
-                            <li>Morex cultivar BAC End sequences: "BACEndSequences"</li>
+                            <li>
+                            Barleymap results are map positions, which may come from different sequence references,
+                            which are searched in a pan-genome or multi-reference fashion.
+                            </li>
+                            
+                            <li>
+                            It allows using different alignment algorithms, what makes possible to search for sequences with and without introns.
+                            </li>
+                            
+                            <li>
+                            Most of the details of this process are hidden from the user, who is interested only in the map and its map positions.
+                            </li>
                         </ul>
                         
-                        Barleymap performs alignments to the databases sequentially (see pipeline schema below),
-                        so that queries that have been successfully aligned
-                        to one database are not further searched in the remaining ones (NOTE: this procedure can be modified by the user
-                        in the <a href="http://eead.csic.es/compbio/soft/barleymap.php">standalone version</a>). The hierarchical order in which databases are queried is the same in which are mentioned 
-                        above and the one shown in the "Align sequences" page. This order has been chosen based on the idea that the WGS assemblies
-                        are more comprehensive than the other ones, and the Morex cultivar is the main one used as reference in the major
-                        barley genomics projects. The order in which BowmanWGS and BarkeWGS datasets are used was chosen based on subtle performance
-                        differences.
-                        On the other hand, a sequential search has been chosen based on the assumption that, although fragmented, each database
-                        would be almost complete (close to the barley genome),
-                        regarding sequence diversity, though some sequences could be absent in some of them. In addition, it is expected that these
-                        databases will be improved in the future, so that each one will be considered an independent reference genome.
-                        This procedure allows Barleymap to avoid the high redundancy that would result
-                        from the use of all the databases for every query.
-                        In addition, it reduces server load, by decreasing the number of alignments
-                        that are performed. As a drawback, if a sequence has actually more than one copy in the genome,
-                        but the different targets are in
-                        different databases, the query could be marked as aligned to only one loci,
-                        when it should have multiple targets with different positions.
-                        In spite of that, we consider that Barleymap loses just a few true multiple alignments,
-                        while discarding many false ones.
+                        As such, most of the <strong>parameters</strong> are the equivalent to those explained for the "Find markers" tool above.
+                        As in "Find markers", the user has to choose a <strong>map</strong> (or maps). Note that when the user chooses a map, he is actually choosing
+                        all the <strong>sequence references</strong> associated to that map (in the internal Barleymap configuration),
+                        as references for performing the alignments.
+                        
                         <br/><br/>
-                        For the alignment step, Barleymap can use Blast<sup>[3]</sup> (megablast), GMAP<sup>[4]</sup>, or both,
-                        depending on user choice (see pipeline schema below and "Alignment input and parameters").
-                        If both alignment programs are used,
-                        the first alignment step is performed with Blast against one database.
-                        Then, the unaligned queries are searched in the same database
-                        by means of GMAP.
-                        This one can align sequences that are splitted between two exons, which can be useful when using cDNA sequences as queries.
-                        The ones that remain unaligned
-                        will be used afterwards to align against another database, first with Blast, then with GMAP.
-                        Note that the user can choose to use only Blast or GMAP, which will be faster, although less sensitive.
+                        
+                        In "Align sequences" the user can choose different options for the <strong>alignment algorithm</strong>,
+                        under the option "Choose an action".
+                        
+                        <ul class="help_list">
+                            <li>
+                            cdna: it is the recommended option, specially when all the queries come from sequences which could have introns.
+                            For example, those from CDS or from markers produced from RNAseq data. All the alignments are performed
+                            using the GMAP aligner<sup>[12][4]</sup>.
+                            </li>
+                            
+                            <li>
+                            genomic: it uses the most popular alignment tool, BLASTN<sup>[13][3]</sup>, to perform all the alignments.
+                            </li>
+                            
+                            <li>
+                            auto: every query is searched with GMAP. For those queries without hits, the search is repeated with BLASTN.
+                            </li>
+                        </ul>
+                        
+                        Note that the user can choose also the parameters which define minimum thresholds for results of alignment to be reported.
+                        The <strong>minimum identity</strong> of alignment can be set with the "min. id." parameter,
+                        whereas the <strong>minimum query coverage</strong> in the alignment
+                        can be set with the "min. query cov." parameter.
+                        Any alignment result with one of those parameters smaller than the thresholds will be discarded by barleymap and thus not reported in
+                        the output tables.
+                        
                         <br/><br/>
-                        There is an additional difference between the Blast and the GMAP alignment. In both cases, results are filtered according to identity
-                        and coverage thresholds, and alignments to multiple targets with the same map position are merged.
-                        However, when post-processing Blast results, Barleymap chooses only the ones with the best bit score for a given query.
-                        This is different from GMAP, in which an alignment score is calculated in function of query aligned segment length and alignment identity.
-                        In addition, filter steps for GMAP results remove those ones that have been identified as chimeras.
+                        
+                        Besides that, Barleymap is able to use 3 different algorithms when searching maps which have more than one
+                        database associated to it. The details of how these algorithms work can be found
+                        <a href="https://github.com/Cantalapiedra/barleymap#4111-alignment-algorithm">here</a>.
+                        Here, just a brief description of the maps and databases included in this Barleymap web application,
+                        and the algorithms used on them, is provided.
+                        
                         <br/><br/>
-                        Internally, once Barleymap has a list of query-target pairs, obtained by means of Blast and GMAP alignments,
-                        map data is retrieved
-                        to obtain the known position of targets. Therefore, target position can be assigned to the associated query. 
-                        Thus, alignments are performed
-                        once to obtain the position from multiple maps.
+                        
+                        <h3 id="references_included">References included in Barleymap web</h3>
+                        <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
+                        
+                        <ul class="help_list">
+                            <li><strong>Morex Genome</strong><sup>[3]</sup></li>
+                                <br/>
+                                
+                                The Morex Genome is an actual genome assembly. Most of the datasets precomputed in Barleymap web
+                                are available for this reference (one exception, the IBSC2012 BAC contigs). The main datasets
+                                associated to this physical map are the IBSC2016 HC and LC genes (the "HORVUs"),
+                                the Illumina 50K markers ("JHIs", "SCRIs", etc.), the Morex WGS contigs and the NCBI genes.
+                                
+                                <br/><br/>
+                            <li><strong>POPSEQ map</strong><sup>[2]</sup></li>
+                                <br/>
+                                
+                                The POPSEQ map is a genetic map with Morex WGS contigs anchored to it. The main datasets
+                                associated to this map are the IBSC2012 HC and LC genes (the "MLOCs"),
+                                the Illumina 50K markers ("JHIs", "SCRIs", etc.), and the Morex WGS contigs.
+                                
+                                <br/><br/>
+                            <li><strong>IBSC2012 genetic/physical map</strong><sup>[1]</sup></li>
+                                <br/>
+                                
+                                The IBSC2012 genetic and physical map has sequences of different nature anchored to it:
+                                <br/>
+                                <ul class="help_list">
+                                    <li>Three <i>WGS</i> assemblies from different cultivars: Morex, Barke and Bowman.</li>
+                                    <li>Morex cultivar sequenced BAC contigs.</li>
+                                    <li>Morex cultivar BAC End sequences.</li>
+                                </ul>
+                                <br/>
+                                
+                                When a search is performed against the IBSC2012 map
+                                an <strong>"exhaustive" algorithm</strong> (see Figure below) is used.
+                                First, the queries are aligned against the first reference, using GMAP, BLASTN or both
+                                depending on the aligner chosen (see above discussion about parameters of "Align sequences").
+                                For every query with a hit in the reference a map position is retrieved.
+                                Those queries without a map position are searched in the second reference.
+                                This is repeated until all the queries have a map position or all the references have
+                                been used once as reference.
+                                The order in which databases are used as alignment target is the same as in the list above.
+                        </ul>
                         <br/>
                         """.format(base_url))
         
         # PIPELINE IMAGE
         output_buffer.append("""
                         <br/>
-                        <center><img width="499" height="526" style="float:right;margin-left:80px;margin-right:0px;border:none;" src="{0}"/></center>
+                        <center><img width="499" height="526" style="border:none;" src="{0}"/></center>
+                        <br/>
                         """.format(base_url+"/img/barleymap_popseq.pipeline_2.png"))
         
-        output_buffer.append("""
-                        
-                        <h3 id="alignment_input_and_parameters">Alignment input and parameters</h3>
-                        <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                        
-                        <br/>
-                        The user of Barleymap "Align sequences" must provide the input as FASTA formatted sequences.
-                        This can be done by pasting sequences in the "Input FASTA sequences" text area, or by uploading a file to the server.
-                        <br/><br/>
-                        In the other hand, under the "Choose an action" area, the user can choose the alignment mode, and the minimum identity (min.id.)
-                        and minimum query coverage (min. query cov.) thresholds. There are three alignment modes in Barleymap:
-                        <ul class="help_list">
-                            <li>"auto": both Blast and GMAP are used, as described above.</li>
-                            <li>"cdna": uses only GMAP, what would be beneficial specially when aligning cDNA queries.</li>
-                            <li>"genomic": uses only a Blast (megablast) search.</li>
-                        </ul>
-                        
-                        Finally, the user can choose the databases and maps for which results will be retrieved.
-                        The selection lists are in the "Choose genetic/physical maps and databases" area.
-                        If more than one map is chosen, results are separated so that output for each
-                        of the maps can be read and downloaded independently.
-                        In the case of databases, Barleymap aligns the queries to them sequentially,
-                        in the hierarchical order shown in the selection list. The user can activate/desactivate databases but the order can not be changed
-                        (note that this behaviour can be changed in the <a href="http://eead.csic.es/compbio/soft/barleymap.php">standalone version</a>, though).
-                        This means that, if active, "MorexWGS" would be always the first database used (i.e.: all the query sequences will be aligned against it)
-                        while "BACEndSequences" would be the last one (i.e.: will be used as subject for aligning the sequences that remain unmapped in the other databases).
-                        <br/><br/>
-                        The options under "Output options" and "Genes/Markers enrichment" are common for both Barleymap applications, so they are discussed below.
-                        <br/><br/>
-                """.format(base_url))
         
-        ## FIND MARKERS
+        ## LOCATE BY POSITION
         
         output_buffer.append("""
                     <hr/>
                     <br/>
                     <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                    <h2 id="find_markers">Find markers</h2>
-                    
-                        <h3 id="barleymap_datasets">Barleymap datasets</h3>
-                        <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                        <br/>
-                        
-                        An alignment search for many sequences at once can take a long time. However, some of those sequences can be
-                        expected to be searched repeatedly. For example, those corresponding to molecular markers used
-                        for genotyping many mapping populations.
-                        Therefore, for some sequences, the alignment results have been stored and can be recovered just by looking up their
-                        unique identifiers. This is what Barleymap "Find markers" uses as dataset (or pre-calculated dataset).
-                        <br/><br/>
-                        The only caveat of these datasets could be the fact that have been generated by fixing some of the parameters
-                        that otherwise can be
-                        tuned when using "Align sequences" or, to a more extent, when using the <a href="http://eead.csic.es/compbio/soft/barleymap.php">standalone version</a> 
-                        of Barleymap. All the pre-calculated datasets have been obtained by
-                        aligning the sequences to the references
-                        MorexWGS, BowmanWGS, BarkeWGS, SequencedBACs, BACEndSequences;
-                        and by using 98% and 95% as identity and coverage thresholds respectively. All of them will be queried
-                        as having been generated hierarchically using the databases in the previous order.
-                        <br/><br/>
-                        In addition, the generation of a unique table of results from several datasets could be used to combine data from different platforms.
-                        For example, when a mapping population has been genotyped with both GBS and microarray based SNPs.
-                        On the other hand, in the previous version of Barleymap, the user could choose which datasets were used as reference.
-                        However, being "Find markers" a fast process, in this version all datasets are always queried by Barleymap.
-                        The user only needs to choose the maps for which he wants to obtain the results, what can be
-                        done using the "Choose genetic/physical maps" selection list.
-                        <br/><br/>
-                        
-                        <h3 id="input_for_finding_markers">Input for finding markers</h3>
-                        <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                        <br/>
-                        
-                        The user must supply a list of identifiers in the "Input a list of marker IDs" text area, or by uploading a file with such list.
-                        It is important then that the different datasets and their marker identifiers are known, so that the user is aware of which
-                        ones to use as queries. Currently, the following datasets are available:
-                        <ul class="help_list">
-                            <li>
-                                <b>BOPA1</b> dataset<sup>[11]</sup>: bears 1,536 sequences.
-                                "BOPA consensus" (e.g.: 11_20003 or 11_10017) or "POPA12" identifiers must be provided (e.g.: ABC09016-2-2-348 or 7174-365).
-                                <br/>
-                                A full list of markers, different identifiers and their sequences can be found at [11] (supplementary Table S9).
-                            </li>
-                            <li>
-                                <b>BOPA2</b> dataset<sup>[11]</sup>: bears 1,536 sequences.
-                                "BOPA consensus" identifiers must be provided (e.g.: 12_31342 or 12_31187).
-                                <br/>
-                                A full list of markers, different identifiers and their sequences can be found at [11] (supplementary Table S10).
-                            </li>
-                            <li>
-                                <b>Illumina iSelect Infinium</b><sup>[5]</sup>: 7,864 sequences.
-                                "iSelect" identifiers must be provided (e.g.: i_11_20502 or i_BK_05).
-                                <br/>
-                                A full list of markers, different identifiers and their sequences can be found at [5'] (supplementary Table 6).
-                                <br/>
-                                (Illumina Infinium iSelect technology belongs to Illumina®)
-                            </li>
-                            <li><b>DArTs</b><sup>[6]</sup>: 2,000 sequences (e.g.: bPb-3150_PUR_f+r or bPb-2614_WSU_r).
-                                <br/>Sequences for DArTs can be found at [6'].
-                            </li>
-                            <li><b>DArTseq SNPs</b><sup>[7]</sup>: 8,535 sequences (e.g.: 3254894|F|0 or 3260868|F|0).</li>
-                            <li><b>DArTseq PAVs (SilicoDArTs)</b><sup>[7]</sup>: 15,526 sequences (e.g.: 3271396|F|0 or 3272248|F|0).
-                                <br/>
-                                NOTE that 1,761 sequences from DArTseq are PAVs and contain SNPs, so that the identifier is the same for both markers.
-                                <br/>
-                                (DArTs<sup>TM</sup> and DArTseq<sup>TM</sup> technologies belong to Diversity Arrays Technology®)
-                            </li>
-                            <li><b>Oregon Wolfe Barley GBS SNPs</b><sup>[8]</sup>: 34,396 sequences (e.g.: owbGBS1162 or owbGBS34926).
-                                <br/>
-                                A full list of markers their sequences can be found at the previous reference (supplementary Dataset S1).
-                            </li>
-                            <li><b>Haruna nijo cultivar flcDNAs</b><sup>[9]</sup>: 28620 sequences (e.g.: AK358336.1 or AK248138.1).</li>
-                            <li><b>HarvEST Unigenes (assembly #36)</b><sup>[10]</sup>: 70148 sequences (e.g.: U36_70143 or U36_998).</li>
-                        </ul>
-                        
-                        Comprehensive lists of identifiers of markers and mapping statistics will be published soon.
-                        <br/>
-                        Also we hope to keep adding new pre-calculated datasets as they become available.
-                        <br/>We shall be pleased to add
-                        any dataset you suggest to the web application, if the use of its sequences is public.
-                        <br/>Alternatively, you could add your own datasets to Barleymap in the <a href="http://eead.csic.es/compbio/soft/barleymap.php">standalone version</a>.
-                        <br/><br/>
-                        The options under "Output options" and "Genes/Markers enrichment" are common for both Barleymap applications, so they are discussed below.
-                        <br/><br/>
-                """.format(base_url))
-        
-        ## OPTIONS: OUTPUT AND ENRICHMENT
-        
-        output_buffer.append("""
-                    <hr/>
-                    <br/>
-                    <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                    <h2 id="output_options_and_genes_markers_enrichment">Output options and genes/markers enrichment</h2>
-                    
-                        <br/>
-                        Both "Align sequences" and "Find markers" have two common sets of options: "Output options" and "Genes/Markers enrichment".
-                        <br/>
-                        
-                        <h3 id="output_options">Output options</h3>
-                        <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                        <br/>
-                        
-                        In this area, there are three general options related to the output of Barleymap.
-                        <ul class="help_list">
-                            <li>"Markers with multiple mappings" allows to either show or filter out the queries which have multiple mappings as result
-                            (see below the "Barleymap output" section for more information on multiple mappings).</li>
-                            <li>"Sort by" can be used to change the sorting field of the Barleymap results, by centimorgan (cM) or basepairs (bp)*.
-                            Note that this affects the extended search of genes and markers, as explained below.</li>
-                            <li>"Send by e-mail" request Barleymap to send the CSV result files to a given address.
-                            This can be useful specially when mapping many markers by alignment, since the process could take several minutes,
-                            or when the user is interested in the CSV files, so he/she does not need to download manually each of them.</li>
-                        </ul>
-                        
-                        <h3 id="genes_markers_enrichment_and_annotation">Genes/markers enrichment and annotation</h3>
-                        <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
+                    <h2 id="locate_by_position">Locate by position</h2>
                         
                         <br/>
-                        The "Genes/Markers enrichment" area allows to manage the information of genes or markers that will be shown in their respective enriched
-                        maps (see "Barleymap output" below). Note that these maps are only generated when all markers map to a single chromosome
-                        (although in the <a href="http://eead.csic.es/compbio/soft/barleymap.php">standalone version</a> they can be retrieved
-                        for any result set).
-                        <br/><br/>
-                        For genes, the data used is that from IBSC transcriptome<sup>[1]</sup>. Regarding markers, those from Illumina iSelect Infinium,
-                        DArTs, DArTseq and OWB GBS will be shown if they are located in the mapping region. In addition, those genes that are target of alignment of the
-                        previous markers will be reported for each marker shown. Such marker-genes hits have been obtained by using the
-                        <a href="http://eead.csic.es/compbio/soft/barleymap.php">standalone pipeline</a> of Barleymap
-                        to align marker's sequences to the HC and LC genes from IBSC. All alignments have been performed in hierarchical mode, with both Blastn and
-                        GMAP active and with default identity and coverage thresholds.
-                        <br/><br/>
-                        There are two basic options in the "Show genes"
-                        radiobutton, that affect only to the map enriched with genes:
-                        <br/>
-                        <ul class="help_list">
-                            <li>"On marker" can be selected to show the genes that have associated the same position as each one of the markers of the results table.</li>
-                            <li>If the user is interested in showing the genes between each two markers of the results table,
-                            he/she should select the "between" option. Note that for the map enriched with markers, this is always the case.</li>
-                        </ul>
                         
-                        Both with "on marker" or "between" selected, other options can be chosen by the user. When "Load genes annotation" checkbox
-                        is marked, functional annotation of genes (InterPro, GeneOntology and others) from IBSC will be added
-                        to the results table of the map with genes information .
+                        The "Locate by position" tool allows examining the regions of <strong>specific map positions</strong>,
+                        mainly with the purpose of checking which genes, markers or other loci are present in those regions.
+                        
                         <br/><br/>
-                        The "Extend genes/markers search" allows to find genes and markers that are beyond de positions of mapped markers. For the map with genes,
-                        it has a different behaviour depending on the "Show genes" option currently selected.
-                        In both cases, the unit (or distance) to extend the search of genes can be specified. It will be centimorgans or basepairs,
-                        depending on the value selected at the "Sort by" field under "Output options" area*.
-                        However, if "on marker" is active,
-                        genes information upstream and downstream of each gene will be added to the results, according to the unit (cM or bp) specified.
-                        If "between" is selected, when "Extend genes search" is active, genes information upstream and downstream of the first and last marker
-                        of each chromosome,
-                        respectively, will be appended to the results. This is always the behaviour when extending the search for the map enriched with markers.
+                        
+                        The input data are "tuples", with chromosome (or contig) and position (local position within the chromosome or contig)
+                        in basepairs or centimorgans (e.g. chr1H 100200).
+                        
                         <br/><br/>
+                        
+                        All the other <strong>parameters</strong> are identical to those in "Find markers".
+                        
+                        <br/><br/>
+                        
                 """.format(base_url))
         
         ## OUTPUT
@@ -431,121 +436,124 @@ class HtmlComponentsHelp(object):
                     <br/>
                     <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
                     <h2 id="barleymap_output">Barleymap output</h2>
-                    
-                        <br/>
-                        Barleymap shows up to five tables of results: "Map", "Map with genes", "Map with markers", "Markers without map position" and
-                        "Unaligned markers".
                         
                         <br/>
                         
-                        <h3 id="mapping_results">Mapping results</h3>
+                        On top of the results page, Barleymap outputs a list of maps selected by the user.
+                        He can use the links on that list to navigate to the results of a specific map.
+                        
+                        <br/><br/>
+                        
+                        For every map which the user selected, Barleymap shows up to five tables of results:
+                        
+                        <ul class="help_list">
+                            <li>
+                            <a href="#results_map">Map</a>
+                            </li>
+                            
+                            <li>
+                            <a href="#results_markers">Map with markers</a>
+                            </li>
+                            
+                            <li>
+                            <a href="#results_genes">Map with genes</a>
+                            </li>
+                            
+                            <li>
+                            <a href="#results_anchored">Map with anchored elements</a>
+                            </li>
+                            
+                            <li>
+                            <a href="#results_unmapped_unaligned">Unmapped markers</a>
+                            </li>
+                            
+                            <li>
+                            <a href="#results_unmapped_unaligned">Unaligned markers</a>
+                            </li>
+                        </ul>
+                        
+                        <h3 id="results_map">Map</h3>
                         <a class="top_link"  href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                        <br/>
                         
-                        The mapping results are reported in the <strong>"Map"</strong> table, sorted by chromosome and centimorgans or basepairs,
-                        depending on user's choice*.
-                        The fields related with mapping and position of queries are shown:
-                        <ul class="help_list">
-                            <li>"Marker": identifier of the query sequence, either the user supplied value in "Find markers" or the FASTA header
-                            of the sequence in "Align sequences."
-                            </li>
-                            <li>"chr": chromosome.</li>
-                            <li>"cM": centimorgans position*.</li>
-                            <li>"bp": basepairs position*.</li>
-                            <li>"multiple positions": whether the current query sequence has more than one different mapping position in the current map.
-                                <br/>
-                                However, a sequence with more than one alignment target is not considered
-                                as having multiple positions if only one map position has been found.
-                                <br/>This field is shown only if "Markers with multiple mappings" radio button has the "show" option selected.
-                                <br/>
-                            </li>
-                            <li>"other alignments": whether the current query sequence has other alignment targets which lack map position.
-                                <br/>
-                                In this case, the sequence could be considered as appearing more than once in the reference, but the position information
-                                is not available for all the alignments in the current map.
-                                <br/>At least one unmapped alignment should be found in the "Markers without map position" table for such query
-                                (see "Unmapped and unaligned markers" below).
-                            </li>
-                        </ul>
+                            <br/>
+                            
+                            The first result shown by Barleymap is a <strong>graphical representation</strong> of the seven barley chromosomes.
+                            Queries with map position are shown on top of those chromosomes.
+                            Using the magnifying glass button, the user can toggle between complete chromosomes or just the mapped region.
+                            
+                            <br/><br/>
+                            
+                            Below the graphical representation is the <strong>"Map"</strong> table, with the next fields:
+                            
+                            <ul class="help_list">
+                                <li>Marker: identifier of the query sequence, either the user supplied value in "Find markers", the FASTA header
+                                of the sequence in "Align sequences", or an arbitrary code "chromosome_position" created in "Locate by position".
+                                </li>
+                                <li>chr: chromosome (or contig or equivalent).</li>
+                                <li>cM: centimorgans position. Only for anchored maps with cM positions (IBSC2012 and POPSEQ).</li>
+                                <li>bp: basepairs position. Only for anchored maps with bp positions (IBSC2012).</li>
+                                <li>start: basepairs starting position. Only for physical maps (MorexGenome).</li>
+                                <li>end: basepairs ending position. Only for physical maps (MorexGenome).</li>
+                                <li>strand: whether the query aligns to the target strand (+) or to the complementary strand (-). Only for physical maps (MorexGenome).</li>
+                                <li>multiple positions: whether the current query sequence has more than one different mapping position in the current map.
+                                    <br/>This field is shown only if the "Markers with multiple mappings" option has been selected.
+                                    <br/>
+                                </li>
+                                <li>other alignments: whether the current query sequence has other alignment targets which lack map position.
+                                    <br/>At least one unmapped alignment should be found for such query.
+                                </li>
+                            </ul>
                         
-                        <h3 id="map_enriched_with_genes_information">Map enriched with genes information</h3>
+                        <h3 id="results_markers">Map with markers</h3>
                         <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                        <br/>
                         
-                        A second table of results will be reported if all the queries hit the same chromosome. Such table, <b>"Map with genes"</b>,
-                        is enriched with genes that are located around or between markers (according to the "Show genes" option selected).
-                        Thus, in addition to the fields from the "Map" table, other fields are added related with the genes found:
+                            <br/>
+                            
+                            The <strong>Map with markers</strong> table shows the mapping results along with the genetic markers that are
+                            located in the same positions (or regions if the search is extended). The table has the same fields as the Map table.
                         
-                        <ul class="help_list">
-                            <li>"Gene": gene identifier.</li>
-                            <li>"HC/LC": whether the current gene is classified as High Confidence or Low Confidence in the IBSC data.</li>
-                            <li>"chr", "cM", "bp"*: position associated to this gene.
-                                <br/>
-                                Note that the position of the gene corresponds to the position of the query sequence that has been selected in the "Sort by" option
-                                of the "Output options" area*. For example, if results are sorted by centimorgans, the gene associated to a position will have the
-                                same centimorgan value, but the basepairs value could be different.
-                            </li>
-                        </ul>
-                        
-                        Moreover, depending on whether "Load genes annotation" is active, more fields may be added as columns of the results table.
-                        
-                        <ul class="help_list">
-                            <li>"Description": human readable description of current gene.</li>
-                            <li>"InterPro": identifiers of the domains detected in the current gene.</li>
-                            <li>"Signatures": predictive models obtained from InterPro's signatures.</li>
-                            <li>"GO terms": identifiers of the GeneOntology terms annotated for this gene.</li>
-                        </ul>
-                        
-                        <h3 id="other_markers_located_in_the_mapping_interval">Other markers located in the mapping interval</h3>
+                        <h3 id="results_genes">Map with genes</h3>
                         <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                        <br/>
+                            <br/>
+                            
+                            The <strong>Map with genes</strong> table shows the mapping results along with the genes that are
+                            located in the same positions (or regions if the search is extended). The table has all the fields of the previous tables,
+                            plus some additional fields, related to functional annotation of genes:
+                            
+                            <ul class="help_list">
+                                <li>Gene class: High Confidence or Low Confidence classification.</li>
+                                <li>Description: human-readable description of the gene.</li>
+                                <li>InterPro: IPR identifiers for the gene.</li>
+                                <li>GeneOntologies: GO identifiers for the gene.</li>
+                                <li>PFAM: Protein Families identifiers for the gene.</li>
+                            </ul>
                         
-                        Similar to the "Map with genes" table, the <b>"Map with markers"</b> one will be shown if all the queries hit the same chromosome.
-                        In this case, the mapping results are enriched with information of markers that are
-                        located between the queries, providing the following additional fields:
-                        
-                        <ul class="help_list">
-                            <li>"Marker": marker identifier.</li>
-                            <li>"Dataset": the dataset which this marker belongs to (see "Find markers" section above).</li>
-                            <li>"chr", "cM", "bp"*: position associated to this marker.
-                                <br/>
-                                Note that the position of the marker corresponds to the position of the query sequence that has been selected in the "Sort by" option
-                                of the "Output options" area*. For example, if results are sorted by centimorgans, the marker associated to a position will have the
-                                same centimorgan value, but the basepairs value could be different.
-                            </li>
-                            <li>"genes": a list of genes associated to this marker.
-                                <br/>
-                                If markers from a dataset have been aligned to genes, the list of alignment hits is shown.
-                                If no hits were found for one marker, its field will be filled with the text "no hit".
-                                However, some datasets could lack such information. In such case, "nd" (no data) will be the value of this field.
-                            </li>
-                        </ul>
-                        
-                        <h3 id="unmapped_and_unaligned_markers">Unmapped and unaligned markers</h3>
+                        <h3 id="results_anchored">Map with anchored elements</h3>
                         <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                        <br/>
                         
-                        In addition to the mapping results, two more tables are shown for each map.
-                        <br/><br/>
-                        The <b>"Markers without map position"</b> table shows those query-target pairs, obtained from alignment step,
-                        for which position of the target is not available for the current map.
-                        However, this does not mean that the marker is unmapped, since it could have a map position from a
-                        different alignment target in the mappings table.
-                        <br/><br/>
-                        The <b>"Unaligned markers"</b> table shows the identifiers of those sequences for which no valid alignment has been found.
-                        <br/><br/>
+                            <br/>
+                            
+                            The <strong>Map with anchored elements</strong> table shows the mapping results along with the elements that are
+                            located in the same positions (or regions if the search is extended). In this case, they are not genes or markers;
+                            anchored elements have map position but often lack biological meaning (e.g. WGS contigs, BAC contigs, etc.).
+                            The table has the same fields as the Map and the Map with markers tables.
                         
-                        <h3 id="other_features">Other features</h3>
+                        
+                        
+                        <h3 id="results_unmapped_unaligned">Unmapped and unaligned markers</h3>
                         <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
-                        <br/>
                         
-                        Finally, the web page showing the results of Barleymap has other features.
-                        First, the mappings table as well as the enriched ones can be downloaded independently for each map as a CSV file.
-                        Second, navigation through the different maps and tables is facilitated
-                        by different hyperlinks provided along with the results.
-                        Finally, some of the fields of the mappings table, as "Gene" or "InterPro" field, link to external resources where information about
-                        structure or function of the feature could be obtained.
-                        <br/><br/>
+                            <br/>
+                            
+                            In addition to the mapping results, two more tables are shown for each map.
+                            
+                            <ul class="help_list">
+                                <li><strong>Unmapped</strong>: shows those queries which have an alignment hit (field "Target ID").</li>
+                                    Note that queries in this table could still have map position, through a different alignment.
+                                <li><strong>Unaligned</strong>: shows those queries which lack alignment hit (and thus map position).</li>
+                            </ul>
+                            
+                        <br/>
             """.format(base_url))
         
         ## CONFIDENTIALITY
@@ -557,20 +565,13 @@ class HtmlComponentsHelp(object):
                     <h2 id="confidentiality">Confidentiality</h2>
                     
                         <br/>
-                        The general question an user could have when using BARLEYMAP, regarding privacy of the data, it could be:
-                        <br/>
-                        What about the security aspects of the plant breeders for using BARLEYMAP
+                        We can not guarantee the security of the data used with the web tool.
+                        Currently, Barleymap is NOT using any kind of encryption algorithm for sending and receiving data (such as https).
                         <br/><br/>
-                        Unfortunately, we can not guarantee the security of the data used with the web tool.
-                        Currently, it is NOT using any kind of encryption algorithm for sending and receiving data (such as https).
-                        However, the results obtained by users are private as only they have access to them.
-                        In addition, input data are removed from the server after completion of the job.
-                        <br/><br/>
-                        Should this naïve confidentiality be not acceptable to some users, then we recommend they install and use the
-                        <a href="http://eead.csic.es/compbio/soft/barleymap.php">standalone software</a>.
-                        This opens the available options, since it can be used to serve the application in
-                        several ways (e.g.: a Galaxy local server). In addition, we plan to make the web
-                        application available as well, so that interested users could make a local install.  
+                        Should this naïve confidentiality be not acceptable to some users, we would recommend installing the
+                        <a href="https://github.com/Cantalapiedra/barleymap">standalone barleymap</a> version,
+                        or setting up their own instace of
+                        <a href="https://github.com/Cantalapiedra/barleymap_web">barleymap web</a> version. 
                         <br/><br/>
             """.format(base_url))
         
@@ -590,74 +591,67 @@ class HtmlComponentsHelp(object):
                         in the course of academic research.
                         <br/><br/>
                     <hr/>
-                </section>
+                <!--</section>-->
                 <br/>
             """.format(base_url))
         
         ## APPENDIX
         
         output_buffer.append("""
-                <section class="help_section">
-                    * Note that the user's choice for "Sort by" will applied only for those maps
-                      with both centimorgans and basepairs information available.
-                      For example, POPSEQ data will be always sorted and retrieved based on centimorgans. Accordingly, base pairs and centimorgans
-                      fields will be only reported if available.
-                    <br/><br/>
-                    
-                    WGS: Whole Genome Shotgun<br/>
-                    BAC: Bacterial Artifial Chromosome<br/>
-                    cDNA: complementary DNA<br/>
-                    GBS: Genotyping By Sequencing<br/>
-                    SNPs: Single Nucleotide Polymorphisms<br/>
-                    PAVs: Presence-Absence Variations<br/>
-                </section>
                 <br/>
-                <section class="help_section">
+                <a class="top_link" href="#"><img style="width:10px;height:10px;border:none;" src="{0}/img/top.jpg"/></a>
+                    <h2 id="references">References</h2>
+                <br/>
+                <!--<section class="help_section">-->
                 
-                    <cite><sup>[1]</sup><a href="http://dx.doi.org/10.1038/nature11543"
+                    <cite><sup>[1]</sup><a href="http://doi.org/10.1038/nature11543"
                                             target="_blank">IBSC 2012</a></cite>
                     <br/>
-                    <cite><sup>[2]</sup><a href="http://onlinelibrary.wiley.com/doi/10.1111/tpj.12319/abstract"
+                    <cite><sup>[2]</sup><a href="http://doi.org/10.1111/tpj.12319"
                                             target="_blank">Mascher et al. 2013</a></cite>
                     <br/>
-                    <cite><sup>[3]</sup><a href="http://www.ncbi.nlm.nih.gov/pubmed/2231712"
-                                            target="_blank">Altschul et al. 1990</a></cite>
+                    <cite><sup>[3]</sup><a href="http://doi.org/10.1038/nature22043"
+                                           target="_blank">Mascher et al. 2017</a></cite>
                     <br/>
-                    <cite><sup>[4]</sup><a href="http://bioinformatics.oxfordjournals.org/content/21/9/1859.long"
-                                            target="_blank">Wu and Watanabe 2005</a></cite>
+                    <cite><sup>[4]</sup><a href="https://doi.org/10.1186/1471-2164-10-582"
+                                           target="_blank">Close et al. 2009</a></cite>
                     <br/>
-                    <cite><sup>[5]</sup><a href="http://www.scribd.com/doc/110542041/18/A-9K-Infinium-array-for-the-characterization-of-barley-lines-and-genetic-mapping"
-                                           target="_blank">Ganal et al. 2011</a></cite>
-                    <br/>
-                    <cite><sup>[5']</sup><a href="http://www.nature.com/ng/journal/v44/n12/full/ng.2447.html"
+                    <cite><sup>[5]</sup><a href="http://doi.org/10.1038/ng.2447"
                                            target="_blank">Comadran et al. 2012</a></cite>
                     <br/>
-                    <cite><sup>[6]</sup><a href="http://www.pnas.org/content/101/26/9915.full"
+                    <cite><sup>[6]</sup><a href="https://doi.org/10.3389/fpls.2017.01792"
+                                           target="_blank">Bayer et al. 2017</a></cite>
+                    <br/>
+                    <cite><sup>[7]</sup><a href="https://doi.org/10.1073/pnas.0401076101"
                                            target="_blank">Wenzl et al. 2004</a></cite>
                     <br/>
-                    <cite><sup>[6']</sup><a href="http://www.diversityarrays.com/dart-map-sequences"
+                    <cite><sup>[7']</sup><a href="http://www.diversityarrays.com/dart-map-sequences"
                                            target="_blank">www.diversityarrays.com</a></cite>
                     <br/>
-                    <cite><sup>[7]</sup><a href="http://link.springer.com/protocol/10.1007%2F978-1-61779-870-2_5"
+                    <cite><sup>[8]</sup><a href="https://doi.org/10.1007/978-1-61779-870-2_5"
                                            target="_blank">Kilian et al. 2012</a></cite>
                     <br/>
-                    <cite><sup>[8]</sup><a href="http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0032253"
+                    <cite><sup>[9]</sup><a href="https://doi.org/10.1371/journal.pone.0032253"
                                            target="_blank">Poland et al. 2012</a></cite>
                     <br/>
-                    <cite><sup>[9]</sup><a href="http://www.plantphysiol.org/content/156/1/20"
+                    <cite><sup>[10]</sup><a href="https://doi.org/10.1104/pp.110.171579"
                                            target="_blank">Matsumoto et al. 2011</a></cite>
                     <br/>
-                    <cite><sup>[10]</sup><a href="http://harvest.ucr.edu"
+                    <cite><sup>[11]</sup><a href="http://harvest.ucr.edu"
                                            target="_blank">HarvEST</a></cite>
                     <br/>
-                    <cite><sup>[11]</sup><a href="http://www.biomedcentral.com/1471-2164/10/582/"
-                                           target="_blank">Close et al. 2009</a></cite>
+                    <cite><sup>[12]</sup><a href="https://doi.org/10.1093/bioinformatics/bti310"
+                                            target="_blank">Wu and Watanabe 2005</a></cite>
+                    <br/>
+                    <cite><sup>[13]</sup><a href="https://doi.org/10.1016/S0022-2836(05)80360-2"
+                                            target="_blank">Altschul et al. 1990</a></cite>
                     <br/>
                 </section>
                 <br/>
                 <hr/>
             </article>
-            """)
+            """.format(base_url))
+        
         output_buffer.append("""
             <a href="{0}"><img style="width:5%;height:5%;border:none;" src="{1}" alt="back"/></a>
         </section> <!-- content -->
