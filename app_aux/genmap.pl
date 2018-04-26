@@ -410,7 +410,11 @@ if (defined $map && -r $map && (open my $IN, '<', $map))
 	    ##### Plot the graphical chromosomes
 	    #####
 	    my $bezier_height = 22.7;
-	    my $rect_height = ($chrom_max / $maxmax) * $CHR_HEIGHT;
+	    my $rect_height = $CHR_HEIGHT; # if $maxmax == 0
+	    if ($maxmax != 0) {
+		my $rect_height = ($chrom_max / $maxmax) * $CHR_HEIGHT;
+	    }
+	    
 	    if ($finemapping) { # when finemapping, all chromosomes have the same length
 		$rect_height = $CHR_HEIGHT;
 	    }
