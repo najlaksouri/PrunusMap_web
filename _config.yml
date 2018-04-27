@@ -3,11 +3,11 @@ exclude:
   - .gitignore
   - LICENSE
   - app_aux
-  - bin
   - conf
-  - datasets
-  - datasets_annotation
-  - maps
+  - css
+  - img
+  - js
+  - logs
   - src
   - tmp_files
   - _START
