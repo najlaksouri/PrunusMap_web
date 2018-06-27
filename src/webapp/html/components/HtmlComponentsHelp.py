@@ -224,7 +224,7 @@ class HtmlComponentsHelp(object):
                                 (Illumina Infinium technology belongs to Illumina®)
                             </li>
                             
-                            <li><b>DArTs</b><sup>[7][6]</sup>: 2,000 sequences (e.g.: bPb-3150_PUR_f+r or bPb-2614_WSU_r).
+                            <li><b>DArTs</b><sup>[7][6]</sup>: 2,000 sequences (e.g.: bPb-3150 or bPb-3150_PUR_f+r, bPb-2614 or bPb-2614_WSU_r).
                                 <br/>Sequences for DArTs can be found at [7][6'].
                             </li>
                             
