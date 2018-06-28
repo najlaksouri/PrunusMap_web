@@ -31,5 +31,6 @@ aux/
 
 *old
 
-barleymapcore/.git/
-barleymapcore/.gitignore/
+src/barleymapcore/.git/
+src/barleymapcore/.gitignore/
+src/barleymapcore/README.md
