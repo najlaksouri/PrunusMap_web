@@ -172,6 +172,9 @@ class HtmlLayoutBarleymap(object):
             text_buffer.append("""
             <br/><strong>Latest changes</strong>
             <br/>
+            <br/>17-08-2018:<br/>
+            · Added POPSEQ map updated with 2017 data<sup>[3]</sup> (POPSEQ_2017).
+            <br/>
             <br/>6-03-2018:<br/>
             · Added a dataset of NCBI genes to the Morex Genome map. This dataset includes genes like HvCO1, Int-c, Btr1, Vrs1, PhyB, HvCEN, etc... to a total of 894 entries.
             <br/>
@@ -181,13 +184,6 @@ class HtmlLayoutBarleymap(object):
             through the
             <strong><i><a href="{0}/find/">Find markers</a></i></strong> option.
             <br/>
-            <br/>
-            <cite><sup>[4]</sup>Bayer et al. 2017
-            <a href="https://www.frontiersin.org/articles/10.3389/fpls.2017.01792/full" target="_blank">
-            Development and Evaluation of a Barley 50k iSelect SNP Array
-            </a>
-            Frontiers in Plant Science. 8:1792. doi:10.3389/fpls.2017.01792
-            </cite>
         """.format(base_url))
             
         text_buffer.append("""
@@ -269,6 +265,14 @@ class HtmlLayoutBarleymap(object):
             A chromosome conformation capture ordered sequence of the barley genome
             </a>
             Nature. 544:427-433. doi:10.1038/nature22043
+            </cite>
+            <br/>
+            
+            <cite><sup>[4]</sup>Bayer et al. 2017
+            <a href="https://www.frontiersin.org/articles/10.3389/fpls.2017.01792/full" target="_blank">
+            Development and Evaluation of a Barley 50k iSelect SNP Array
+            </a>
+            Frontiers in Plant Science. 8:1792. doi:10.3389/fpls.2017.01792
             </cite>
             
         """.format(base_url+"/help/", citation, base_url))
