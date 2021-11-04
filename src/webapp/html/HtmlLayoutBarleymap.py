@@ -199,9 +199,10 @@ class HtmlLayoutBarleymap(object):
             <br/><br/>
             
             All the public data used by Barleymap can be found at
-            <a href="ftp://ftpmips.helmholtz-muenchen.de/plants/barley/public_data/" target="_blank">MIPS FTP server</a>
-            , <a href="ftp://ftp.ipk-gatersleben.de/barley-popseq/" target="_blank">IPK FTP server</a>, 
-            and <a href="http://webblast.ipk-gatersleben.de/barley_ibsc/downloads/" target="_blank">FTP server for Morex Genome 2017 data</a>.
+            <a href="https://www.helmholtz-muenchen.de/pgsb/index.html" target="_blank">PGSB</a>
+            , <a href="https://galaxy-web.ipk-gatersleben.de/" target="_blank">IPK</a>, 
+            , <a href="http://doi.org/10.5447/ipk/2021/3" target="_blank">e!DAL</a>,
+            and <a href="https://ics.hutton.ac.uk/barleyrtd" target="_blank">Barley RTD</a>.
             <br/><br/>
             
             The <strong><i><a href="{2}/find/">Find markers</a></i></strong> option allows to find the position of markers by using their identifiers as input.
