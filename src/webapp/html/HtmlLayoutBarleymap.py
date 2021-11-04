@@ -151,13 +151,13 @@ class HtmlLayoutBarleymap(object):
             <h2><a href="{1}/">Barleymap</a></h2>
             <h3 class="infobar">({0})</h3>
         </header>
-        """.format("Map markers to the barley genome - Morex Genome 2017 edition", base_url)
+        """.format("Map markers to the barley genome - MorexV3Genome 2021 edition", base_url)
     
     @staticmethod
     def footer():
         return """
         <footer class="infobar">
-            <a href="http://www.eead.csic.es/compbio/" target="_blank">Laboratory of Computational Biology</a>
+            <a href="http://www.eead.csic.es/compbio/" target="_blank">Computational and structural biology group</a>
             ::
             <a href="http://eead.csic.es/" target="_blank">Estaci&oacute;n Experimental de Aula Dei</a>
             ::
@@ -171,6 +171,9 @@ class HtmlLayoutBarleymap(object):
         if show_last_changes:
             text_buffer.append("""
             <br/><strong>Latest changes</strong>
+            <br/>
+            <br/>04-11-2021:<br/>
+            · Added MorexV3 map + centromeres, PGSB and BaRT1.0 gene models and NCBI Entrez CDS sequences.
             <br/>
             <br/>17-08-2018:<br/>
             · Added POPSEQ map updated with 2017 data<sup>[3]</sup> (POPSEQ_2017).
