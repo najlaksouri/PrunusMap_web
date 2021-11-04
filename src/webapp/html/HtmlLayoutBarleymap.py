@@ -194,15 +194,17 @@ class HtmlLayoutBarleymap(object):
             <hr/>
             <b><a href="{2}">Barleymap</a></b> was designed to search the position of barley genetic markers
             on the <strong>Barley Physical Map</strong> (IBSC<sup>[1]</sup>) 
-            and the <strong>POPSEQ map</strong> (Mascher <i>et al.</i><sup>[2]</sup>). 
-            The current version was updated to work with the <strong>Morex Genome</strong> (released in 2017)<sup>[3]</sup>.
+            ,the <strong>POPSEQ map</strong> (Mascher <i>et al.</i><sup>[2]</sup>) and the 
+            2017 Morex Genome. 
+            The current version was updated to work with the <strong>MorexV3</strong> genome (released in 2021)<sup>[5]</sup>.
             <br/><br/>
             
             All the public data used by Barleymap can be found at
             <a href="https://www.helmholtz-muenchen.de/pgsb/index.html" target="_blank">PGSB</a>
             , <a href="https://galaxy-web.ipk-gatersleben.de/" target="_blank">IPK</a>, 
             , <a href="http://doi.org/10.5447/ipk/2021/3" target="_blank">e!DAL</a>,
-            and <a href="https://ics.hutton.ac.uk/barleyrtd" target="_blank">Barley RTD</a>.
+            , <a href="https://ics.hutton.ac.uk/barleyrtd" target="_blank">Barley RTD</a>
+            and the <a href="https://www.ncbi.nlm.nih.gov/assembly/GCA_904849725.1" target="_blank">NCBI</a>.
             <br/><br/>
             
             The <strong><i><a href="{2}/find/">Find markers</a></i></strong> option allows to find the position of markers by using their identifiers as input.
@@ -212,7 +214,7 @@ class HtmlLayoutBarleymap(object):
             
             To use the <strong><i><a href="{2}/align/">Align sequences</a></i></strong> option you must provide nucleotide sequences of the markers (in FASTA format).
             <br/>These will be used to retrieve their positions through
-            <strong><a href="{0}#references_and_algorithms_used_for_alignment">sequence alignment</a></strong> to the selected map (IBSC2012, POPSEQ or MorexGenome).
+            <strong><a href="{0}#references_and_algorithms_used_for_alignment">sequence alignment</a></strong> to the selected map (IBSC2012, POPSEQ, MorexGenome or MorexV3).
             <br/><br/>
             
             The <strong><i><a href="{2}/locate/">Locate by position</a></i></strong> option allows to examine the map context of specific positions,
@@ -235,7 +237,7 @@ class HtmlLayoutBarleymap(object):
             <strong>Further information</strong> about how this tool works and help on using it can be found
             <strong><a href="{0}">here</a></strong>.
             <br/>
-            Or you may wish to <strong>contact</strong> the <a href="http://www.eead.csic.es/compbio/" target="_blank">Laboratory of Computational Biology</a>
+            Or you may wish to <strong>contact</strong> the <a href="http://www.eead.csic.es/compbio/" target="_blank">Computational and structural biology group</a>
             (<a href="http://www.eead.csic.es">EEAD</a> - <a href="http://www.csic.es">CSIC</a>):<br/>
             <a href="mailto:cpcantalapiedra@eead.csic.es">Carlos P Cantalapiedra</a>
             <br/>
@@ -279,6 +281,21 @@ class HtmlLayoutBarleymap(object):
             Frontiers in Plant Science. 8:1792. doi:10.3389/fpls.2017.01792
             </cite>
             
+            <cite><sup>[5]</sup>Mascher et al. 2021
+            <a href="https://doi.org/10.1093/plcell/koab077" target="_blank">
+            Long-read sequence assembly: a technical evaluation in barley
+            </a>
+            The Plant Cell 33(6):1888–1906 doi:10.1093/plcell/koab077
+            </cite>
+
+            <cite><sup>[6]</sup>Rapazote-Flores et al. 2019
+            <a href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-019-6243-7" target="_blank">
+            BaRTv1.0: an improved barley reference transcript dataset to determine accurate changes in the barley transcriptome using RNA-seq
+            </a>
+            BMC Genomics 20:968 doi:10.1186/s12864-019-6243-7
+            </cite>
+
+
         """.format(base_url+"/help/", citation, base_url))
         
         return "".join(text_buffer)
