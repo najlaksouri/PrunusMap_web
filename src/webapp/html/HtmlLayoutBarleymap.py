@@ -151,7 +151,7 @@ class HtmlLayoutBarleymap(object):
             <h2><a href="{1}/">Barleymap</a></h2>
             <h3 class="infobar">({0})</h3>
         </header>
-        """.format("Map markers to the barley genome - MorexV3Genome 2021 edition", base_url)
+        """.format("Map markers to the barley genome - MorexV3 2021 edition", base_url)
     
     @staticmethod
     def footer():
@@ -239,7 +239,7 @@ class HtmlLayoutBarleymap(object):
             <br/>
             Or you may wish to <strong>contact</strong> the <a href="http://www.eead.csic.es/compbio/" target="_blank">Computational and structural biology group</a>
             (<a href="http://www.eead.csic.es">EEAD</a> - <a href="http://www.csic.es">CSIC</a>):<br/>
-            <a href="mailto:cpcantalapiedra@eead.csic.es">Carlos P Cantalapiedra</a>
+            <a href="mailto:cpcantalapiedra@gmail.com">Carlos P Cantalapiedra</a>
             <br/>
             <a href="mailto:bcontreras@eead.csic.es">Bruno Contreras-Moreira</a>
             <br/><br/>
