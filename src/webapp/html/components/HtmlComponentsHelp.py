@@ -103,7 +103,7 @@ class HtmlComponentsHelp(object):
                         Barleymap was designed to search the genetic and physical positions of barley markers on
                         the <strong>Barley Physical Map</strong> (IBSC<sup>[1]</sup>) and
                         the <strong>POPSEQ</strong> map<sup>[2]</sup>. The strong>Morex Genome</strong><sup>[3]</sup> map
-                        was subsequently added in 2017. The current version uses the <strong>MorexV3</strong><sup>[5]</sup> by default.
+                        was subsequently added in 2017. The current version uses the <strong>MorexV3</strong> genome<sup>[5]</sup> by default.
                         <br/><br/>
                         Barleymap provides <strong>three tools</strong> to retrieve data from the maps:
                         <ul class="help_list">
@@ -215,7 +215,7 @@ class HtmlComponentsHelp(object):
                             </li>
                             
                             <li>
-                                <b>Illumina 50K</b><sup>[6][*]</sup>: X,XXX sequences.
+                                <b>Illumina 50K</b><sup>[6][*]</sup>: 43,078 sequences with positions provided by JHI.
                                 "Illumina 50K" identifiers must be provided (e.g.: JHI-Hv50k-2016-7), but it accepts previous identifiers for
                                 markers from previous datasets (e.g. SCRI_RS_10006).
                                 <br/>
@@ -265,6 +265,14 @@ class HtmlComponentsHelp(object):
                             <li><b>IBSC2016 genes</b><sup>[3][*]</sup>: Morex Genome only.
                             39,734 HC and 41,949 LC genes.
                             (e.g.: HORVU1Hr1G000090).</li>
+                            
+                            <li><b>PGSB genes</b><sup>[14]</sup>: MorexV3 only.
+                            35,826 HC and 45,849 LC genes.
+                            (e.g.: HORVU.MOREX.r3.1HG0000030).</li>
+                            
+                            <li><b>BaRT 1.0 gene models</b><sup>[15]</sup>
+                            45,619 genes.
+                            (e.g.: BART1_0-u00002).</li>
                             
                         </ul>
                         
@@ -645,6 +653,16 @@ class HtmlComponentsHelp(object):
                     <br/>
                     <cite><sup>[13]</sup><a href="https://doi.org/10.1016/S0022-2836(05)80360-2"
                                             target="_blank">Altschul et al. 1990</a></cite>
+                    <br/>
+                    
+                    <br/>
+                    <cite><sup>[14]</sup><a href="https://doi.org/10.1093/plcell/koab077"
+                                            target="_blank">Mascher et al. 2021</a></cite>
+                    <br/>
+                    
+                    <br/>
+                    <cite><sup>[15]</sup><a href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-019-6243-7"
+                                            target="_blank">Rapazoe-Flores et al. 2019</a></cite>
                     <br/>
                 </section>
                 <br/>
