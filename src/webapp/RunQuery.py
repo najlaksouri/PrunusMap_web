@@ -63,7 +63,7 @@ class Root():
         extend = "1"
         extend_cm = 50000
         extend_bp = 50000
-        maps = "morex_genome" # so that all will be used
+        maps = "morexv3" # so that all will be used
         send_email = "0"
         email_to = ""
         user_file = None
