@@ -102,8 +102,8 @@ class HtmlComponentsHelp(object):
                         <br/>
                         Barleymap was designed to search the genetic and physical positions of barley markers on
                         the <strong>Barley Physical Map</strong> (IBSC<sup>[1]</sup>) and
-                        the <strong>POPSEQ</strong> map<sup>[2]</sup>.  
-                        The current version allows working with the <strong>Morex Genome</strong><sup>[3]</sup> also.
+                        the <strong>POPSEQ</strong> map<sup>[2]</sup>. The strong>Morex Genome</strong><sup>[3]</sup> map
+                        was subsequently added in 2017. The current version uses the <strong>MorexV3</strong><sup>[5]</sup> by default.
                         <br/><br/>
                         Barleymap provides <strong>three tools</strong> to retrieve data from the maps:
                         <ul class="help_list">
