@@ -201,8 +201,8 @@ class HtmlLayoutBarleymap(object):
             
             All the public data used by Barleymap can be found at
             <a href="https://www.helmholtz-muenchen.de/pgsb/index.html" target="_blank">PGSB</a>
-            , <a href="https://galaxy-web.ipk-gatersleben.de/" target="_blank">IPK</a>, 
-            , <a href="http://doi.org/10.5447/ipk/2021/3" target="_blank">e!DAL</a>,
+            , <a href="https://galaxy-web.ipk-gatersleben.de/" target="_blank">IPK</a> 
+            , <a href="http://doi.org/10.5447/ipk/2021/3" target="_blank">e!DAL</a>
             , <a href="https://ics.hutton.ac.uk/barleyrtd" target="_blank">Barley RTD</a>
             and the <a href="https://www.ncbi.nlm.nih.gov/assembly/GCA_904849725.1" target="_blank">NCBI</a>.
             <br/><br/>
@@ -280,6 +280,7 @@ class HtmlLayoutBarleymap(object):
             </a>
             Frontiers in Plant Science. 8:1792. doi:10.3389/fpls.2017.01792
             </cite>
+            </br>
             
             <cite><sup>[5]</sup>Mascher et al. 2021
             <a href="https://doi.org/10.1093/plcell/koab077" target="_blank">
@@ -287,6 +288,7 @@ class HtmlLayoutBarleymap(object):
             </a>
             The Plant Cell 33(6):1888–1906 doi:10.1093/plcell/koab077
             </cite>
+            </br>
 
             <cite><sup>[6]</sup>Rapazote-Flores et al. 2019
             <a href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-019-6243-7" target="_blank">
