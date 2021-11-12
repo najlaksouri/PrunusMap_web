@@ -274,7 +274,7 @@ class HtmlComponentsHelp(object):
                             45,619 genes.
                             (e.g.: BART1_0-u00002).</li>
 
-                            <li><b>Entrez CDS</b><sup>[11][*]</sup>: MorexV3 only.
+                            <li><b>Entrez CDS</b>: MorexV3 only.
                             292 sequences (e.g.: BAO51910.1, LEA3).</li>						 
 
                             <li><b>centromers</b>: MorexV3 only.</li>
