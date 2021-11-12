@@ -173,7 +173,7 @@ class HtmlLayoutBarleymap(object):
             <br/><strong>Latest changes</strong>
             <br/>
             <br/>04-11-2021:<br/>
-            · Added MorexV3 map + centromeres, PGSB and BaRT1.0 gene models and NCBI Entrez CDS sequences.
+            · Added MorexV3 map + centromeres, PGSB and BaRT1.0 gene models and NCBI Entrez CDS sequence (see release <a href="https://bioinfoperl.blogspot.com/2021/11/barleymapmorexv3release.html">notes</a>).
             <br/>
             <br/>17-08-2018:<br/>
             · Added POPSEQ map updated with 2017 data<sup>[3]</sup> (POPSEQ_2017).
@@ -262,7 +262,7 @@ class HtmlLayoutBarleymap(object):
             <a href="http://onlinelibrary.wiley.com/doi/10.1111/tpj.12319/abstract" target="_blank">
             Anchoring and ordering NGS contig assemblies by population sequencing (POPSEQ).
             </a>
-            The Plant Journal, 76: 718–727. doi:10.1111/tpj.12319
+            The Plant Journal, 76: 718-27. doi:10.1111/tpj.12319
             </cite>
             <br/>
             
