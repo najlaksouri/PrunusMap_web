@@ -215,7 +215,7 @@ class HtmlComponentsHelp(object):
                             </li>
                             
                             <li>
-                                <b>Illumina 50K</b><sup>[6][*]</sup>: 43,078 sequences with positions provided by JHI.
+                                <b>Illumina 50K</b><sup>[6][*]</sup>: 43,078 sequences with positions provided by JHI. Morex Genome and MorexV3 only.
                                 "Illumina 50K" identifiers must be provided (e.g.: JHI-Hv50k-2016-7), but it accepts previous identifiers for
                                 markers from previous datasets (e.g. SCRI_RS_10006).
                                 <br/>
@@ -270,9 +270,14 @@ class HtmlComponentsHelp(object):
                             35,826 HC and 45,849 LC genes.
                             (e.g.: HORVU.MOREX.r3.1HG0000030).</li>
                             
-                            <li><b>BaRT 1.0 gene models</b><sup>[15]</sup>
+                            <li><b>BaRT 1.0 gene models</b><sup>[15]</sup>: MorexV3 only.
                             45,619 genes.
                             (e.g.: BART1_0-u00002).</li>
+
+                            <li><b>Entrez CDS</b><sup>[11][*]</sup>: MorexV3 only.
+                            292 sequences (e.g.: BAO51910.1, LEA3).</li>						 
+
+                            <li><b>centromers</b>: MorexV3 only.</li>
                             
                         </ul>
                         
@@ -662,7 +667,7 @@ class HtmlComponentsHelp(object):
                     
                     <br/>
                     <cite><sup>[15]</sup><a href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-019-6243-7"
-                                            target="_blank">Rapazoe-Flores et al. 2019</a></cite>
+                                            target="_blank">Rapazote-Flores et al. 2019</a></cite>
                     <br/>
                 </section>
                 <br/>
