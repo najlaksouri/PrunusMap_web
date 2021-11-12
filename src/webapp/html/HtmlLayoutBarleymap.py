@@ -98,7 +98,7 @@ class HtmlLayoutBarleymap(object):
             <body>
         <script src="{0}"></script>
         <script src="{1}"></script>
-        """.format("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", \
+        """.format("https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", \
                    base_url+"/js/index.js")
         
         scripts = scripts + """
