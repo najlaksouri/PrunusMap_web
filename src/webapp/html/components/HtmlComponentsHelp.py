@@ -659,12 +659,8 @@ class HtmlComponentsHelp(object):
                     <cite><sup>[13]</sup><a href="https://doi.org/10.1016/S0022-2836(05)80360-2"
                                             target="_blank">Altschul et al. 1990</a></cite>
                     <br/>
-                    
-                    <br/>
                     <cite><sup>[14]</sup><a href="https://doi.org/10.1093/plcell/koab077"
                                             target="_blank">Mascher et al. 2021</a></cite>
-                    <br/>
-                    
                     <br/>
                     <cite><sup>[15]</sup><a href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-019-6243-7"
                                             target="_blank">Rapazote-Flores et al. 2019</a></cite>
