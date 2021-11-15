@@ -104,19 +104,19 @@ HORVU6Hr1G057800\n");
     
     // LOAD DEMO POSITIONS
     $("#locate_demo_button").click(function(){
-        $("#locate_query").text("chr1H_LR890096.1	49952\n\
-chr1H	3770174\n\
-chr1H	81042669\n\
-chr2H	711398163\n\
-chr6H	376635036\n\
-chr7H	4184387\n\
-chr7H	227367117\n\
-morex_contig_1761774	1\n\
-morex_contig_1574272	1\n\
-morex_contig_1574864	1\n\
-morex_contig_1577643	1\n\
-bowman_contig_866000	1\n\
-bowman_contig_229328	1");
+        $("#locate_query").text("chr1H_LR890096.1	49952\n");
+//chr1H	3770174\n\
+//chr1H	81042669\n\
+//chr2H	711398163\n\
+//chr6H	376635036\n\
+//chr7H	4184387\n\
+//chr7H	227367117\n\
+//morex_contig_1761774	1\n\
+//morex_contig_1574272	1\n\
+//morex_contig_1574864	1\n\
+//morex_contig_1577643	1\n\
+//bowman_contig_866000	1\n\
+//bowman_contig_229328	1");
     });
     
     $("#show_genes").change(function(){
