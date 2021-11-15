@@ -104,7 +104,7 @@ HORVU6Hr1G057800\n");
     
     // LOAD DEMO POSITIONS
     $("#locate_demo_button").click(function(){
-        $("#locate_query").text("chr1_LR890096.1	50326\n\
+        $("#locate_query").text("chr1H_LR890096.1	49952\n\
 chr1H	3770174\n\
 chr1H	81042669\n\
 chr2H	711398163\n\
