@@ -23,7 +23,7 @@ class HtmlComponentsAlign(object):
         
         output.append(HtmlComponentsBase._load_query_area_align(align_form.get_query(),
                                                 align_form.get_user_file(),
-                                              "Input FASTA sequences:",
+                                              "Input FASTA sequences (1-word header):",
                                               PREFIX_UI_CTRLS_ALIGN))
         output.append("<br/>")
         output.append("<table><tr><td>")
