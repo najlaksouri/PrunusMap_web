@@ -578,8 +578,7 @@ class HtmlComponentsHelp(object):
                     <h2 id="confidentiality">Confidentiality</h2>
                     
                         <br/>
-                        We can not guarantee the security of the data used with the web tool.
-                        Currently, Barleymap is NOT using any kind of encryption algorithm for sending and receiving data (such as https).
+			While Barleymap uses HTTPS by default, we can not guarantee the security of the data used with the web tool.
                         <br/><br/>
                         Should this naïve confidentiality be not acceptable to some users, we would recommend installing the
                         <a href="https://github.com/Cantalapiedra/barleymap">standalone barleymap</a> version,
