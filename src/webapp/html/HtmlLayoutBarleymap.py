@@ -102,16 +102,13 @@ class HtmlLayoutBarleymap(object):
                    base_url+"/js/index.js")
         
         scripts = scripts + """
-        <!-- Google Analytics -->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id="""+app_google_analytics_id+""""></script>
         <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-          
-            ga('create', '"""+app_google_analytics_id+"""', 'auto');
-            ga('send', 'pageview');
-          
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '"""+app_google_analytics_id+"""');
         </script>
         """
         
@@ -172,8 +169,11 @@ class HtmlLayoutBarleymap(object):
             text_buffer.append("""
             <br/><strong>Latest changes</strong>
             <br/>
+            <br/>06-14-2022:<br/>
+            . Added lifted-over IBSC 2012 & 2016 gene models to MorexV3 map.
+            <br/>
             <br/>04-11-2021:<br/>
-            · Added MorexV3 map + centromeres, PGSB and BaRT1.0 gene models and NCBI Entrez CDS sequence (see release <a href="https://bioinfoperl.blogspot.com/2021/11/barleymapmorexv3release.html">notes</a>).
+            · Added MorexV3 map + centromeres, PGSB and BaRT1.0 gene models and NCBI Entrez CDS sequeces (see release <a href='https://bioinfoperl.blogspot.com/2021/11/barleymapmorexv3release.html'>notes</a>).
             <br/>
             <br/>17-08-2018:<br/>
             · Added POPSEQ map updated with 2017 data<sup>[3]</sup> (POPSEQ_2017).
