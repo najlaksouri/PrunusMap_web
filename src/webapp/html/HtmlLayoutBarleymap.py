@@ -169,7 +169,10 @@ class HtmlLayoutBarleymap(object):
             text_buffer.append("""
             <br/><strong>Latest changes</strong>
             <br/>
-            <br/>06-14-2022:<br/>
+            <br/>15-03-2023:<br/>
+            . Moved to new server and updated URL (<a href="https://barleymap.eead.csic.es">https://barleymap.eead.csic.es</a>).
+            <br/>
+            <br/>14-06-2022:<br/>
             . Added lifted-over IBSC 2012 & 2016 gene models to MorexV3 map.
             <br/>
             <br/>04-11-2021:<br/>
