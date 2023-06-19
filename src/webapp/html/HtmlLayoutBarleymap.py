@@ -169,6 +169,9 @@ class HtmlLayoutBarleymap(object):
             text_buffer.append("""
             <br/><strong>Latest changes</strong>
             <br/>
+            <br/>19-06-2023:<br/>
+            . Mapped DartSeq markers on MorexV3 by user request.
+            <br/>
             <br/>15-03-2023:<br/>
             . Moved to new server and updated URL (<a href="https://barleymap.eead.csic.es">https://barleymap.eead.csic.es</a>).
             <br/>
