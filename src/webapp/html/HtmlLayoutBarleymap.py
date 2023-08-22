@@ -83,7 +83,7 @@ class HtmlLayoutBarleymap(object):
         <!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->
         <head>
             <meta charset="utf-8" />
-            <title>Barleymap</title>
+            <title>PrunusMap</title>
             <meta content="CPCantalapiedra" name="CPCantalapiedra" />
             <meta content="Map markers to the barley genome" name="Map markers to the barley genome" />
             <meta content="barley, barleymap, physical map, genetic map, markers, mapping, bioinformatics, blast, gmap, genome, genomics" name="keywords" />
