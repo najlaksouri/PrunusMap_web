@@ -83,7 +83,7 @@ class HtmlLayoutBarleymap(object):
         <!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->
         <head>
             <meta charset="utf-8" />
-            <title>Barleymap</title>
+            <title>PrunusMap</title>
             <meta content="CPCantalapiedra" name="CPCantalapiedra" />
             <meta content="Map markers to the barley genome" name="Map markers to the barley genome" />
             <meta content="barley, barleymap, physical map, genetic map, markers, mapping, bioinformatics, blast, gmap, genome, genomics" name="keywords" />
@@ -169,29 +169,8 @@ class HtmlLayoutBarleymap(object):
             text_buffer.append("""
             <br/><strong>Latest changes</strong>
             <br/>
-            <br/>19-06-2023:<br/>
-            . Mapped DartSeq markers on MorexV3 by user request.
-            <br/>
-            <br/>15-03-2023:<br/>
-            . Moved to new server and updated URL (<a href="https://barleymap.eead.csic.es">https://barleymap.eead.csic.es</a>).
-            <br/>
-            <br/>14-06-2022:<br/>
-            . Added lifted-over IBSC 2012 & 2016 gene models to MorexV3 map.
-            <br/>
-            <br/>04-11-2021:<br/>
-            · Added MorexV3 map + centromeres, PGSB and BaRT1.0 gene models and NCBI Entrez CDS sequeces (see release <a href='https://bioinfoperl.blogspot.com/2021/11/barleymapmorexv3release.html'>notes</a>).
-            <br/>
-            <br/>17-08-2018:<br/>
-            · Added POPSEQ map updated with 2017 data<sup>[3]</sup> (POPSEQ_2017).
-            <br/>
-            <br/>6-03-2018:<br/>
-            · Added a dataset of NCBI genes to the Morex Genome map. This dataset includes genes like HvCO1, Int-c, Btr1, Vrs1, PhyB, HvCEN, etc... to a total of 894 entries.
-            <br/>
-            <br/>19-12-2017:<br/>
-            · Support for the <strong>Illumina50K</strong><sup>[4]</sup> markers, which can now be searched in the
-            IBSC<sup>[1]</sup>, POPSEQ<sup>[2]</sup> and Morex Genome<sup>[3]</sup> released in 2017,
-            through the
-            <strong><i><a href="{0}/find/">Find markers</a></i></strong> option.
+            <br/>25-08-2023:<br/>
+            . Start editing the fork.
             <br/>
         """.format(base_url))
             

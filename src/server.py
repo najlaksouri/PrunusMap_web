@@ -16,7 +16,7 @@ from barleymapcore.db.PathsConfig import PathsConfig
 import webapp.WebApp as WebApp
 import webapp.RunQuery as RunQuery
 
-MOUNT_POINT = "/barleymap"
+MOUNT_POINT = "/prunusmap"
 
 SERVER_CONFIG_FILE = "server.conf"
 CONFIG_FILE = "bmap.conf"
