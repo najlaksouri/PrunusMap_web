@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# HtmlLayoutBarleymap.py is part of Barleymap web app.
+# HtmlLayoutBarleymap.py is part of PrunusMap web app.
 # Copyright (C) 2017  Carlos P Cantalapiedra.
 # (terms of use can be found within the distributed LICENSE file).
 
