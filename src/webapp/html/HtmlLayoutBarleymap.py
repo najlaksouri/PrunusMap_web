@@ -6,9 +6,9 @@
 # (terms of use can be found within the distributed LICENSE file).
 
 class HtmlLayoutBarleymap(object):
-    
+
     @staticmethod
-    def output_html_img_button(action, url, img_url, width = "3%", height = "3%", img_url_hover = None):
+    def output_html_img_button(action, url, img_url, width="3%", height="3%", img_url_hover=None):
         output = []
         if url and img_url:
             output.append("""<a href="{1}">
@@ -16,7 +16,7 @@ class HtmlLayoutBarleymap(object):
                           onmouseover="hover_{0}(this);" onmouseout="unhover_{0}(this);"
                           src="{4}"/>
                           </a>""".format(action, url, width, height, img_url))
-            
+
             if img_url_hover:
                 # Functions to change maps image (zoom or full maps)
                 output.append("""
@@ -31,14 +31,15 @@ class HtmlLayoutBarleymap(object):
                 </script>
                 """.format(action, img_url, img_url_hover))
         else:
-            Exception("HtmlLayoutBarleymap: No URL or img_url provided for img button.")
-        
+            Exception(
+                "HtmlLayoutBarleymap: No URL or img_url provided for img button.")
+
         return "".join(output)
-    
+
     @staticmethod
     def main_text(citation, base_url, PREFIX_UI_CTRLS_ALIGN, PREFIX_UI_CTRLS_FIND, PREFIX_UI_CTRLS_LOCATE):
         output = []
-        #output.append('<br/>')
+        # output.append('<br/>')
         output.append('<div id="main_buttons" style="margin:0px;">')
         output.append('<table id="main_buttons_table" center><tr>')
         output.append('<td style="text-align:center;">')
@@ -64,14 +65,15 @@ class HtmlLayoutBarleymap(object):
         output.append("</tr>")
         output.append("</table>")
         output.append("</div>")
-        #output.append('<br/>')
-        
+        # output.append('<br/>')
+
         output.append('<div id="main_text">')
-        output.append(HtmlLayoutBarleymap.text_menu(citation, base_url, show_last_changes = True))
+        output.append(HtmlLayoutBarleymap.text_menu(
+            citation, base_url, show_last_changes=True))
         output.append("</div>")
-        
+
         return "".join(output)
-    
+
     @staticmethod
     def head(base_url):
         return """
@@ -89,18 +91,18 @@ class HtmlLayoutBarleymap(object):
             <meta content="barley, barleymap, physical map, genetic map, markers, mapping, bioinformatics, blast, gmap, genome, genomics" name="keywords" />
             <link rel="stylesheet" href="{0}" type="text/css" media="screen"/>
         </head>""".format(base_url+"/style.css")
-    
+
     @staticmethod
     def js_scripts(base_url, app_google_analytics_id):
         scripts = ""
-        
+
         scripts = """
             <body>
         <script src="{0}"></script>
         <script src="{1}"></script>
-        """.format("https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", \
+        """.format("https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
                    base_url+"/js/index.js")
-        
+
         scripts = scripts + """
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id="""+app_google_analytics_id+""""></script>
@@ -111,20 +113,20 @@ class HtmlLayoutBarleymap(object):
             gtag('config', '"""+app_google_analytics_id+"""');
         </script>
         """
-        
+
         return scripts
-    
+
     @staticmethod
     def js_scripts_maps(base_url, app_google_analytics_id):
         scripts = ""
-        
+
         scripts = """
             <body>
         <script src="{0}"></script>
         <script src="{1}"></script>
-        """.format("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", \
+        """.format("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
                    base_url+"/js/maps.js")
-        
+
         scripts = scripts + """
         <!-- Google Analytics -->
         <script>
@@ -138,18 +140,18 @@ class HtmlLayoutBarleymap(object):
           
         </script>
         """
-        
+
         return scripts
-    
+
     @staticmethod
     def title_header(base_url):
         return """
         <header id="top">
-            <h2><a href="{1}/">Barleymap</a></h2>
+            <h2><a href="{1}/"><img src="{1}/img/logo_PrunusMap_transparent.png" style="max-width: 300px;"></a></h2>
             <h3 class="infobar">({0})</h3>
         </header>
         """.format("Map markers to the barley genome - MorexV3 2021 edition", base_url)
-    
+
     @staticmethod
     def footer():
         return """
@@ -161,9 +163,9 @@ class HtmlLayoutBarleymap(object):
             <a href="http://www.csic.es/" target="_blank">Consejo Superior de Investigaciones Cient&iacute;ficas</a>
         </footer>
         """
-    
+
     @staticmethod
-    def text_menu(citation, base_url, show_last_changes = False):
+    def text_menu(citation, base_url, show_last_changes=False):
         text_buffer = []
         if show_last_changes:
             text_buffer.append("""
@@ -173,7 +175,7 @@ class HtmlLayoutBarleymap(object):
             . Start editing the fork.
             <br/>
         """.format(base_url))
-            
+
         text_buffer.append("""
             <br/><br/>
             <hr/>
@@ -284,7 +286,7 @@ class HtmlLayoutBarleymap(object):
 
 
         """.format(base_url+"/help/", citation, base_url))
-        
+
         return "".join(text_buffer)
-    
-## END
+
+# END

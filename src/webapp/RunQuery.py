@@ -143,7 +143,7 @@ class Root():
             csv_files = bmap.csv_files(results, form)
             
             output = bmap.output(results, form, self._get_html_layout(bmap_settings), csv_files)
-            
+
             email_conf = bmap_settings[EMAIL_CONF]
             
             bmap.email(form, csv_files, email_conf)

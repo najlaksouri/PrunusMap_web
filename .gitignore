@@ -34,3 +34,6 @@ aux/
 src/barleymapcore/.git/
 src/barleymapcore/.gitignore/
 src/barleymapcore/README.md
+*.txt
+*.gz
+database/*
